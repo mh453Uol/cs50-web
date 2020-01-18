@@ -2,8 +2,52 @@
 <html>
     <head>
         <title>Majid</title>
+        <link rel="stylesheet" type="text/css" href="assets/style.css">
     </head>
     <body>
-        Hello (again), world! B
+        <p class="header">Hello (again), world! A</p>
+        <div>
+            <p>An Unordered List:</p>
+            <ul>
+                <li>One</li>
+                <li>Two</li>
+                <li>Three</li>
+            </ul>
+        </div>
+
+        <div>
+            <p>An Ordered List:</p>
+            <ol>
+                <li>First</li>
+                <li>Second</li>
+                <li>Third</li>
+            </ol>
+        </div>
+
+        <img src="https://duckduckgo.com/assets/common/dax-logo.svg">
+
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">#1</th>
+                    <td>Apples</td>
+                </tr>
+                <tr>
+                    <th scope="row">#2</th>
+                    <td>Bananas</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <form method="GET" action="/api/get">
+            <input type="text" placeholder="Full Name" name="name">
+            <button type="submit">Submit!</button>
+        </form>
     </body>
 </html>
