@@ -2,3 +2,22 @@
     color:blue;
     text-align:center;
 }
+
+.container {
+    display: flex;
+    flex:1
+}
+
+.title {
+    text-align: center;
+}
+
+.section {
+    display: flex;
+    flex:1;
+    background-color: pink;
+    border: 10px solid yellow;
+    height: 200px;
+    align-items: center;
+    justify-content: center;
+}
