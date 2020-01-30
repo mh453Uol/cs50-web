@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Media Queries</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <style>
+            /* when printing change screen-only class*/
+            @media print {
+                .screen-only {
+                    display: none;
+                }
+            }
+            
+            /* css applied only when page is at least 500px */
+            @media (min-width: 500px) {
+                body {
+                    background-color: blue;
+                }
+            }
+
+            /* css applied only when page is at <= 499px */
+            @media (max-width: 499px) {
+                body {
+                    background-color: red;
+                }
+            }
+            
+            /* When mobile hide desktop content */
+            @media (max-width: 499px) {
+                .desktop {
+                    display: none;
+                }
+            }
+
+            /* When desktop hide mobile content */
+            @media (min-width: 500px) {
+                .mobile {
+                    display: none;
+                }
+            }
+
+            .container {
+                display: flex;
+                flex-wrap: wrap;
+                flex: 1;
+            }
+
+            .container > div {
+                background-color: springgreen;
+                font-size: 20px;
+                margin: 20px;
+                padding: 20px;
+                width: 200px;
+            }
+        </style>
+        <h1>Heading</h1>
+        <p>This is a paragraph.</p>
+        <p>This is another paragraph</p>
+        <p class="screen-only">This paragraph wont appear when you print the page</p>
+
+        <div class="mobile">
+            <h1>Mobile Content</h1>
+        </div>
+
+        <div class="desktop">
+            <h1>Desktop</h1>
+        </div>
+
+        <div class="container">
+            <div>This paragraph wont appear when you print the pageThis paragraph wont appear when you print the pageThis paragraph wont appear when you print the page</div>
+            <div>This paragraph wont appear when you print the pageThis paragraph wont appear when you print the pageThis paragraph wont appear when you print the page</div>
+            <div>This paragraph wont appear when you print the pageThis paragraph wont appear when you print the pageThis paragraph wont appear when you print the page</div>
+            <div>This paragraph wont appear when you print the pageThis paragraph wont appear when you print the pageThis paragraph wont appear when you print the page</div>
+            <div>This paragraph wont appear when you print the pageThis paragraph wont appear when you print the pageThis paragraph wont appear when you print the page</div>
+        </div>
+    </body>
+</html>
