@@ -1,0 +1,25 @@
+// template
+%alert {
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    border: 1px solid black;
+    padding: 20px;
+    margin: 20px;
+} 
+
+// Extend call styling from alert
+.success {
+    @extend %alert; 
+    background-color: green;
+}
+
+.warning {
+    @extend %alert;
+    background-color: orange;
+}
+
+.error {
+    @extend %alert;
+    background-color: red;
+}

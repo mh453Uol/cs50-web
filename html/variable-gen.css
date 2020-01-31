@@ -1,7 +1,6 @@
-ul {
-  font-size: 14px;
-  color: pink; }
-
-ol {
-  font-size: 18px;
-  color: pink; }
+div {
+  font-size: 18px; }
+  div p {
+    color: blue; }
+  div ul {
+    color: green; }

@@ -1,10 +1,22 @@
-$color: pink;
-ul {
-    font-size: 14px;
-    color: $color;
-}
+// $color: pink;
+// ul {
+//     font-size: 14px;
+//     color: $color;
+// }
 
-ol {
+// ol {
+//     font-size: 18px;
+//     color: $color;
+// }
+
+div {
     font-size: 18px;
-    color: $color;
+
+    p {
+        color: blue;
+    }
+
+    ul {
+        color: green;
+    }
 }
