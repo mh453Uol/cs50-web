@@ -1,59 +1,40 @@
 .wrapper {
   display: flex;
   width: 100%;
-  align-items: stretchs;
-
-  @media (max-width: 768px) {
-    // On mobile by default sidebar should not be present
-    #sidebar {
-      margin-left: -250px;
-    }
-
-    .show {
-      // When you click the expand we display the sidebar
-      margin-left: 0px !important;
-    }
-  }
-
-  // On desktop when you click the 3 bar we hide the sidebar
-  .show {
-    margin-left: -250px;
-  }
+  align-items: stretch;
+  margin-top: 56px;
 
   #sidebar {
     min-width: 250px;
     max-width: 250px;
     min-height: 100vh;
-
-    background: #7386d5;
-    color: #fff;
     transition: all 0.3s;
+    background-color: #343a40;
 
-    .sidebar-header {
-      padding: 20px;
-      background: #6d7fcc;
-    }
-
-    ul {
-      p {
-        color: #fff;
-        padding: 10px;
-      }
-
-      li {
-        padding: 10px;
-        font-size: 1.1em;
-        display: block;
-      }
-    }
-
-    .ul.components {
-      padding: 20px 0;
-      border-bottom: 1px solid #47748b;
+    .navbar .navbar-nav {
+      height: 100vh;
     }
   }
 
+  .active {
+    margin-left: -250px;
+  }
+
   #content {
-      width: 100%;
+    width: 100%;
+
+    .header-emoji {
+      font-size: 100px;
+    }
+  }
+
+  // Small devices (landscape phones, less than 768px)
+  @media (max-width: 767.98px) {
+    #sidebar {
+      margin-left: -250px;
+    }
+    .active {
+      margin-left: 0px !important;
+    }
   }
 }
