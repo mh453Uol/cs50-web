@@ -1,0 +1,30 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+  margin-top: 56px; }
+
+.wrapper #sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  min-height: 100vh;
+  transition: all 0.3s;
+  background-color: #343a40; }
+
+.wrapper #sidebar .navbar .navbar-nav {
+  height: 100vh; }
+
+.wrapper .sidebar-active {
+  margin-left: -250px; }
+
+.wrapper #content {
+  width: 100%; }
+
+.wrapper #content .header-emoji {
+  font-size: 100px; }
+
+@media (max-width: 767.98px) {
+  .wrapper #sidebar {
+    margin-left: -250px; }
+  .wrapper .sidebar-active {
+    margin-left: 0px !important; } }

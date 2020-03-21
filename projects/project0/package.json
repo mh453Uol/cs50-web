@@ -1,0 +1,16 @@
+{
+  "name": "project0",
+  "version": "1.0.0",
+  "description": "Web Programming with Python and JavaScript",
+  "main": "index.js",
+  "dependencies": {
+    "node-sass": "^4.13.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "sass": "node-sass -w assets/ -o assets/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
