@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
@@ -30,21 +30,33 @@ def book():
         flight = int(request.form.get("flight"))
     except ValueError:
         return render_template("error.html", message="Invalid Flight Number")
-    
+
     flight_exists = db.execute("""
         SELECT * FROM flights WHERE id = :id""",
-        {"id": flight}).rowcount
+                               {"id": flight}).rowcount
 
-    print(flight_exists)
-    
     if flight_exists == 0:
         return render_template("error.html", message="Invalid Flight Number")
 
     db.execute("""
         INSERT INTO passengers (firstname, surname, flight_id)
         VALUES (:firstname, :surname, :flight_id)""",
-        {"firstname": firstname, "surname": surname, "flight_id": flight})
-    
+               {"firstname": firstname, "surname": surname, "flight_id": flight})
+
     db.commit()
 
-    return render_template("success.html")
+    return redirect("/flights/{0}/passengers".format(flight))
+
+
+@app.route("/flights")
+def flights():
+    f = db.execute("SELECT * FROM flights").fetchall()
+
+    return render_template("flights.html", flights=f)
+
+@app.route("/flights/<int:flight_id>/passengers")
+def passengers(flight_id):
+    passengers = db.execute("SELECT * FROM passengers WHERE flight_id = :id",
+        {"id": flight_id}).fetchall()
+
+    return render_template("passengers.html", passengers=passengers)
