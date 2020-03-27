@@ -13,6 +13,22 @@
         </div>
     </div>
     <div class="form-group">
+        <label for="firstnameInput">Firstname</label>
+        <input type="text" class="form-control {{'is-invalid' if model_state is defined and not model_state.firstname.valid}}" name="firstnameInput" id="firstnameInput" placeholder="Firstname"
+            required="required" value="{{ model_state.firstname.value if model_state is defined }}">
+        <div class="invalid-feedback">
+            Please provide a firstname.
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="lastnameInput">Lastname</label>
+        <input type="text" class="form-control {{'is-invalid' if model_state is defined and not model_state.lastname.valid}}" name="lastnameInput" id="lastnameInput" placeholder="Lastname"
+            required="required" value="{{ model_state.lastname.value if model_state is defined }}">
+        <div class="invalid-feedback">
+            Please provide a lastname.
+        </div>
+    </div>
+    <div class="form-group">
         <label for="passwordInput">Passwords</label>
         <input type="password" class="form-control {{'is-invalid' if model_state is defined and not model_state.password.valid}}" name="passwordInput" id="passwordInput" placeholder="Password"
             required="required">
@@ -25,7 +41,7 @@
         <input type="password" class="form-control {{'is-invalid' if model_state is defined and not model_state.confirm_password.valid}}" name="confirmPasswordInput" id="confirmPasswordInput"
             placeholder="Confirm Password" required="required" oninput="isPasswordMatching(this)">
         <div class="invalid-feedback">
-            Please provide a valid and matching password.
+            Please provide a valid matching password.
         </div>
     </div>
     <div class="form-group">
