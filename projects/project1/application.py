@@ -79,6 +79,8 @@ def index():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    session.clear()
+
     if request.method == "GET":
         return render_template("login.html")
 
@@ -99,14 +101,21 @@ def login():
         user = db.execute("SELECT id, password FROM application_user WHERE email = :email",
             {"email": email}).fetchone()
 
-        print(user)
-
         hashed_password = user["password"]
 
-        print(f"***{hashed_password}***")
-
         if user is not None and check_password_hash(hashed_password, password):
+            session["user_id"] = user["id"]
+            session["email"] = email
+
             return redirect(url_for('index'))
 
         flash("Please provide a valid email and password.", "error")
         return render_template("login.html", model_state=model)
+
+@app.route("/logout", methods=["GET"])
+def logout():
+    session.clear()
+    return redirect(url_for("index"))
+    
+def isLoggedIn():
+    return "user_id" in session

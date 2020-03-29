@@ -22,38 +22,46 @@
     <header class="blog-header py-3">
       <div class="row flex-nowrap justify-content-between align-items-center">
         <div class="col-sm-3 col-md-3 pt-1">
-          <a class="text-muted" href="#">Subscribe</a>
+          {% if 'user_id' in session %}
+          <div class="dropdown show">
+            <a class="btn btn-sm btn-outline-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ session["email"] }}</a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="{{url_for('logout')}}">Profile</a>
+              <a class="dropdown-item"href="{{url_for('logout')}}">Log out</a>
+            </div>
+          </div>
+
+          {% else %}
+            <a class="btn btn-sm btn-outline-secondary" href="{{url_for('login')}}">Login</a>
+          {% endif %}
         </div>
         <div class="col-sm-6 col-md-3 text-center">
           <a class="blog-header-logo text-dark" href="#">Cloveread</a>
         </div>
         <div class="col-sm-3 col-md-3 d-flex justify-content-end align-items-center">
-          <!--
-              <a class="text-muted" href="#">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3"><circle cx="10.5" cy="10.5" r="7.5"></circle><line x1="21" y1="21" x2="15.8" y2="15.8"></line></svg>
-            </a>
-            -->
           <a class="btn btn-sm btn-outline-secondary" href="{{url_for('register')}}">Sign up</a>
         </div>
       </div>
     </header>
-    
+
     {% block heading %}
     {% endblock %}
 
     {% with messages = get_flashed_messages() %}
-      {% if messages %}
-          {% for message in messages %}
-              <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                  <span>{{ message }}</span>
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                  </button>
-              </div>
-          {% endfor %}
-      {% endif %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+      <span>{{ message }}</span>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
+    {% endif %}
     {% endwith %}
-    
+
     {% block body %}
     {% endblock %}
   </div>
