@@ -15,25 +15,25 @@ class User:
         return {
             "email": {
                 "value": self.email,
-                "valid": self.email and not EmailUtil().isInvalidEmail(self.email),
+                "valid": (self.email is not None and len(self.email) > 0 and not EmailUtil().isInvalidEmail(self.email)),
                 "validation_message": "Please provide a valid password."
             },
             "firstname": {
                 "value": self.firstname,
-                "valid": self.firstname is not '',
+                "valid": self.firstname is not None and len(self.firstname) > 0,
                 "validation_message": "Please provide a firstname."
             },
             "lastname": {
                 "value": self.lastname,
-                "valid": self.lastname is not '',
+                "valid": self.lastname is not None and len(self.lastname) > 0,
                 "validation_message": "Please provide a lastname."
             },
             "password": {
-                "valid": self.password is not '',
+                "valid": self.password is not None and len(self.password) > 0,
                 "validation_message": "Please provide a valid and matching password."
             },
             "confirm_password": {
-                "valid": self.confirm_password and self.password == self.confirm_password,
+                "valid": (self.confirm_password and self.password == self.confirm_password),
                 "validation_message": "Please provide a valid and matching password."
             }
         }
