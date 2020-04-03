@@ -1,12 +1,14 @@
 import os
 
-from flask import Flask, session, request, render_template, redirect, url_for, flash
+from flask import Flask, session, request, render_template, redirect, url_for, flash, jsonify
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models.user import User
+from .models.book import Book
+import jsons
 
 app = Flask(__name__,
             static_url_path='',
@@ -27,6 +29,7 @@ Session(app)
 # Set up database
 engine = create_engine(os.getenv("DATABASE_URL"), echo=True)
 db = scoped_session(sessionmaker(bind=engine))
+
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -99,7 +102,7 @@ def login():
             return render_template("login.html", model_state=model)
 
         user = db.execute("SELECT id, password FROM application_user WHERE email = :email",
-            {"email": email}).fetchone()
+                          {"email": email}).fetchone()
 
         hashed_password = user["password"]
 
@@ -112,10 +115,49 @@ def login():
         flash("Please provide a valid email and password.", "error")
         return render_template("login.html", model_state=model)
 
+
 @app.route("/logout", methods=["GET"])
 def logout():
     session.clear()
     return redirect(url_for("index"))
+
+
+@app.route("/suggestions", methods=["GET"])
+def suggestions():
+    query = request.args.get('q', default='', type=str)
+
+    if len(query) < 2:
+        return {
+            'query': f'Query must be atleast 2 charectars - {query}'
+        }
     
+    # Search by ISBN number of a book, the title of a book, or the author of a book
+    
+    # SQL Wildcard - Anything that begins with
+    # Lowers and handles other special language charectars
+    query = query.casefold()
+    query = f"{query}%"
+
+    search_results = db.execute("""SELECT * FROM book WHERE isbn LIKE :query 
+        OR lower(title) LIKE :query 
+        OR lower(author) LIKE :query""",
+        {"query": query})
+    
+    print(search_results.rowcount)
+    books = []
+
+    for result in search_results:
+        books.append(
+            Book(result['isbn'], result['title'], result['author'], result['year'])
+        )
+
+        print(result['isbn'], result['title'], result['author'], result['year'])
+    
+    json = {
+        'data': jsons.dump(books)
+    }
+    
+    return json
+
 def isLoggedIn():
     return "user_id" in session
