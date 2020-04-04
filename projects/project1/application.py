@@ -126,13 +126,13 @@ def logout():
 def suggestions():
     query = request.args.get('q', default='', type=str)
 
-    if len(query) < 2:
+    if len(query) < 1:
         return {
-            'query': f'Query must be atleast 2 charectars - {query}'
+            'query': f'Query must be atleast 1 charectars - {query}'
         }
-    
+
     # Search by ISBN number of a book, the title of a book, or the author of a book
-    
+
     # SQL Wildcard - Anything that begins with
     # Lowers and handles other special language charectars
     query = query.casefold()
@@ -140,24 +140,67 @@ def suggestions():
 
     search_results = db.execute("""SELECT * FROM book WHERE isbn LIKE :query 
         OR lower(title) LIKE :query 
-        OR lower(author) LIKE :query""",
-        {"query": query})
-    
+        OR lower(author) LIKE :query
+        LIMIT 10""",{"query": query})
+
     print(search_results.rowcount)
     books = []
 
     for result in search_results:
         books.append(
-            Book(result['isbn'], result['title'], result['author'], result['year'])
+            Book(result['isbn'], result['title'],
+                 result['author'], result['year'])
         )
 
-        print(result['isbn'], result['title'], result['author'], result['year'])
-    
+        print(result['isbn'], result['title'],
+              result['author'], result['year'])
+
     json = {
+        'query': request.args.get('q'),
         'data': jsons.dump(books)
     }
-    
+
     return json
+
+
+@app.route("/books", methods=["GET"])
+def books_search_results():
+    query = request.args.get('q', default='', type=str)
+    isbn = request.args.get('isbn', default='', type=str)
+    book = None
+
+    query = query.casefold()
+    query = f"{query}%"
+
+    if isbn:
+        click_book = db.execute("SELECT * FROM book WHERE isbn = :isbn", {"isbn": isbn}).fetchone()
+        book = Book(click_book['isbn'], click_book['title'], click_book['author'], click_book['year'])
+
+    search_results = db.execute("""SELECT * FROM book WHERE (isbn LIKE :query 
+        OR lower(title) LIKE :query 
+        OR lower(author) LIKE :query)
+        AND isbn != :isbn
+        ORDER BY title
+        LIMIT 100""", {"query": query, "isbn": isbn})
+
+    print(search_results.rowcount)
+
+    books = []
+
+    for result in search_results:
+        books.append(
+            Book(result['isbn'], result['title'],
+                 result['author'], result['year'])
+        )
+
+    model = {
+        'query': request.args.get('q'),
+        'book': book,
+        'books': books
+    }
+
+    return render_template("books.html", model=model)
+
 
 def isLoggedIn():
     return "user_id" in session

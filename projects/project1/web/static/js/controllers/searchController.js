@@ -1,23 +1,57 @@
 var SearchController = function () {
 
     let timeout = null;
-    let loading = false;
-    let data = [];
-    let name = "majid"
+
+    let view = {
+        loading: false,
+        data: {}
+    }
+
 
     /**
      * 
      * @param {string} query 
      */
     function onSearch(query) {
-        loading = true;
+        view.loading = true;
+        updateSearchIcon();
 
         debounce(500, () => {
             SearchService.getBookSuggestions(query)
-                .then((data) => {
-                    this.data = data;
+                .then((response) => {
+                    view.loading = false;
+                    view.data = response;
+                    console.log(response);
+                    populateSuggestions(view.data);
+                    updateSearchIcon();
                 });
         })
+    }
+
+    function populateSuggestions(suggestions) {
+        var source = document.getElementById("search-template").innerHTML;
+        var template = Handlebars.compile(source);
+        console.log(suggestions);
+        var html = template(suggestions);
+
+        document.getElementById("suggestions").innerHTML = html;
+    }
+
+    function updateSearchIcon() {
+        let loadingIcon = document.getElementsByClassName("fa-spinner")[0]
+        let searchIcon = document.getElementsByClassName("fa-search")[0]
+
+        //console.log(loadingIcon, searchIcon);
+
+        if (view.loading) {
+            // show loading icon
+            loadingIcon.classList.remove('d-none')
+            searchIcon.classList.add('d-none')
+        } else {
+            // remove loading icon
+            loadingIcon.classList.add('d-none')
+            searchIcon.classList.remove('d-none')
+        }
     }
 
     function debounce(debounceDuration, callback) {
@@ -29,7 +63,8 @@ var SearchController = function () {
     }
 
     return {
-        onSearch: onSearch
+        onSearch: onSearch,
+        view: view
     }
 
 }(SearchService);

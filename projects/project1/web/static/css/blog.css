@@ -146,7 +146,15 @@ h6 {
   margin-bottom: 0;
 }
 
-#searchbox .input-group-text {
-  padding: 0px;
+.input-group-text {
+  width: 45px;
+}
+
+#searchbox.form-group {
+  margin-bottom: 0;
+}
+
+#suggestions {
+  margin-bottom: 2em;
 }
 
