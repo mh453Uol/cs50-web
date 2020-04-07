@@ -2,7 +2,6 @@ import os
 from datetime import datetime
 from urllib.parse import urlparse
 
-
 from flask import Flask, session, request, render_template, redirect, url_for, flash, jsonify, current_app
 from flask_session import Session
 from sqlalchemy import create_engine
