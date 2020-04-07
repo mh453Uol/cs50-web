@@ -1,6 +1,9 @@
 import os
+from datetime import datetime
+from urllib.parse import urlparse
 
-from flask import Flask, session, request, render_template, redirect, url_for, flash, jsonify
+
+from flask import Flask, session, request, render_template, redirect, url_for, flash, jsonify, current_app
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -8,6 +11,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models.user import User
 from .models.book import Book
+from .models.review import Review
 import jsons
 
 app = Flask(__name__,
@@ -65,7 +69,7 @@ def register():
             hashed_password = generate_password_hash(password)
 
             # User does not exist add them to db
-            db.execute('''INSERT INTO "application_user" (id, email, password, firstname, lastname) 
+            db.execute('''INSERT INTO "application_user" (id, email, password, firstname, lastname)
                 VALUES (:id, :email, :password, :firstname, :lastname)''',
                        {"id": user.id, "email": email, "password": hashed_password,
                         "firstname": firstname, "lastname": lastname})
@@ -84,8 +88,13 @@ def index():
 def login():
     session.clear()
 
+    redirectTo = request.args.get('redirectTo', default='/', type=str)
+
+    if not safe_redirect(redirectTo):
+        redirectTo = url_for('index')
+
     if request.method == "GET":
-        return render_template("login.html")
+        return render_template("login.html", redirectTo=redirectTo)
 
     if request.method == "POST":
         email = request.form.get("emailInput")
@@ -94,12 +103,12 @@ def login():
         user = User(email, None, None, password, None)
 
         model = user.model_state()
-
+        
         if not email:
-            return render_template("login.html", model_state=model)
+            return render_template("login.html", model_state=model, redirectTo=redirectTo)
 
         if not password:
-            return render_template("login.html", model_state=model)
+            return render_template("login.html", model_state=model, redirectTo=redirectTo)
 
         user = db.execute("SELECT id, password FROM application_user WHERE email = :email",
                           {"email": email}).fetchone()
@@ -110,16 +119,23 @@ def login():
             session["user_id"] = user["id"]
             session["email"] = email
 
-            return redirect(url_for('index'))
+            return redirect(redirectTo)
 
         flash("Please provide a valid email and password.", "error")
-        return render_template("login.html", model_state=model)
+        return render_template("login.html", model_state=model, redirectTo=redirectTo)
 
 
 @app.route("/logout", methods=["GET"])
 def logout():
+
+    redirectTo = request.args.get('redirectTo', default='/', type=str)
+
     session.clear()
-    return redirect(url_for("index"))
+
+    if safe_redirect(redirectTo):
+        return redirect(redirectTo)
+
+    return redirect(url_for('index'))
 
 
 @app.route("/suggestions", methods=["GET"])
@@ -138,10 +154,10 @@ def suggestions():
     query = query.casefold()
     query = f"{query}%"
 
-    search_results = db.execute("""SELECT * FROM book WHERE isbn LIKE :query 
-        OR lower(title) LIKE :query 
+    search_results = db.execute("""SELECT * FROM book WHERE isbn LIKE :query
+        OR lower(title) LIKE :query
         OR lower(author) LIKE :query
-        LIMIT 10""",{"query": query})
+        LIMIT 10""", {"query": query})
 
     print(search_results.rowcount)
     books = []
@@ -173,15 +189,17 @@ def books_search_results():
     query = f"{query}%"
 
     if isbn:
-        click_book = db.execute("SELECT * FROM book WHERE isbn = :isbn", {"isbn": isbn}).fetchone()
-        book = Book(click_book['isbn'], click_book['title'], click_book['author'], click_book['year'])
+        click_book = db.execute(
+            "SELECT * FROM book WHERE isbn = :isbn", {"isbn": isbn}).fetchone()
+        book = Book(click_book['isbn'], click_book['title'],
+                    click_book['author'], click_book['year'])
 
-    search_results = db.execute("""SELECT * FROM book WHERE (isbn LIKE :query 
-        OR lower(title) LIKE :query 
+    search_results = db.execute("""SELECT * FROM book WHERE (isbn LIKE :query
+        OR lower(title) LIKE :query
         OR lower(author) LIKE :query)
         AND isbn != :isbn
         ORDER BY title
-        LIMIT 100""", {"query": query, "isbn": isbn})
+        LIMIT 50""", {"query": query, "isbn": isbn})
 
     print(search_results.rowcount)
 
@@ -202,5 +220,110 @@ def books_search_results():
     return render_template("books.html", model=model)
 
 
+@app.route("/books/<isbn>")
+def book_details(isbn):
+
+    book = db.execute(
+        "SELECT * FROM book WHERE isbn = :isbn", {"isbn": isbn}).fetchone()
+
+    if book is None:
+        flash(f"Could not find book {isbn}")
+        return render_template("index.html")
+
+    reviews = db.execute(
+        "SELECT * FROM review WHERE book_isbn = :isbn ORDER BY created DESC", {
+            "isbn": isbn}
+    )
+
+    book_model = Book(book['isbn'], book['title'],
+                      book['author'], book['year'])
+
+    reviews_model = []
+
+    rating = 0
+
+    has_user_reviewed_book = False
+    user_id = None
+
+    if isLoggedIn():
+        user_id = session['user_id']
+
+    for review in reviews:
+        reviews_model.append(Review(
+            review['message'], review['rating'], review['book_isbn'], review['user_id'], review['created'])
+        )
+
+        rating += int(review['rating'])
+
+        if review['user_id'] == user_id:
+            has_user_reviewed_book = True
+
+    if len(reviews_model) > 0:
+        rating = rating / len(reviews_model)
+        rating = round(rating)
+
+    model = {
+        'rating': rating,
+        'reviews': reviews_model,
+        'user_reviewed_book': has_user_reviewed_book,
+        'book': book_model
+    }
+
+    return render_template("book-details.html", model=model)
+
+
+@app.route("/review/<isbn>", methods=["POST"])
+def add_review(isbn):
+
+    book_exists = db.execute(
+        "SELECT isbn FROM book WHERE isbn = :isbn", {"isbn": isbn})
+
+    if book_exists.rowcount != 1:
+        flash(f"Could not add review for book {isbn} ISBN")
+        return redirect(url_for("book_details", isbn=isbn))
+
+    user_id = session["user_id"]
+
+    already_reviewed = db.execute(
+        "SELECT id FROM review WHERE book_isbn = :isbn AND user_id = :user_id",
+        {"isbn": isbn, "user_id": user_id}
+    )
+
+    if already_reviewed.rowcount != 0:
+        flash(f"You have already reviewed the book {isbn} ISBN")
+        return redirect(url_for("book_details", isbn=isbn))
+
+    review = Review(request.form.get("message"),
+                    int(request.form.get("rating")), isbn, user_id)
+
+    if not review.is_valid():
+        print(review.model_state())
+        flash(f"Please provide a valid review")
+        return redirect(url_for("book_details", isbn=isbn))
+
+    db.execute("""
+        INSERT INTO review (book_isbn, rating, message, user_id, id, created)
+        VALUES (:isbn, :rating, :message, :user_id, :id, current_timestamp)""",
+               {
+                   "isbn": review.book_isbn,
+                   "rating": review.rating,
+                   "message": review.message,
+                   "user_id": review.user_id,
+                   "id": review.id
+               })
+
+    db.commit()
+
+    return redirect(url_for("book_details", isbn=isbn))
+
+
 def isLoggedIn():
     return "user_id" in session
+
+# Only redirect if the passed in absolute url matches the server host to protect against phising
+def safe_redirect(absolute_redirect_url):
+    server_host = request.host
+    #  general structure of a URL: scheme://netloc/path;parameters?query#fragment
+    redirect_host = urlparse(absolute_redirect_url).netloc
+    
+    return server_host == redirect_host
