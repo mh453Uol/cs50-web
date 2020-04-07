@@ -293,7 +293,7 @@ def add_review(isbn):
         return redirect(url_for("book_details", isbn=isbn))
 
     review = Review(request.form.get("message"),
-                    int(request.form.get("rating")), isbn, user_id)
+                    int(request.form.get("rating")), isbn, user_id, None)
 
     if not review.is_valid():
         print(review.model_state())
