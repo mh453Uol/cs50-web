@@ -1,8 +1,7 @@
 import os
-from datetime import datetime
 from urllib.parse import urlparse
 
-from flask import Flask, session, request, render_template, redirect, url_for, flash, jsonify, current_app
+from flask import Flask, session, request, render_template, redirect, url_for, flash
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -80,20 +79,29 @@ def register():
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    recently_added = db.execute("SELECT * from book ORDER BY created DESC LIMIT 9").fetchall()
 
+    #print(recently_added)
+
+    books = []
+
+    for book in recently_added:
+        books.append(Book(book['isbn'], book['title'], book['author'], book['year'], book['created']))
+
+
+    return render_template("index.html", books = books)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     session.clear()
 
-    redirectTo = request.args.get('redirectTo', default='/', type=str)
+    redirect_to = request.args.get('redirectTo', default='/', type=str)
 
-    if not safe_redirect(redirectTo):
-        redirectTo = url_for('index')
+    if not safe_redirect(redirect_to):
+        redirect_to = url_for('index')
 
     if request.method == "GET":
-        return render_template("login.html", redirectTo=redirectTo)
+        return render_template("login.html", redirectTo=redirect_to)
 
     if request.method == "POST":
         email = request.form.get("emailInput")
@@ -104,10 +112,10 @@ def login():
         model = user.model_state()
         
         if not email:
-            return render_template("login.html", model_state=model, redirectTo=redirectTo)
+            return render_template("login.html", model_state=model, redirectTo=redirect_to)
 
         if not password:
-            return render_template("login.html", model_state=model, redirectTo=redirectTo)
+            return render_template("login.html", model_state=model, redirectTo=redirect_to)
 
         user = db.execute("SELECT id, password FROM application_user WHERE email = :email",
                           {"email": email}).fetchone()
@@ -118,21 +126,21 @@ def login():
             session["user_id"] = user["id"]
             session["email"] = email
 
-            return redirect(redirectTo)
+            return redirect(redirect_to)
 
         flash("Please provide a valid email and password.", "error")
-        return render_template("login.html", model_state=model, redirectTo=redirectTo)
+        return render_template("login.html", model_state=model, redirectTo=redirect_to)
 
 
 @app.route("/logout", methods=["GET"])
 def logout():
 
-    redirectTo = request.args.get('redirectTo', default='/', type=str)
+    redirect_to = request.args.get('redirectTo', default='/', type=str)
 
     session.clear()
 
-    if safe_redirect(redirectTo):
-        return redirect(redirectTo)
+    if safe_redirect(redirect_to):
+        return redirect(redirect_to)
 
     return redirect(url_for('index'))
 
@@ -164,7 +172,7 @@ def suggestions():
     for result in search_results:
         books.append(
             Book(result['isbn'], result['title'],
-                 result['author'], result['year'])
+                 result['author'], result['year'], result['created'])
         )
 
         print(result['isbn'], result['title'],
@@ -191,7 +199,7 @@ def books_search_results():
         click_book = db.execute(
             "SELECT * FROM book WHERE isbn = :isbn", {"isbn": isbn}).fetchone()
         book = Book(click_book['isbn'], click_book['title'],
-                    click_book['author'], click_book['year'])
+                    click_book['author'], click_book['year'], click_book['created'])
 
     search_results = db.execute("""SELECT * FROM book WHERE (isbn LIKE :query
         OR lower(title) LIKE :query
@@ -207,7 +215,7 @@ def books_search_results():
     for result in search_results:
         books.append(
             Book(result['isbn'], result['title'],
-                 result['author'], result['year'])
+                 result['author'], result['year'], result['created'])
         )
 
     model = {
@@ -235,7 +243,7 @@ def book_details(isbn):
     )
 
     book_model = Book(book['isbn'], book['title'],
-                      book['author'], book['year'])
+                      book['author'], book['year'], book['created'])
 
     reviews_model = []
 

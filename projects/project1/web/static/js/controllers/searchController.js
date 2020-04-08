@@ -21,7 +21,6 @@ var SearchController = function () {
                 .then((response) => {
                     view.loading = false;
                     view.data = response;
-                    console.log(response);
                     populateSuggestions(view.data);
                     updateSearchIcon();
                 });

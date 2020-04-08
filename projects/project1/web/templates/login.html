@@ -6,8 +6,6 @@
 
 {% block body %}
 
-{{ model_state }}
-
 <form action="{{url_for('login', redirectTo=redirectTo)}}" class="needs-validation" novalidate method="POST">
     <div class="form-group">
         <label for="emailInput">Email address</label>

@@ -21,6 +21,8 @@
                     {% if 'user_id' in session and not model.user_reviewed_book %}
                     <a href="#" class="badge badge-pill badge-primary" role="button" data-toggle="modal"
                         data-target="#reviewModel">Add Review</a>
+                    {% else %}
+                    <a href="{{url_for('register')}}">(Sign up to add reviews)</a>
                     {% endif %}
                 </div>
             </div>
