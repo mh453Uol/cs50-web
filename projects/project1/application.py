@@ -12,6 +12,8 @@ from .models.book import Book
 from .models.review import Review
 import jsons
 
+from .utils.decorators import login_required
+
 app = Flask(__name__,
             static_url_path='',
             static_folder='web/static',
@@ -280,6 +282,7 @@ def book_details(isbn):
 
 
 @app.route("/review/<isbn>", methods=["POST"])
+@login_required
 def add_review(isbn):
 
     book_exists = db.execute(
