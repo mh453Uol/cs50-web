@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+    {% block body %}
+      <h3 class="pt-1">Recently Added</h3>
+      <div class="row mb-2 mt-2">
+        {% for book in books %}
+        <div class="col-md-4">
+          <div class="card flex-md-row mb-4 box-shadow">
+            <div class="card-body">
+              <h3 class="mb-0">
+                <a class="text-dark" href="{{url_for('book_details',isbn=book['isbn'])}}">{{book['title']}}</a>
+              </h3>
+              <div class="mb-1 text-muted">{{book['author']}} - {{book['year']}}</div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+{% endblock %}

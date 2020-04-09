@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block body %}
+
+{% if model['book'] is not none %}
+<div class="card border-dark mb-5">
+    <div class="card-body">
+        <h4 class="card-title"><a href="/books/{{model.book.isbn}}">{{model.book.title}}</a></h4>
+        <div class="card-text">Author: {{model.book.author}}</div>
+        <div class="card-text">ISBN: {{model.book.isbn}}</div>
+        <div class="card-text">Publication Date: {{model.book.year}}</div>
+    </div>
+</div>
+{% endif %}
+
+{% for book in model.books %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title"><a href="/books/{{book.isbn}}">{{book.title}}</a></h5>
+        <div class="card-text">Author: {{book.author}}</div>
+        <div class="card-text">ISBN: {{book.isbn}}</div>
+        <div class="card-text">Publication Date: {{book.year}}</div>
+    </div>
+
+    <div class="collapse" id="{{book.isbn}}">
+        <div class="card card-body">
+            <i class="fa fa-lg fa-spinner fa-spin"></i>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

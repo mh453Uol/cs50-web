@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block heading %}
+    <h3 class="pt-2 pb-1">Create Account</h3>
+{% endblock %}
+
+{% block body %}
+
+<form action="{{url_for('register')}}" class="needs-validation" novalidate method="POST">
+    <div class="form-group">
+        <label for="emailInput">Email address</label>
+        <input type="email" class="form-control {{'is-invalid' if model_state is defined and not model_state.email.valid}}" id="emailInput" name="emailInput" placeholder="Email"
+            required="required" value="{{ model_state.email.value if model_state is defined }}">
+        <div class="invalid-feedback">
+            Please provide a valid email.
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="firstnameInput">Firstname</label>
+        <input type="text" class="form-control {{'is-invalid' if model_state is defined and not model_state.firstname.valid}}" name="firstnameInput" id="firstnameInput" placeholder="Firstname"
+            required="required" value="{{ model_state.firstname.value if model_state is defined }}">
+        <div class="invalid-feedback">
+            Please provide a firstname.
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="lastnameInput">Lastname</label>
+        <input type="text" class="form-control {{'is-invalid' if model_state is defined and not model_state.lastname.valid}}" name="lastnameInput" id="lastnameInput" placeholder="Lastname"
+            required="required" value="{{ model_state.lastname.value if model_state is defined }}">
+        <div class="invalid-feedback">
+            Please provide a lastname.
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="passwordInput">Passwords</label>
+        <input type="password" class="form-control {{'is-invalid' if model_state is defined and not model_state.password.valid}}" name="passwordInput" id="passwordInput" placeholder="Password"
+            required="required">
+        <div class="invalid-feedback">
+            Please provide a valid password.
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="confirmPasswordInput">Password</label>
+        <input type="password" class="form-control {{'is-invalid' if model_state is defined and not model_state.confirm_password.valid}}" name="confirmPasswordInput" id="confirmPasswordInput"
+            placeholder="Confirm Password" required="required" oninput="isPasswordMatching(this)">
+        <div class="invalid-feedback">
+            Please provide a valid matching password.
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login">
+    </div>
+</form>
+{% endblock %}

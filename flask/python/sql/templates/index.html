@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block body %}    
+    <form action="{{url_for('book')}}" method="POST">
+        <label form="firstname">Firstname: </label>
+        <input type="text" name="firstname">
+
+        <label form="surname">Surname: </label>
+        <input type="text" name="surname">
+
+        <select name="flight">
+            {% for flight in flights %}
+                <option value="{{flight.id}}">{{flight.origin}} to {{flight.destination}}</option>
+            {% endfor %}
+        </select>
+
+        <input type="submit">
+    </form>
+{% endblock %}

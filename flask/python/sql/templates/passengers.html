@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <ul>
+        {% for passenger in passengers %}
+            <li>
+                {{passenger.id}}, {{passenger.firstname}} {{passenger.surname}}
+            </li>
+        {% endfor %}
+    </ul>
+    
+{% endblock %}
