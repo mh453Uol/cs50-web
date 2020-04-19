@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Media Queries</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div id="counter">0</div>
+        <button>Click me!</button>
+
+        <hr>
+
+        <form action="" id="form">
+            <input type="text" id="name" autocomplete="off">
+            <button type="submit">Submit</button>
+        </form>
+
+        <hr>
+
+        <h1 id="hello">Hello</h1>
+        <button id="red" class="color-button" data-color="#ff0000">Red</button>
+        <button id="blue" class="color-button" data-color="#00ff00">Gree</button>
+        <button id="green" class="color-button" data-color="#0000ff">Blue</button>
+
+        <hr>
+
+        <h1>Tasks</h1>
+
+        <input id="task-name" type="text">
+        <button id="task-add">Add</button>
+
+        <div class="todo-container"></div>
+
+        <hr>
+
+    </div>
+</body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        if (!localStorage.getItem('count')) {
+            localStorage.setItem('count', 0);
+        }
+        document.querySelector('#counter').innerHTML = localStorage.getItem('count')
+        document.querySelector('button').onclick = count;
+
+        document.querySelector('#form').onsubmit = function () {
+            let name = document.querySelector('#name').value;
+            alert(`Hello ${name}!`)
+        }
+
+        document.querySelectorAll('.color-button').forEach((element) => {
+            element.onclick = () => {
+                const elRGB = element.dataset.color;
+                const title = document.querySelector('#hello').style.color = elRGB;
+            }
+        })
+
+        document.querySelector('#task-add').onclick = () => {
+            const taskInputEl = document.querySelector('#task-name');
+            //console.log(taskName);
+
+            if (!taskInputEl.value) {
+                return false;
+            }
+
+            let taskEl = document.createElement('div');
+            taskEl.innerHTML = taskInputEl.value;
+
+            document.querySelector('.todo-container').appendChild(taskEl);
+
+            taskInputEl.value = ''
+        }
+
+
+
+    })
+
+
+
+    function count() {
+        let counter = parseInt(localStorage.getItem('count'));
+
+        counter++;
+
+        document.querySelector('#counter').innerHTML = counter;
+
+        localStorage.setItem('count', counter);
+    }
+
+    function storage() {
+
+    }
+</script>
+
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Vote</title>
+    <meta name="description" content="The HTML5 Herald">
+    <meta name="author" content="SitePoint">
+
+    <link rel="stylesheet" href="css/styles.css?v=1.0">
+
+</head>
+
+<body>
+    <ul id="votes"></ul>
+    <hr>
+    <button data-vote="yes">Yes</button>
+    <button data-vote="no">No</button>
+    <button data-vote="maybe">Maybe</button>
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
+        integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf-8">
+        document.addEventListener('DOMContentLoaded', () => {
+            // connect to websocket http://127.01.01.01:8080
+            var socket = io.connect(`${location.protocol}//${document.domain}:${location.port}`);
+
+            socket.on('connect', function () {
+                document.querySelectorAll('button').forEach(button => {
+                    button.onclick = () => {
+                        const selection = button.dataset.vote;
+                        socket.emit('submit vote', {
+                            'selection': selection
+                        });
+                    }
+                })
+            });
+
+            socket.on('announce vote', data => {
+                const li = document.createElement('li');
+
+                li.innerHTML = `Vote recorded: ${data.selection}`;
+
+                document.querySelector('#votes').append(li);
+            })
+        })
+    </script>
+</body>
+
+</html>
