@@ -15,15 +15,18 @@ document.addEventListener('DOMContentLoaded', () => {
     window.onpopstate = (e) => {
         const data = e.state;
         updateBodyContainer(data.title, data.body);
-        
+
     }
 
     function load_page(name) {
-        fetch(`/${name}`)
+        fetch(`/api/${name}`)
             .then(body => body.text())
             .then(body => {
                 console.log(body);
                 updateBodyContainer(name, body);
+
+                // History Api (Update url so users are able to go back)
+
                 history.pushState({
                     'title': name,
                     'body': body
@@ -34,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateBodyContainer(title, body) {
         document.querySelector('#body').innerHTML = body;
 
-        // History Api (Update url so users are able to go back)
         // Add tab name
         document.title = title;
     }
