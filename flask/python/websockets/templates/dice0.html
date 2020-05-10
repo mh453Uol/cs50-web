@@ -1,0 +1,47 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Vote</title>
+    <meta name="description" content="dice0">
+    <meta name="author" content="Majid">
+
+    <link rel="stylesheet" href="static/style.css">
+
+</head>
+
+<body>
+    <input type="number" id="roll-amount" value="1" min="1">
+    <button type="button" id="roll">Roll</button>
+
+    <ul id="rolls">
+
+    </ul>
+    
+    
+    {% raw %}
+    
+    <script id="result" type="text/x-handlebars-template">
+        <li class="dice-faces">
+            You rolled:
+            {{#each values}}
+                <img 
+                alt="{{ this }}" 
+                title="{{ this }}" 
+                src="./static/img/Dice-{{ this }}.svg" 
+                class="dice-img">
+            {{/each}}
+            (Total {{ total }})
+        </li>
+    </script>
+    
+    {% endraw %}
+    
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="{{ url_for('static', filename='dice.js') }}"></script>
+</body>
+
+</html>

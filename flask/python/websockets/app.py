@@ -77,6 +77,9 @@ def api_posts():
 
     return jsonify(data)
 
+@app.route("/dice")
+def dice(): 
+    return render_template("dice0.html")
 
 if __name__ == '__main__':
     socketio.run(app)
