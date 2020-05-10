@@ -81,5 +81,9 @@ def api_posts():
 def dice(): 
     return render_template("dice0.html")
 
+@app.route("/animate")
+def animate():
+    return render_template("animate0.html")
+
 if __name__ == '__main__':
     socketio.run(app)
