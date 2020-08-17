@@ -1,3 +1,5 @@
+import hijriDateService from './hijri-date.service';
+
 window.addEventListener('load', function () {
     const millisecondsInADay = 86400000;
 
@@ -23,7 +25,7 @@ window.addEventListener('load', function () {
 
     function displayHijriDate() {
         var element = document.getElementById('js-hijri-date');
-        element.innerHTML = this.hijriDateService.getTodayHijriDate();
+        element.innerHTML = hijriDateService.getTodayHijriDate();
     }
 
     displayTime();
