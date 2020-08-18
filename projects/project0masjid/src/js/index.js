@@ -1,7 +1,16 @@
 import hijriDateService from './hijri-date.service';
+import '../css/stylev2.css';
+//import '../css/style.css';
+
+import {config, initialize} from './prayertimes-app';
+
 
 window.addEventListener('load', function () {
     const millisecondsInADay = 86400000;
+
+    initialize();
+
+    this.console.log(config);
 
     function displayTime() {
 
@@ -28,17 +37,17 @@ window.addEventListener('load', function () {
         element.innerHTML = hijriDateService.getTodayHijriDate();
     }
 
-    displayTime();
-    displayDate();
-    displayHijriDate();
+    // displayTime();
+    // displayDate();
+    // displayHijriDate();
 
 
-    // Then after every second update time
-    this.setInterval(displayTime, 1000);
-    // After every day update date
-    this.setInterval(() => {
-        displayDate();
-        displayHijriDate();
-    }, millisecondsInADay);
+    // // Then after every second update time
+    // this.setInterval(displayTime, 1000);
+    // // After every day update date
+    // this.setInterval(() => {
+    //     displayDate();
+    //     displayHijriDate();
+    // }, millisecondsInADay);
 
 });
