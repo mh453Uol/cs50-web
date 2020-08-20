@@ -9,10 +9,12 @@ var config = {
       exclude: ["*.html"]
     }),
     new HtmlWebpackPlugin({
-      template: './src/html/index.html'
+      template: './src/html/index.html',
+      cache: false
     }),
     new HtmlWebpackPlugin({
-      template: './src/html/prayertimes.html'
+      template: './src/html/prayertimes.html',
+      cache: false
     })
   ],
   output: {

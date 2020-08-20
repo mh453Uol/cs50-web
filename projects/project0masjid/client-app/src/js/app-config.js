@@ -1,9 +1,8 @@
 import prayerTimeService from './prayertimes.service';
 
 let config = {
-    apiUrl: `https://prayertimes.airmyprayer.co.uk/{{tenant}}/prayer{{tenant}}`,
-    tenants: [
-        {
+    apiUrl: `http://localhost:5000/api/v1/{{tenant}}/prayers`,
+    tenants: [{
             name: 'Aylesbury Jamia Masjid Ghausia',
             id: '1007'
         },
@@ -22,7 +21,7 @@ function getSelectedTenant() {
         // look at the url since we have a tenant parameter e.g. xyz.com?tenant=1
         const url = new URL(window.location.href);
         let tenantId = url.searchParams.get('tenant');
-        
+
         // default back to first tenant if tenant not available
         if (!tenantId) {
             tenantId = config.tenants[0].id;
@@ -41,15 +40,11 @@ function initialize() {
 
     const today = new Date();
 
-    today.toLocaleDateString()
-
-    //prayerTimeService.getPrayerTimes(today);
-    prayerTimeService.getJamaatTimes(today);
+    // prayerTimeService.getJamaatTimes(today);
+    // prayerTimeService.getPrayerTimes(today);
 }
 
-function getApiUrl(handler) {
-    return `${config.apiUrl}?handler=${handler}`;
+export {
+    config,
+    initialize,
 }
-
-export {config, initialize, getApiUrl}
-

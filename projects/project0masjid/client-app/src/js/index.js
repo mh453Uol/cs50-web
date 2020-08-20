@@ -1,14 +1,14 @@
 import hijriDateService from './hijri-date.service';
 import '../css/stylev2.css';
-//import '../css/style.css';
 
-import {config, initialize} from './prayertimes-app';
-
+import {config, initialize} from './app-config';
+import homeview from './home-view'
 
 window.addEventListener('load', function () {
-    const millisecondsInADay = 86400000;
 
     initialize();
+
+    homeview.initialize();
 
     this.console.log(config);
 
