@@ -1,11 +1,15 @@
 import os
 import requests
+import dateutil.parser
 
 from flask import Flask, request
 from datetime import datetime
-import dateutil.parser
+from flask_cors import CORS
 
 app = Flask(__name__)
+
+# enable any origin to access the api https://flask-cors.readthedocs.io/en/3.0.7/
+cors = CORS(app)
 
 if not os.getenv("AIRMYPRAYER_API"):
     raise RuntimeError("AIRMYPRAYER Api Url Not Set")
