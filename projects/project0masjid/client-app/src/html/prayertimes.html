@@ -39,7 +39,7 @@
                             <i class="fa fa-caret-left"></i>
                         </button>
                         <h5 id="js-next-prayer">Loading...</h5>
-                        <span class="badge badge-pill badge-warning invisible" id="js-next-prayer-from-now">0h 00m</span>
+                        <span class="badge badge-pill badge-warning d-none" id="js-next-prayer-from-now">0h 00m</span>
                         <button class="btn btn-sm btn-primary tommorrow" type="submit">
                             <i class="fa fa-caret-right"></i>
                         </button>
@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="js-prayer-time-table">
                 <thead>
                     <tr>
                         <th scope="col">Salah</th>
@@ -58,47 +58,47 @@
                 <tbody>
                     <tr>
                         <th scope="row">Fajr</th>
-                        <td>5:30</td>
-                        <td>6:15</td>
+                        <td id="js-fajr-start">-</td>
+                        <td id="js-fajr-jamaat">-</td>
                     </tr>
                     <tr>
                         <th scope="row">Sunrise</th>
-                        <td>6:49</td>
-                        <td>6:49</td>
+                        <td id="js-sunrise-start">-</td>
+                        <td id="js-sunrise-jamaat">-</td>
 
                     </tr>
                     <tr>
                         <th scope="row">Dahawa Kubra</th>
-                        <td>11:48</td>
-                        <td>11:48</td>
+                        <td id="js-dahawa-kubra-start">-</td>
+                        <td id="js-dahawa-kubra-jamaat">-</td>
                     </tr>
                     <tr>
-                        <th scope="row">Zuhr</th>
-                        <td>12:30</td>
-                        <td>1:00</td>
+                        <th scope="row">Dhuhr</th>
+                        <td id="js-dhuhr-start">-</td>
+                        <td id="js-dhuhr-jamaat">-</td>
                     </tr>
                     <tr>
                         <th scope="row">Asr</th>
-                        <td>3:30</td>
-                        <td>4:30</td>
+                        <td id="js-asr-start">-</td>
+                        <td id="js-asr-jamaat">-</td>
                     </tr>
                     <tr>
                         <th scope="row">Magrib</th>
-                        <td>5:43</td>
-                        <td>5:43</td>
+                        <td id="js-magrib-start">-</td>
+                        <td id="js-magrib-jamaat">-</td>
                     </tr>
                     <tr>
                         <th scope="row">Isha</th>
-                        <td>7:00</td>
-                        <td>7:30</td>
+                        <td id="js-isha-start">-</td>
+                        <td id="js-isha-jamaat">-</td>
                     </tr>
                     <tr>
                         <th scope="row">Jummah 1</th>
-                        <td colspan="2" class="text-center">12:30</td>
+                        <td colspan="2" class="text-center" id="js-jummah1-jamaat">-</td>
                     </tr>
                     <tr>
                         <th scope="row">Jummah 2</th>
-                        <td colspan="2" class="text-center">1:30</td>
+                        <td colspan="2" class="text-center" id="js-jummah2-jamaat">-</td>
                     </tr>
                 </tbody>
             </table>
