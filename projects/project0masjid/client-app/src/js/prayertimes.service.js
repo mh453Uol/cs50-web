@@ -3,7 +3,7 @@ import {
 } from './app-config';
 
 function getPrayerTimes(date) {
-    const url = `${config.apiUrl}/daily?${date.toISOString()}`;
+    const url = `${config.getApiUrl()}/daily?${date.toISOString()}`;
 
     const headers = {
         'Content-Type': 'application/json'
@@ -14,7 +14,7 @@ function getPrayerTimes(date) {
 }
 
 function getJamaatTimes(date) {
-    const url = `${config.apiUrl}/jamaat`;
+    const url = `${config.getApiUrl()}/jamaat`;
     const headers = {
         'Content-Type': 'application/json'
     };

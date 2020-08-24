@@ -2,6 +2,7 @@ import prayerTimeService from './prayertimes.service';
 import { escapeHtml } from './util'
 import { JamaatTimes } from './models/jamaat-times';
 import { DailyPrayerTimes } from './models/daily-prayer-times';
+import { config, setTenant } from './app-config' 
 
 let state = {
     dailyPrayerTimes: new DailyPrayerTimes(),
@@ -11,13 +12,19 @@ let state = {
     textPrayerDurationLabel: ''
 }
 
-async function initialize() {
+function initialize() {
+    
+    setTenantDetails();
+
+    isLoading(true);
+    
     const today = new Date();
 
     Promise.all([
         prayerTimeService.getJamaatTimes(today),
         prayerTimeService.getPrayerTimes(today)
     ]).then(([jamaat, daily]) => {
+        isLoading(false);
         console.log(jamaat, daily);
 
         const jamaatTimes = new JamaatTimes();
@@ -47,8 +54,8 @@ async function initialize() {
         setPrayerTimes();
         
         const next = state.jamaatTimes.getNextPrayer();
-
-        setNextPrayerTitle(`Next Jamaat Is ${next.name}`);
+        
+        setNextPrayerTitle(`(Jamaat) ${next.name}`);
         setNextPrayerDuration(next.duration);
     })
 }
@@ -58,16 +65,26 @@ function nextPrayerLabelEl() {
 }
 
 function isLoading(boolean) {
-    state.isLoading = boolean;
-    nextPrayerLabelEl().innerHTML = escapeHtml("Loading...");
+    if (boolean) {
+        state.isLoading = boolean;
+        nextPrayerLabelEl().innerHTML = escapeHtml("Loading...");
+        nextPrayerDurationBadgeEl().classList.add("d-none");
+    } else {
+        state.isLoading = boolean;
+        nextPrayerDurationBadgeEl().classList.remove("d-none");
+    }
 }
 
 function setNextPrayerTitle(name) {
     nextPrayerLabelEl().innerHTML = escapeHtml(name);
 }
 
+function nextPrayerDurationBadgeEl() {
+    return document.querySelector("#js-next-prayer-from-now");
+}
+
 function setNextPrayerDuration(duration) {
-    const selector = document.querySelector("#js-next-prayer-from-now");
+    const selector = nextPrayerDurationBadgeEl();
     selector.innerHTML = escapeHtml(duration)
     selector.classList.remove("d-none");
 }
@@ -106,6 +123,51 @@ function setPrayerTimes() {
     document.querySelector(jamaatSelector('jummah1')).innerHTML = escapeHtml(state.jamaatTimes.getJummah1());
     document.querySelector(jamaatSelector('jummah2')).innerHTML = escapeHtml(state.jamaatTimes.getJummah2());
 }
+
+function setTenantDetails() {
+    // Set the tenant dropdown
+    const dropdownEl = document.querySelector("#tenant-dropdown");
+    dropdownEl.innerHTML = getTenantDropdownEl();
+
+    // register the onclick event for the dropdown items so when we click we set the different tenant
+    const dropdownItemEl = document.querySelectorAll("#tenant-dropdown .dropdown-item");
+    dropdownItemEl.forEach((item) => item.addEventListener("click", () => changeTenant(item.dataset.tenantId)));
+
+    // Set the tenant name in the navbar
+    const el = document.querySelector(".establishment-name");
+    el.innerHTML = config.getTenantName();
+};
+
+function getTenantDropdownEl() {
+    let el = ""; 
+
+    let isSelectedTenant = (tenant, selectedTenant) => { 
+        if (tenant.id === selectedTenant) {
+            return "active";
+        } else {
+            return "";
+        }
+    };
+
+    config.tenants.forEach((tenant) => {
+        el += `<div class="dropdown-item ${isSelectedTenant(tenant, config.tenant)}" 
+            data-tenant-id="${tenant.id}">
+                ${escapeHtml(tenant.name)}
+            </div>`
+    })
+    
+    return el;
+}
+
+function changeTenant(tenantId) {
+    if (tenantId) {
+        // update app-config & local storage
+        setTenant(tenantId);
+        // reload the prayer times
+        initialize();
+    }
+}
+
 
 export default {
     initialize,

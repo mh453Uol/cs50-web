@@ -13,9 +13,9 @@
     align-items: center;
 }
 
-.next-salah h5 {
-    margin-right: 5px;
-    margin-bottom: 0px;
+.next-salah #js-next-prayer {
+    padding-right: 5px;
+    font-weight: bold;
 }
 
 .next-salah .yesterday {
@@ -24,4 +24,15 @@
 
 .next-salah .tommorrow {
     margin-left: auto;
+}
+
+/* setting cog tenant dropdown */
+#tenant-dropdown {
+    max-width: 200px;
+}
+
+/* long dropdown item are wrapped */
+#tenant-dropdown div {
+    word-wrap: break-word;
+    white-space: normal;
 }
