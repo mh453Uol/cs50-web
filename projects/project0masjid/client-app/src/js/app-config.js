@@ -28,25 +28,26 @@ let config = {
     }
 }
 
-function getSelectedTenant() {
-    const tenant = window.localStorage.getItem('tenant');
-    
-    if (tenant === null) {
-        // look at the url since we have a tenant parameter e.g. xyz.com?tenant=1
-        const url = new URL(window.location.href);
-        let tenantId = url.searchParams.get('tenant');
+function getSelectedTenant() {    
+    // look at the url since we have a tenant parameter e.g. xyz.com?tenant=1
+    const url = new URL(window.location.href);
+    let tenantId = url.searchParams.get('tenant');
 
-        // default back to first tenant if tenant not available
-        if (!tenantId) {
+    // if tenant not specified look at localStorage else default back
+    if (!tenantId) {
+        const tenant = window.localStorage.getItem('tenant');
+
+        if (tenant) {
+            tenantId = tenant;
+        } else {
             tenantId = config.tenants[0].id;
         }
-
-        window.localStorage.setItem('tenant', tenantId);
-        config.tenant = tenantId;
-
-        return tenantId;
     }
-    return tenant;
+
+    window.localStorage.setItem('tenant', tenantId);
+    config.tenant = tenantId;
+
+    return tenantId;
 }
 
 function setTenant(tenantId) {

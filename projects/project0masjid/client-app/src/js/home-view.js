@@ -24,11 +24,12 @@ function initialize() {
         prayerTimeService.getJamaatTimes(today),
         prayerTimeService.getPrayerTimes(today)
     ]).then(([jamaat, daily]) => {
+
         isLoading(false);
+    
         console.log(jamaat, daily);
 
         const jamaatTimes = new JamaatTimes();
-
         jamaatTimes.setFajr(jamaat.fajr);
         jamaatTimes.setDhuhr(jamaat.dhuhr);
         jamaatTimes.setAsr(jamaat.asr);
@@ -37,10 +38,7 @@ function initialize() {
         jamaatTimes.setJummah1(jamaat.jummah1);
         jamaatTimes.setJummah2(jamaat.jummah2);
 
-        state.jamaatTimes = jamaatTimes;
-        
         const dailyTimes = new DailyPrayerTimes();
-
         dailyTimes.setFajr(daily.fajr);
         dailyTimes.setDhuhr(daily.dhuhr);
         dailyTimes.setAsr(daily.asr);
@@ -48,7 +46,8 @@ function initialize() {
         dailyTimes.setIsha(daily.isha);
         dailyTimes.setSunrise(daily.sunrise);
         dailyTimes.setDahwaKubra(daily.dahwakubra);
-
+        
+        state.jamaatTimes = jamaatTimes;
         state.dailyPrayerTimes = dailyTimes;
 
         setPrayerTimes();
@@ -60,10 +59,6 @@ function initialize() {
     })
 }
 
-function nextPrayerLabelEl() {
-    return document.querySelector("#js-next-prayer")
-}
-
 function isLoading(boolean) {
     if (boolean) {
         state.isLoading = boolean;
@@ -73,6 +68,9 @@ function isLoading(boolean) {
         state.isLoading = boolean;
         nextPrayerDurationBadgeEl().classList.remove("d-none");
     }
+}
+function nextPrayerLabelEl() {
+    return document.querySelector("#js-next-prayer")
 }
 
 function setNextPrayerTitle(name) {
@@ -88,6 +86,7 @@ function setNextPrayerDuration(duration) {
     selector.innerHTML = escapeHtml(duration)
     selector.classList.remove("d-none");
 }
+
 /**
  * Set the prayer times in the table
  */
