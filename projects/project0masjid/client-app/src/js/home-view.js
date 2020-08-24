@@ -44,10 +44,12 @@ async function initialize() {
 
         state.dailyPrayerTimes = dailyTimes;
 
-        setPrayerTimes()
+        setPrayerTimes();
+        
+        const next = state.jamaatTimes.getNextPrayer();
 
-
-
+        setNextPrayerTitle(`Next Jamaat Is ${next.name}`);
+        setNextPrayerDuration(next.duration);
     })
 }
 
@@ -55,15 +57,20 @@ function nextPrayerLabelEl() {
     return document.querySelector("#js-next-prayer")
 }
 
-function getNextPrayer() {
-    const now = new Date();
-}
-
-function onLoading() {
-    state.isLoading = true;
+function isLoading(boolean) {
+    state.isLoading = boolean;
     nextPrayerLabelEl().innerHTML = escapeHtml("Loading...");
 }
 
+function setNextPrayerTitle(name) {
+    nextPrayerLabelEl().innerHTML = escapeHtml(name);
+}
+
+function setNextPrayerDuration(duration) {
+    const selector = document.querySelector("#js-next-prayer-from-now");
+    selector.innerHTML = escapeHtml(duration)
+    selector.classList.remove("d-none");
+}
 /**
  * Set the prayer times in the table
  */

@@ -28,10 +28,30 @@ function formatAsHoursMinutes(date) {
     }
 
     console.warn(`Cant format ${date} to hh:mm`);
+}
 
+function timeAgo(date) {
+    const value = {hours: 0, minutes: 0};
+    console.log(date);
+    if (date instanceof Date) {
+        // Milliseconds to Seconds 1 mili = 0.001 hence dividing by 1000
+        const seconds = Math.abs((date.getTime() - new Date().getTime()) / 1000);
+        let minutes = Math.abs(seconds / 60);
+        let hours = Math.abs(minutes / 60);
+
+        // e.g minutes is 61 % 60 = 1
+        minutes = Math.round(minutes % 60);
+        hours = Math.round(hours % 24);
+
+        value.hours = hours;
+        value.minutes = minutes;
+    }
+
+    return value;
 }
 export {
     escapeHtml,
     fromTextualTimeToDate,
-    formatAsHoursMinutes
+    formatAsHoursMinutes,
+    timeAgo
 }

@@ -1,6 +1,7 @@
 import {
     fromTextualTimeToDate,
-    formatAsHoursMinutes
+    formatAsHoursMinutes,
+    timeAgo
 } from '../util';
 
 export class JamaatTimes {
@@ -60,6 +61,40 @@ export class JamaatTimes {
 
     getJummah2() {
         return formatAsHoursMinutes(this.jummah2) || "-";
+    }
+
+    getNextPrayer() {
+        const now = new Date().getTime();
+        let value = { name: '', duration: '00h 00m'};
+        let salah = null;
+
+        if (this.fajr && now < this.fajr.getTime()) {
+            salah = this.fajr;
+            value.name = "Fajr";
+        } else if (this.dhuhr && now < this.dhuhr.getTime()) {
+            salah = this.dhuhr;
+            value.name = "Dhuhr";
+        } else if (this.asr && now < this.asr.getTime()) {
+            salah = this.asr;
+            value.name = "Asr";
+        } else if (this.maghrib && now < this.maghrib.getTime()) {
+            salah = this.maghrib;
+            value.name = "Maghrib";
+        } else if (this.isha && now < this.isha.getTime()) {
+            salah = this.isha;
+            value.name = "Isha";
+        } else {
+            // Completed all salahs for today so value is tomorrow Fajr
+            salah = this.fajr;
+            value.name = "Fajr";
+        }
+
+        if (salah) {
+            const duration = timeAgo(salah);
+            value.duration = `${duration.hours}h ${duration.minutes}m`
+        }
+
+        return value;
     }
 
 }
