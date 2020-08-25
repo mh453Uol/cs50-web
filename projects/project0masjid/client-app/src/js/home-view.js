@@ -1,28 +1,28 @@
 import prayerTimeService from './prayertimes.service';
-import { escapeHtml } from './util'
+import { escapeHtml, todayDate, toUTC, isSameDate } from './util'
 import { JamaatTimes } from './models/jamaat-times';
 import { DailyPrayerTimes } from './models/daily-prayer-times';
-import { config, setTenant } from './app-config' 
+import { config, setTenant, } from './app-config' 
 
 let state = {
     dailyPrayerTimes: new DailyPrayerTimes(),
     jamaatTimes: new JamaatTimes(),
     isLoading: true,
-    textPrayerLabel: 'Loading...',
-    textPrayerDurationLabel: ''
+    date: toUTC(new Date())
 }
 
 function initialize() {
     
+    onYesterdayButtonClicked();
     setTenantDetails();
+    
+    console.log(state);
 
     isLoading(true);
-    
-    const today = new Date();
 
     Promise.all([
-        prayerTimeService.getJamaatTimes(today),
-        prayerTimeService.getPrayerTimes(today)
+        prayerTimeService.getJamaatTimes(state.date),
+        prayerTimeService.getPrayerTimes(state.date)
     ]).then(([jamaat, daily]) => {
 
         isLoading(false);
@@ -54,19 +54,31 @@ function initialize() {
         
         const next = state.jamaatTimes.getNextPrayer();
         
-        setNextPrayerTitle(`(Jamaat) ${next.name}`);
-        setNextPrayerDuration(next.duration);
-    })
+        // if the date is today we show the duration view otherwise show the date.
+        // We do this since if the user clicks the left yesterday button we display the date 
+        // so the user can easily see that the times are not for today.
+        const today = toUTC(new Date());
+
+        if (isSameDate(state.date, today)) {
+            setNextPrayerTitle(`(Jamaat) ${next.name}`);
+            setNextPrayerDuration(next.duration);
+        } else {
+            setNextPrayerTitle(state.date.toLocaleDateString());
+            setPrayerDurationBadgeVisibility(false);
+        }
+        console.log(state);
+
+    });
 }
 
 function isLoading(boolean) {
     if (boolean) {
         state.isLoading = boolean;
-        nextPrayerLabelEl().innerHTML = escapeHtml("Loading...");
-        nextPrayerDurationBadgeEl().classList.add("d-none");
+        setNextPrayerTitle(escapeHtml("Loading..."));
+        setPrayerDurationBadgeVisibility(false);
     } else {
         state.isLoading = boolean;
-        nextPrayerDurationBadgeEl().classList.remove("d-none");
+        setPrayerDurationBadgeVisibility(true);
     }
 }
 function nextPrayerLabelEl() {
@@ -81,6 +93,13 @@ function nextPrayerDurationBadgeEl() {
     return document.querySelector("#js-next-prayer-from-now");
 }
 
+function setPrayerDurationBadgeVisibility(boolean) {
+    if (boolean) {
+        nextPrayerDurationBadgeEl().classList.remove("d-none");
+    } else {
+        nextPrayerDurationBadgeEl().classList.add("d-none");
+    }
+}
 function setNextPrayerDuration(duration) {
     const selector = nextPrayerDurationBadgeEl();
     selector.innerHTML = escapeHtml(duration)
@@ -165,6 +184,14 @@ function changeTenant(tenantId) {
         // reload the prayer times
         initialize();
     }
+}
+
+function onYesterdayButtonClicked() {
+    document.querySelector(".yesterday").addEventListener("click", () => {
+        state.date.setTime(state.date.getTime() - 1000 * 60 * 60 * 24);
+        
+        initialize();
+    });
 }
 
 

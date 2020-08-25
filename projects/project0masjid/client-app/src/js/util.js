@@ -32,7 +32,6 @@ function formatAsHoursMinutes(date) {
 
 function timeAgo(date) {
     const value = {hours: 0, minutes: 0};
-    console.log(date);
     if (date instanceof Date) {
         // Milliseconds to Seconds 1 mili = 0.001 hence dividing by 1000
         const seconds = Math.abs((date.getTime() - new Date().getTime()) / 1000);
@@ -49,9 +48,23 @@ function timeAgo(date) {
 
     return value;
 }
+
+function toUTC(date) {
+    return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
+        date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds()));
+}
+
+function isSameDate(date1, date2) {
+    return  date1.getUTCFullYear() === date2.getUTCFullYear() &&
+            date1.getUTCMonth() === date2.getUTCMonth() && 
+            date1.getUTCDate() === date2.getUTCDate()
+}
+
 export {
     escapeHtml,
     fromTextualTimeToDate,
     formatAsHoursMinutes,
-    timeAgo
+    timeAgo,
+    toUTC,
+    isSameDate
 }
