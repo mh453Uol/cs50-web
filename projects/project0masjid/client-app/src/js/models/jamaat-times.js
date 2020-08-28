@@ -65,28 +65,34 @@ export class JamaatTimes {
 
     getNextPrayer() {
         const now = new Date().getTime();
-        let value = { name: '', duration: '00h 00m'};
+        let value = { name: '', time: '', duration: '00h 00m'};
         let salah = null;
 
         if (this.fajr && now < this.fajr.getTime()) {
             salah = this.fajr;
             value.name = "Fajr";
+            value.time = this.getFajr();
         } else if (this.dhuhr && now < this.dhuhr.getTime()) {
             salah = this.dhuhr;
             value.name = "Dhuhr";
+            value.time = this.getDhuhr();
         } else if (this.asr && now < this.asr.getTime()) {
             salah = this.asr;
             value.name = "Asr";
+            value.time = this.getAsr();
         } else if (this.maghrib && now < this.maghrib.getTime()) {
             salah = this.maghrib;
             value.name = "Maghrib";
+            value.time = this.getMaghrib();
         } else if (this.isha && now < this.isha.getTime()) {
             salah = this.isha;
             value.name = "Isha";
+            value.time = this.getIsha();
         } else {
             // Completed all salahs for today so value is tomorrow Fajr
             salah = this.fajr;
             value.name = "Fajr";
+            value.time = this.getFajr();
         }
 
         if (salah) {

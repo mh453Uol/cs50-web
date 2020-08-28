@@ -2,7 +2,7 @@ import hijriDateService from './hijri-date.service';
 import '../css/stylev2.css';
 
 import {config, initialize} from './app-config';
-import homeview from './home-view'
+import homeview from './views/home/home-view'
 
 window.addEventListener('load', function () {
 

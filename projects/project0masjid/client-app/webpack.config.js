@@ -1,20 +1,14 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 var config = {
   entry: './src/js/index.js',
   plugins: [
-    new CleanWebpackPlugin({
-      exclude: ["*.html"]
-    }),
     new HtmlWebpackPlugin({
       template: './src/html/index.html',
-      cache: false
     }),
     new HtmlWebpackPlugin({
       template: './src/html/prayertimes.html',
-      cache: false
     })
   ],
   output: {
