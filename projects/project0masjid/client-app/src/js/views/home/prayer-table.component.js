@@ -1,5 +1,6 @@
 import { escapeHtml } from '../../util'
-
+import { JamaatTimes  } from '../../models/jamaat-times';
+import { DailyPrayerTimes } from '../../models/daily-prayer-times';
 
 /**
  * Set the prayer times in the table
@@ -37,4 +38,10 @@ function setPrayerTimes(dailyPrayerTimes, jamaatTimes) {
     document.querySelector(jamaatSelector('jummah2')).innerHTML = escapeHtml(jamaatTimes.getJummah2());
 }
 
-export default { setPrayerTimes }
+function isLoading(boolean) {
+    if (boolean) {
+        setPrayerTimes(new DailyPrayerTimes(), new JamaatTimes());
+    }
+}
+
+export default { setPrayerTimes, isLoading }

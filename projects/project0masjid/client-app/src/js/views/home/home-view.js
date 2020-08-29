@@ -26,6 +26,8 @@ function initialize() {
     
     isLoading(true);
 
+    prayerTable.isLoading(true);
+
     Promise.all([
         prayerTimeService.getJamaatTimes(state.date),
         prayerTimeService.getPrayerTimes(state.date)

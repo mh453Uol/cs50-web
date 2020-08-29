@@ -1,3 +1,5 @@
+import { NextSalahComponent } from "./views/home/next-salah.component";
+
 function escapeHtml(str) {
     var div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
@@ -27,14 +29,27 @@ function formatAsHoursMinutes(date) {
         })
     }
 
-    console.warn(`Cant format ${date} to hh:mm`);
+    //console.warn(`Cant format ${date} to hh:mm`);
 }
 
 function timeAgo(date) {
     const value = {hours: 0, minutes: 0};
     if (date instanceof Date) {
+
+        // Date.getTime() always uses UTC for time representation.
+        // Sometime we are UTC+1 so we need to add the offset
+
+        const now = new Date();
+
+        // getTimezoneOffset() if UTC+1 return -60 since we are 60 mins forward UTC 
+        //if UTC-1 returns 60 since we are 1 hour 60 mins behind UTC
+        // https://stackoverflow.com/questions/21102435/why-does-javascript-date-gettimezoneoffset-consider-0500-as-a-positive-off
+        const utcOffsetInMilliseconds = now.getTimezoneOffset() * (1000 * 60);
+
+        now.setTime(now.getTime() - (utcOffsetInMilliseconds))
+
         // Milliseconds to Seconds 1 mili = 0.001 hence dividing by 1000
-        const seconds = Math.abs((date.getTime() - new Date().getTime()) / 1000);
+        const seconds = Math.abs((date.getTime() - now) / 1000);
         let minutes = Math.abs(seconds / 60);
         let hours = Math.abs(minutes / 60);
 
