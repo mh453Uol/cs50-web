@@ -1,4 +1,1 @@
-heroku buildpacks:set https://github.com/timanovsky/subdir-heroku-buildpack
-heroku buildpacks:add heroku/python
-heroku config:set PROJECT_PATH=api/
-web: gunicorn --chdir api/ application:app
+web: cd ./api && gunicorn application:app
