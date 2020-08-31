@@ -46,7 +46,8 @@ function timeAgo(date) {
         // https://stackoverflow.com/questions/21102435/why-does-javascript-date-gettimezoneoffset-consider-0500-as-a-positive-off
         const utcOffsetInMilliseconds = now.getTimezoneOffset() * (1000 * 60);
 
-        now.setTime(now.getTime() - (utcOffsetInMilliseconds))
+        // TODO: Investigate why sometime the duration is off
+        //now.setTime(now.getTime() - (utcOffsetInMilliseconds))
 
         // Milliseconds to Seconds 1 mili = 0.001 hence dividing by 1000
         const seconds = Math.abs((date.getTime() - now) / 1000);
