@@ -1,8 +1,8 @@
 
 let config = {
     getApiUrl() {
-
-        const baseUrl = "http://masjid-api.tapprdigital.co.uk";
+        // TODO Heroku does not allow TLS on free dynos
+        const baseUrl = "https://masjidma.herokuapp.com";
         
         let template = `${baseUrl}/api/v1/{{tenant}}/prayers`
 
