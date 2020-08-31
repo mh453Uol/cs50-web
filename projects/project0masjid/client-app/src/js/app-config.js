@@ -1,7 +1,10 @@
 
 let config = {
     getApiUrl() {
-        let template = `http://localhost:5000/api/v1/{{tenant}}/prayers`
+
+        const baseUrl = "http://masjid-api.tapprdigital.co.uk";
+        
+        let template = `${baseUrl}/api/v1/{{tenant}}/prayers`
 
         return template.replace(/{{tenant}}/g, config.tenant);
     },
