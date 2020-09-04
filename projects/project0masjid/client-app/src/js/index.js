@@ -10,8 +10,6 @@ window.addEventListener('load', function () {
 
     homeview.initialize();
 
-    this.console.log(config);
-
     function displayTime() {
 
         var date = new Date();

@@ -52,7 +52,7 @@ function initialize() {
             nextSalahComponent.durationLabel = next.duration;
             nextSalahComponent.durationBadgeVisible = true;
         } else {
-            nextSalahComponent.label = state.date.toLocaleDateString();
+            nextSalahComponent.label = state.date.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
             nextSalahComponent.durationBadgeVisible = false;
         }
         

@@ -62,8 +62,9 @@ function timeAgo(date) {
 }
 
 function addDays(wholeDays, date) {
-    if (date instanceof Date) {
-        console.warn("Pass date", date);    
+    if (!(date instanceof Date)) {
+        console.warn("Cannot addDays() to object which is not a date", date);
+        return; 
     }
     date.setTime(date.getTime() + (wholeDays * (1000 * 60 * 60 * 24)));
 }
