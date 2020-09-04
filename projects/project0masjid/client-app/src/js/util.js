@@ -36,33 +36,36 @@ function timeAgo(date) {
     const value = {hours: 0, minutes: 0};
     if (date instanceof Date) {
 
-        // Date.getTime() always uses UTC for time representation.
-        // Sometime we are UTC+1 so we need to add the offset
-
         const now = new Date();
 
-        // getTimezoneOffset() if UTC+1 return -60 since we are 60 mins forward UTC 
-        //if UTC-1 returns 60 since we are 1 hour 60 mins behind UTC
-        // https://stackoverflow.com/questions/21102435/why-does-javascript-date-gettimezoneoffset-consider-0500-as-a-positive-off
-        const utcOffsetInMilliseconds = now.getTimezoneOffset() * (1000 * 60);
-
-        // TODO: Investigate why sometime the duration is off
-        //now.setTime(now.getTime() - (utcOffsetInMilliseconds))
-
         // Milliseconds to Seconds 1 mili = 0.001 hence dividing by 1000
-        const seconds = Math.abs((date.getTime() - now) / 1000);
-        let minutes = Math.abs(seconds / 60);
-        let hours = Math.abs(minutes / 60);
+        let seconds = Math.abs((date.getTime() - now.getTime()) / 1000);
 
-        // e.g minutes is 61 % 60 = 1
-        minutes = Math.round(minutes % 60);
-        hours = Math.round(hours % 24);
+        // whole days
+        const days = Math.floor(seconds / (60 * 60 * 24));
+        seconds -= days * (60 * 60 * 24);
 
+        // whole hours e.g 1
+        const hours = Math.floor(seconds / (60 * 60)) % 24;
+        seconds -= hours * (60 * 60);
+
+        // whole minutes
+        const minutes = Math.floor(seconds / 60) % 60;
+        seconds -= minutes * 60;
+
+        value.days = days;
         value.hours = hours;
         value.minutes = minutes;
     }
 
     return value;
+}
+
+function addDays(wholeDays, date) {
+    if (date instanceof Date) {
+        console.warn("Pass date", date);    
+    }
+    date.setTime(date.getTime() + (wholeDays * (1000 * 60 * 60 * 24)));
 }
 
 function toUTC(date) {
@@ -82,5 +85,6 @@ export {
     formatAsHoursMinutes,
     timeAgo,
     toUTC,
-    isSameDate
+    isSameDate,
+    addDays
 }

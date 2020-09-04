@@ -1,5 +1,5 @@
 import prayerTimeService from '../../prayertimes.service';
-import { escapeHtml, toUTC, isSameDate } from '../../util'
+import { escapeHtml, toUTC, isSameDate, addDays } from '../../util'
 import { JamaatTimes } from '../../models/jamaat-times';
 import { DailyPrayerTimes } from '../../models/daily-prayer-times';
 import { config, setTenant, } from '../../app-config';
@@ -12,7 +12,7 @@ let state = {
     isLoading: true,
     date: toUTC(new Date()),
     label: 'Loading...',
-    durationLabel: '0h 00m',
+    durationLabel: '0d 0h 00m',
     durationLabelVisible: false
 }
 
@@ -146,8 +146,7 @@ function onYesterdayButtonClicked() {
     const el = document.querySelector(".yesterday");
 
     el.addEventListener("click", function() {
-        const day = 1000 * 60 * 60 * 24;
-        state.date.setTime(state.date.getTime() - day);
+        addDays(-1, state.date);
         initialize();
     });
 }
@@ -156,8 +155,7 @@ function onTomorrowButtonClicked() {
     const el = document.querySelector(".tomorrow");
 
     el.addEventListener("click", function() {
-        const day = 1000 * 60 * 60 * 24;
-        state.date.setTime(state.date.getTime() + day);
+        addDays(1, state.date);
         initialize();
     });
 }

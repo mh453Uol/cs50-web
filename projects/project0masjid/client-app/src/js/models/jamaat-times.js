@@ -1,7 +1,8 @@
 import {
     fromTextualTimeToDate,
     formatAsHoursMinutes,
-    timeAgo
+    timeAgo,
+    addDays
 } from '../util';
 
 export class JamaatTimes {
@@ -65,9 +66,9 @@ export class JamaatTimes {
 
     getNextPrayer() {
         const now = new Date().getTime();
-        let value = { name: '', time: '', duration: '00h 00m'};
+        let value = { name: '', time: '', duration: '0d 00h 00m'};
         let salah = null;
-
+        
         if (this.fajr && now < this.fajr.getTime()) {
             salah = this.fajr;
             value.name = "Fajr";
@@ -90,14 +91,18 @@ export class JamaatTimes {
             value.time = this.getIsha();
         } else {
             // Completed all salahs for today so value is tomorrow Fajr
-            salah = this.fajr;
+            // Since its Fajr tomorow we add 1 day to the fajr time
+            salah = addDays(1, new Date(this.fajr.getTime()));
             value.name = "Fajr";
             value.time = this.getFajr();
         }
 
         if (salah) {
             const duration = timeAgo(salah);
-            value.duration = `${duration.hours}h ${duration.minutes}m`
+            const days = duration.days ? `${duration.days}d` : "";
+            const hours = duration.hours ? `${duration.hours}h` : "";
+            const minutes = duration.minutes ? `${duration.minutes}m` : "";
+            value.duration = `${days} ${hours} ${minutes}`
         }
 
         return value;
