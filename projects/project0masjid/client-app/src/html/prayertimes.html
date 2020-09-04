@@ -58,61 +58,63 @@
                 </div>
             </div>
 
-            <table class="table table-bordered" id="js-prayer-time-table">
-                <thead>
-                    <tr>
-                        <th scope="col">Salah</th>
-                        <th scope="col">Start</th>
-                        <th scope="col">Jamaat</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Fajr</th>
-                        <td id="js-fajr-start">-</td>
-                        <td id="js-fajr-jamaat">-</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Sunrise</th>
-                        <td id="js-sunrise-start">-</td>
-                        <td id="js-sunrise-jamaat">-</td>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="js-prayer-time-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Salah</th>
+                            <th scope="col">Start</th>
+                            <th scope="col">Jamaat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="js-fajr-row">
+                            <th scope="row">Fajr</th>
+                            <td id="js-fajr-start">-</td>
+                            <td id="js-fajr-jamaat">-</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Sunrise</th>
+                            <td id="js-sunrise-start">-</td>
+                            <td id="js-sunrise-jamaat">-</td>
 
-                    </tr>
-                    <tr>
-                        <th scope="row">Dahawa Kubra</th>
-                        <td id="js-dahawa-kubra-start">-</td>
-                        <td id="js-dahawa-kubra-jamaat">-</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Dhuhr</th>
-                        <td id="js-dhuhr-start">-</td>
-                        <td id="js-dhuhr-jamaat">-</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Asr</th>
-                        <td id="js-asr-start">-</td>
-                        <td id="js-asr-jamaat">-</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Maghrib</th>
-                        <td id="js-magrib-start">-</td>
-                        <td id="js-magrib-jamaat">-</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Isha</th>
-                        <td id="js-isha-start">-</td>
-                        <td id="js-isha-jamaat">-</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Jummah 1</th>
-                        <td colspan="2" class="text-center" id="js-jummah1-jamaat">-</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Jummah 2</th>
-                        <td colspan="2" class="text-center" id="js-jummah2-jamaat">-</td>
-                    </tr>
-                </tbody>
-            </table>
+                        </tr>
+                        <tr>
+                            <th scope="row">Dahawa Kubra</th>
+                            <td id="js-dahawa-kubra-start">-</td>
+                            <td id="js-dahawa-kubra-jamaat">-</td>
+                        </tr>
+                        <tr class="js-dhuhr-row">
+                            <th scope="row">Dhuhr</th>
+                            <td id="js-dhuhr-start">-</td>
+                            <td id="js-dhuhr-jamaat">-</td>
+                        </tr>
+                        <tr class="js-asr-row">
+                            <th scope="row">Asr</th>
+                            <td id="js-asr-start">-</td>
+                            <td id="js-asr-jamaat">-</td>
+                        </tr>
+                        <tr class="js-maghrib-row">
+                            <th scope="row">Maghrib</th>
+                            <td id="js-magrib-start">-</td>
+                            <td id="js-magrib-jamaat">-</td>
+                        </tr>
+                        <tr class="js-isha-row">
+                            <th scope="row">Isha</th>
+                            <td id="js-isha-start">-</td>
+                            <td id="js-isha-jamaat">-</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Jummah 1</th>
+                            <td colspan="2" class="text-center" id="js-jummah1-jamaat">-</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Jummah 2</th>
+                            <td colspan="2" class="text-center" id="js-jummah2-jamaat">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">

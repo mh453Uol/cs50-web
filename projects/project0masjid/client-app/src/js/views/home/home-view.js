@@ -55,8 +55,10 @@ function initialize() {
             nextSalahComponent.label = state.date.toLocaleDateString();
             nextSalahComponent.durationBadgeVisible = false;
         }
-        console.log(state);
+        
+        const row = document.querySelector(`.js-${next.name.toLowerCase()}-row`);
 
+        row.classList.add("table-active");
     });
 }
 
