@@ -69,23 +69,23 @@ export class JamaatTimes {
         let value = { name: '', time: '', duration: '0d 00h 00m'};
         let salah = null;
         
-        if (this.fajr && now < this.fajr.getTime()) {
+        if (this.fajr && now <= this.fajr.getTime()) {
             salah = this.fajr;
             value.name = "Fajr";
             value.time = this.getFajr();
-        } else if (this.dhuhr && now < this.dhuhr.getTime()) {
+        } else if (this.dhuhr && now <= this.dhuhr.getTime()) {
             salah = this.dhuhr;
             value.name = "Dhuhr";
             value.time = this.getDhuhr();
-        } else if (this.asr && now < this.asr.getTime()) {
+        } else if (this.asr && now <= this.asr.getTime()) {
             salah = this.asr;
             value.name = "Asr";
             value.time = this.getAsr();
-        } else if (this.maghrib && now < this.maghrib.getTime()) {
+        } else if (this.maghrib && now <= this.maghrib.getTime()) {
             salah = this.maghrib;
             value.name = "Maghrib";
             value.time = this.getMaghrib();
-        } else if (this.isha && now < this.isha.getTime()) {
+        } else if (this.isha && now <= this.isha.getTime()) {
             salah = this.isha;
             value.name = "Isha";
             value.time = this.getIsha();
@@ -101,7 +101,7 @@ export class JamaatTimes {
             const duration = timeAgo(salah);
             const days = duration.days ? `${duration.days}d` : "";
             const hours = duration.hours ? `${duration.hours}h` : "";
-            const minutes = duration.minutes ? `${duration.minutes}m` : "";
+            const minutes = `${duration.minutes}m`;
             value.duration = `${days} ${hours} ${minutes}`
         }
 

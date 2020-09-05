@@ -1,16 +1,32 @@
 import prayerTimeService from '../../prayertimes.service';
-import { escapeHtml, toUTC, isSameDate, addDays } from '../../util';
-import { JamaatTimes } from '../../models/jamaat-times';
-import { DailyPrayerTimes } from '../../models/daily-prayer-times';
-import { config, setTenant } from '../../app-config';
+import {
+  escapeHtml,
+  toUTC,
+  isSameDate,
+  addDays
+} from '../../util';
+import {
+  JamaatTimes
+} from '../../models/jamaat-times';
+import {
+  DailyPrayerTimes
+} from '../../models/daily-prayer-times';
+import {
+  config,
+  setTenant
+} from '../../app-config';
 import prayerTable from './prayer-table.component';
-import { NextSalahComponent } from './next-salah.component';
+import {
+  NextSalahComponent
+} from './next-salah.component';
 
 let state = {
   dailyPrayerTimes: new DailyPrayerTimes(),
   jamaatTimes: new JamaatTimes(),
   isLoading: true,
   date: toUTC(new Date()),
+  nextSalah: {},
+  interval: null
 };
 
 let nextSalahComponent = new NextSalahComponent();
@@ -36,8 +52,20 @@ function initialize() {
 
     prayerTable.setPrayerTimes(state.dailyPrayerTimes, state.jamaatTimes);
 
+    state.nextSalah = state.jamaatTimes.getNextPrayer();
     setNextSalahComponent();
-    highlightNextSalahRow();
+    highlightSalahRow(state.nextSalah.name);
+
+    // When the user clicks the previous and next button we run the initialize function which would set multiple intervals.
+    if (state.interval) {
+      clearInterval(state.interval);
+    }
+    
+    // Every minute update the next salah duration
+    state.interval = setInterval(() => {
+      updateNextSalahComponents();
+    }, 1000 * 60);
+
   });
 }
 
@@ -145,16 +173,14 @@ function onTomorrowButtonClicked() {
 }
 
 function setNextSalahComponent() {
-  const next = state.jamaatTimes.getNextPrayer();
-
   // if the date is today we show the duration view otherwise show the date.
   // We do this since if the user clicks the left yesterday button we display the date
   // so the user can easily see that the times are not for today.
   const today = toUTC(new Date());
 
   if (isSameDate(state.date, today)) {
-    nextSalahComponent.label = `${next.name} ${next.time}`;
-    nextSalahComponent.durationLabel = next.duration;
+    nextSalahComponent.label = `${state.nextSalah.name} ${state.nextSalah.time}`;
+    nextSalahComponent.durationLabel = state.nextSalah.duration;
     nextSalahComponent.durationBadgeVisible = true;
   } else {
     nextSalahComponent.label = state.date.toLocaleDateString(undefined, {
@@ -167,12 +193,30 @@ function setNextSalahComponent() {
   }
 }
 
-function highlightNextSalahRow() {
-  const next = state.jamaatTimes.getNextPrayer();
-
-  const row = document.querySelector(`.js-${next.name.toLowerCase()}-row`);
+function highlightSalahRow(rowName) {
+  const row = document.querySelector(`.js-${rowName.toLowerCase()}-row`);
 
   row.classList.add('table-active');
+}
+
+function unhighlightSalahRow(rowName) {
+  const row = document.querySelector(`.js-${rowName.toLowerCase()}-row`);
+
+  row.classList.remove('table-active');
+}
+
+function updateNextSalahComponents() {
+  const nextSalah = state.jamaatTimes.getNextPrayer();
+
+  // When the salah is completed unhighlight the old row and highlight the new row.
+  if (nextSalah.name !== state.nextSalah.name) {
+    unhighlightSalahRow(state.nextSalah.name);
+    highlightSalahRow(nextSalah.name);
+  }
+
+  state.nextSalah = nextSalah;
+
+  setNextSalahComponent();
 }
 
 export default {

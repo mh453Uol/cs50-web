@@ -50,7 +50,7 @@ function timeAgo(date) {
         seconds -= hours * (60 * 60);
 
         // whole minutes
-        const minutes = Math.floor(seconds / 60) % 60;
+        const minutes = Math.round(seconds / 60) % 60;
         seconds -= minutes * 60;
 
         value.days = days;
