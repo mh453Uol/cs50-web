@@ -9,11 +9,11 @@ let config = {
         return template.replace(/{{tenant}}/g, config.tenant);
     },
     tenants: [{
-            name: 'Aylesbury Islamic Cultural & Community Centre',
+            name: 'Southcourt Masjid',
             id: '4'
         },
         {
-            name: 'Aylesbury Jamia Masjid Ghausia',
+            name: 'Aylesbury Masjid ',
             id: '3'
         }
     ],
