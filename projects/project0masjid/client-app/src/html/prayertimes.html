@@ -7,12 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>Southcourt Masjid & Aylesbury Mosque Prayer Times</title>
-    
+
     <!-- https://ogp.me/ Facebook, WhatsApp meta tag, displays a preview when you paste a link -->
-    
+
     <meta property="og:title" content="Southcourt Masjid & Aylesbury Mosque Prayer Times" />
-    <meta property="og:description" 
-        content="Accurate Prayer Times For Southcourt Masjid (Islamic culture and community centre) 
+    <meta property="og:description" content="Accurate Prayer Times For Southcourt Masjid (Islamic culture and community centre) 
         and Aylesbury Mosque" />
     <meta property="og:locale" content="en_GB" />
     <meta property="og:type" content="website" />
@@ -46,22 +45,37 @@
 </head>
 
 <body>
-    <div class="container-fluid px-0">
-        <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid px-0" id="container">
+        <nav class="navbar fixed-bottom navbar-dark bg-dark">
             <a class="navbar-brand ellipsis establishment-name" href="#"></a>
-            <div class="dropdown">
+            <div class="btn-group dropup">
                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-gear"></i>
                 </button>
-                <div class="dropdown-menu dropdown-menu-right" id="tenant-dropdown"
-                    aria-labelledby="dropdownMenuButton">
+                <div class="dropdown-menu dropdown-menu-right" id="setting-dropdown" aria-labelledby="dropdownMenuButton">
+                    <div id="tenant-dropdown">
+
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <div class="configuration-dropdown">
+                        <h6 class="dropdown-header">Settings</h6>
+
+                        <div class="dropdown-item">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" value="" id="24hour-format">
+                                <label class="form-check-label" for="24hour-format">
+                                    24 hrs format e.g. 21:00
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
         <div class="next-salah-container">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body" style="padding: 0.25rem">
                     <div class="card-text next-salah">
                         <button class="btn btn-primary yesterday" type="button">
                             <i class="fa fa-caret-left"></i>
@@ -76,7 +90,7 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table table-bordered" id="js-prayer-time-table">
+                <table class="table" id="js-prayer-time-table">
                     <thead>
                         <tr>
                             <th scope="col">Salah</th>
@@ -133,15 +147,16 @@
                 </table>
             </div>
         </div>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
-        </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
-        </script>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

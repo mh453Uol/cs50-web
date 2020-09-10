@@ -54,7 +54,6 @@ function initialize() {
 
     state.nextSalah = state.jamaatTimes.getNextPrayer();
     setNextSalahComponent();
-    highlightSalahRow(state.nextSalah.name);
 
     // When the user clicks the previous and next button we run the initialize function which would set multiple intervals.
     if (state.interval) {
@@ -145,6 +144,12 @@ function getTenantDropdownEl() {
   return el;
 }
 
+function getConfigurationDropdownEl() {
+  let el = `<div class="dropdown-item">${escapeHtml(tenant.name)}</div>`;
+
+  return el;
+}
+
 function changeTenant(tenantId) {
   if (tenantId) {
     // update app-config & local storage
@@ -207,12 +212,6 @@ function unhighlightSalahRow(rowName) {
 
 function updateNextSalahComponents() {
   const nextSalah = state.jamaatTimes.getNextPrayer();
-
-  // When the salah is completed unhighlight the old row and highlight the new row.
-  if (nextSalah.name !== state.nextSalah.name) {
-    unhighlightSalahRow(state.nextSalah.name);
-    highlightSalahRow(nextSalah.name);
-  }
 
   state.nextSalah = nextSalah;
 
