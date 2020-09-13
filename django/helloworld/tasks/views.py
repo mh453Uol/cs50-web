@@ -6,17 +6,18 @@ import uuid
 class NewTodoForm(forms.Form):
     name = forms.CharField(label="Todo", min_length=4)
 
-
-# Create your views here.
-todos = [
-    { "id": uuid.uuid4(), "name": "foo" },
-    { "id": uuid.uuid4(), "name": "bar"},
-    { "id": uuid.uuid4(), "name": "baz"}
-]
+def get_todos(request):
+    if "todos" not in request.session:
+        request.session["todos"] = []
+    
+    return request.session["todos"]
 
 def index(request):
+    if "todos" not in request.session:
+        request.session["todos"] = []
+    
     return render(request, "tasks/index.html", { 
-        "tasks": todos,
+        "tasks": request.session["todos"],
         "form": NewTodoForm()
     });
 
@@ -25,20 +26,18 @@ def add_todo(request):
     form = NewTodoForm(request.POST)
 
     if form.is_valid():
-        todos.append(
-            { "id": uuid.uuid4(), "name": form.cleaned_data["name"] }
-        )
+        request.session["todos"] += [{ "id": str(uuid.uuid4()), "name": form.cleaned_data["name"] }]
     else:
         return render(request, "tasks/index.html", { 
-        "tasks": todos,
+        "tasks": get_todos(request),
         "form": form
     })
 
     return redirect("tasks:index")
 
 def edit_todo(request, id):
-    todo = next((todo for todo in todos if todo['id'] == id), None)
-
+    todo = next((todo for todo in get_todos(request) if todo['id'] == str(id)), None)
+    print(todo)
     if request.method == 'GET':
         form = NewTodoForm(todo)
     
@@ -63,7 +62,7 @@ def edit_todo(request, id):
 
 
 def delete_todo(request, id):
-    todo = next((todo for todo in todos if todo['id'] == id), None)
+    todo = next((todo for todo in get_todos(request) if todo['id'] == str(id)), None)
     
     if request.method == 'GET':
         form = NewTodoForm(todo)
