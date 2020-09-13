@@ -1,0 +1,23 @@
+{% extends "tasks/layout.html" %}
+
+{% block body %}
+<a href="{% url 'index' %}">Index</a>
+
+<ul>
+    {% for task in tasks %}
+    <li>
+        {{ task }}
+    </li>
+    {% endfor %}
+</ul>
+
+<h1>Add Todo</h1>
+<form method="POST" action="./todo">
+    <label for="todo">Todo</label>
+    <input type="text" name="todo">
+
+    <input type="hidden">
+
+    <button type="submit">Add</button>
+</form>
+{% endblock %}
