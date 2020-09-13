@@ -6,13 +6,14 @@
 <ul>
     {% for task in tasks %}
     <li>
-        {{ task }}
+        {{ task.name }} 
+        <span> (<a href="{% url 'tasks:edit_todo' id=task.id %}">edit</a>, <a href="{% url 'tasks:delete_todo' id=task.id %}">delete</a>)</span>
     </li>
     {% endfor %}
 </ul>
 
 <h1>Add Todo</h1>
-<form method="POST" action="./todo">
+<form method="POST" action="{% url 'tasks:add_todo' %}">
     <!-- Add hidden csrf token -->
     {% csrf_token %}
     <label for="todo">Todo</label>

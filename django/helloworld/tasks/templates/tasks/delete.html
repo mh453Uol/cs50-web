@@ -1,0 +1,8 @@
+{% extends "tasks/layout.html" %}
+
+{% block body %}
+<a href="{% url 'tasks:index' %}">Index</a>
+
+<h1>Are you sure you want to delete {{todo.name}}</h1>
+
+{% endblock %}
