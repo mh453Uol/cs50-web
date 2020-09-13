@@ -16,8 +16,7 @@
 <form method="POST" action="{% url 'tasks:add_todo' %}">
     <!-- Add hidden csrf token -->
     {% csrf_token %}
-    <label for="todo">Todo</label>
-    <input type="text" name="todo">
+    {{ form }}
 
     <button type="submit">Add</button>
 </form>

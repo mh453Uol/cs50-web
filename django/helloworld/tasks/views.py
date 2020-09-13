@@ -1,6 +1,11 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_http_methods
+from django import forms
 import uuid
+
+class NewTodoForm(forms.Form):
+    name = forms.CharField(label="Todo", min_length=4)
+
 
 # Create your views here.
 todos = [
@@ -11,36 +16,61 @@ todos = [
 
 def index(request):
     return render(request, "tasks/index.html", { 
-        "tasks": todos
+        "tasks": todos,
+        "form": NewTodoForm()
     });
 
 @require_http_methods(["POST"])
 def add_todo(request):
-    form = request.POST.dict();
+    form = NewTodoForm(request.POST)
 
-    todos.append(
-        { "id": uuid.uuid4(), "name": form.get("todo") }
-    )
+    if form.is_valid():
+        todos.append(
+            { "id": uuid.uuid4(), "name": form.cleaned_data["name"] }
+        )
+    else:
+        return render(request, "tasks/index.html", { 
+        "tasks": todos,
+        "form": form
+    })
 
     return redirect("tasks:index")
 
 def edit_todo(request, id):
     todo = next((todo for todo in todos if todo['id'] == id), None)
-    
+
     if request.method == 'GET':
+        form = NewTodoForm(todo)
+    
         if todo is not None:
-            return render(request, "tasks/edit.html", {"todo": todo})
+            return render(request, "tasks/edit.html", {
+                "todo": todo,
+                "form": form
+            })
         return redirect("tasks:index")
 
     if request.method == 'POST':
-        if todo is not None:
-            form = request.POST.dict();
-            todo['name'] = form.get("todo")
-        return redirect("tasks:index")
+        form = NewTodoForm(request.POST)
+    
+        if todo is not None and form.is_valid():
+            todo['name'] = form.cleaned_data["name"]
+            return redirect("tasks:index")
+        else:
+            return render(request, "tasks/edit.html", {
+                "todo": todo,
+                "form": form
+            })
 
 
 def delete_todo(request, id):
     todo = next((todo for todo in todos if todo['id'] == id), None)
-    if todo is not None:
-        return render(request, "tasks/delete.html", {"todo": todo})
-    return redirect("tasks:index")
+    
+    if request.method == 'GET':
+        form = NewTodoForm(todo)
+        
+        if todo is not None:
+            return render(request, "tasks/delete.html", {
+                "todo": todo,
+                "form": form
+            })
+        return redirect("tasks:index")
