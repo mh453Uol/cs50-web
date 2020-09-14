@@ -8,7 +8,7 @@
             "name": "Python: Django",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}\\helloworld\\manage.py",
+            "program": "${workspaceFolder}\\wiki\\manage.py",
             "args": [
                 "runserver",
                 "--noreload"
