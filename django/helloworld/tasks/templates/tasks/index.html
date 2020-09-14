@@ -1,0 +1,23 @@
+{% extends "tasks/layout.html" %}
+
+{% block body %}
+<a href="{% url 'tasks:index' %}">Index</a>
+
+<ul>
+    {% for task in tasks %}
+    <li>
+        {{ task.name }} 
+        <span> (<a href="{% url 'tasks:edit_todo' id=task.id %}">edit</a>, <a href="{% url 'tasks:delete_todo' id=task.id %}">delete</a>)</span>
+    </li>
+    {% endfor %}
+</ul>
+
+<h1>Add Todo</h1>
+<form method="POST" action="{% url 'tasks:add_todo' %}">
+    <!-- Add hidden csrf token -->
+    {% csrf_token %}
+    {{ form }}
+
+    <button type="submit">Add</button>
+</form>
+{% endblock %}

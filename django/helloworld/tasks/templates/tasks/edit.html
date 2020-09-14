@@ -1,0 +1,16 @@
+{% extends "tasks/layout.html" %}
+
+{% block body %}
+<a href="{% url 'tasks:index' %}">Index</a>
+
+<h1>Edit Todo</h1>
+<form method="POST" action="{% url 'tasks:edit_todo' id=todo.id %}">
+    <!-- Add hidden csrf token -->
+    <input type="hidden" name="id" value="{{todo.id}}">
+    
+    {% csrf_token %}
+    {{form}}
+
+    <button type="submit">Edit</button>
+</form>
+{% endblock %}
