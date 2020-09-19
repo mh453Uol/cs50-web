@@ -12,14 +12,18 @@
         <div class="row">
             <div class="sidebar col-lg-2 col-md-3">
                 <h2>Wiki</h2>
+
                 <form method="GET" action="{% url 'search' %}">
-                    <input class="search" type="text" name="q" placeholder="Search Encyclopedia">
+                    <div class="form-group">
+                        <input class="search form-control" type="text" name="q" placeholder="Search Encyclopedia">
+                    </div>
                 </form>
+
                 <div>
                     <a href="{% url 'index' %}">Home</a>
                 </div>
                 <div>
-                    Create New Page
+                    <a href="{% url 'create' %}">Create New Page</a>
                 </div>
                 <div>
                     Random Page
