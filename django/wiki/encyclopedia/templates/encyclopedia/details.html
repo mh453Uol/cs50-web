@@ -4,6 +4,10 @@
     {{ wiki_title }}
 {% endblock %}
 
+{% block nav %}
+    <a href="{% url 'edit' wiki_title=wiki_title %}">{{wiki_title}} (Edit) </a>
+{% endblock %}
+
 {% block body %}
     <div>{{ wiki | safe }}</div>
 {% endblock %}

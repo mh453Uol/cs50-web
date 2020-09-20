@@ -72,3 +72,35 @@ def create(request):
     return render(request, "encyclopedia/create.html", {
         "form": form
     })
+
+
+def edit(request, wiki_title):
+    form = None
+
+    exists = util.get_entry(wiki_title)
+    wiki = { "title": "", "body": "" }
+
+    if exists is not None:
+        wiki["title"] = wiki_title
+        wiki["body"] = exists
+
+    if request.method == "GET":
+        form = WikiForm(wiki)
+        if exists is None:
+            form.add_error(None, f"Wiki with title {wiki_title} does not exists")
+
+    if request.method == "POST":
+        form = WikiForm(request.POST)
+
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            # scenario in which you edit the title to another wiki title (two wikis having same name)
+            if title is not wiki_title and util.list_entries().count(title) > 0:
+                form.add_error(None, f"Wiki with title {title} already exist, try to consolidate the wikis together")
+            else:
+                util.save_entry(title, form.cleaned_data["body"])
+                return redirect("wiki_details", wiki_title=title)
+
+    return render(request, "encyclopedia/edit.html", {
+        "form": form
+    })
