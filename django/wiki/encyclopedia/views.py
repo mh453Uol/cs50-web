@@ -39,7 +39,7 @@ def search(request):
         if q == lowercased:
             return redirect("wiki_details", q)
 
-        if q.lower() in str(wiki).casefold():
+        if q in lowercased:
             like.append(wiki)
 
     return render(request, "encyclopedia/search-results.html", {
@@ -60,7 +60,7 @@ def create(request):
             
             title = form.cleaned_data["title"]
 
-            if util.get_entry(title) is not None:
+            if util.has_entry(title) is False:
                 form.add_error("title", f"Wiki with title {title} already exists")
             else:
                 # add document to disk
@@ -77,16 +77,16 @@ def create(request):
 def edit(request, wiki_title):
     form = None
 
-    exists = util.get_entry(wiki_title)
+    exists = util.has_entry(wiki_title)
     wiki = { "title": "", "body": "" }
-
-    if exists is not None:
-        wiki["title"] = wiki_title
-        wiki["body"] = exists
-
+        
     if request.method == "GET":
+        wiki["title"] = wiki_title
+        wiki["body"] = util.get_entry(wiki_title)
+
         form = WikiForm(wiki)
-        if exists is None:
+
+        if exists is False:
             form.add_error(None, f"Wiki with title {wiki_title} does not exists")
 
     if request.method == "POST":
@@ -94,9 +94,15 @@ def edit(request, wiki_title):
 
         if form.is_valid():
             title = form.cleaned_data["title"]
-            # scenario in which you edit the title to another wiki title (two wikis having same name)
-            if title is not wiki_title and util.list_entries().count(title) > 0:
-                form.add_error(None, f"Wiki with title {title} already exist, try to consolidate the wikis together")
+            if title != wiki_title:
+                # scenario in which you edit the title to another wiki title (two wikis having same name)
+                if util.has_entry(title):
+                    form.add_error(None, f"Wiki with title {title} already exist, try to consolidate the wikis together")
+                else:
+                    # scenarion where the title has changed we need to remove the old file and create it
+                    util.remove_entry(wiki_title);
+                    util.save_entry(title, form.cleaned_data["body"])
+                    return redirect("wiki_details", wiki_title=title)
             else:
                 util.save_entry(title, form.cleaned_data["body"])
                 return redirect("wiki_details", wiki_title=title)
