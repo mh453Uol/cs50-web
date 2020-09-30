@@ -5,6 +5,7 @@ from markdown2 import Markdown
 
 from . import util
 from .form import WikiForm
+from random import randrange
 
 markdown = Markdown()
 
@@ -59,12 +60,13 @@ def create(request):
         if form.is_valid():
             
             title = form.cleaned_data["title"]
+            body = form.cleaned_data["body"]
 
-            if util.has_entry(title) is False:
+            if util.has_entry(title):
                 form.add_error("title", f"Wiki with title {title} already exists")
             else:
                 # add document to disk
-                util.save_entry(title,form.cleaned_data["body"])
+                util.save_entry(title, body)
                 return redirect("wiki_details", wiki_title=title)
     else:
         form = WikiForm()
@@ -77,23 +79,22 @@ def create(request):
 def edit(request, wiki_title):
     form = None
 
-    exists = util.has_entry(wiki_title)
-    wiki = { "title": "", "body": "" }
-        
-    if request.method == "GET":
-        wiki["title"] = wiki_title
-        wiki["body"] = util.get_entry(wiki_title)
-
+    if request.method == "GET":    
+        wiki = { "title": wiki_title, "body": util.get_entry(wiki_title) }
         form = WikiForm(wiki)
+        exists = util.has_entry(wiki_title)
 
         if exists is False:
             form.add_error(None, f"Wiki with title {wiki_title} does not exists")
 
     if request.method == "POST":
+        print(request.POST)
         form = WikiForm(request.POST)
 
         if form.is_valid():
             title = form.cleaned_data["title"]
+            body = form.cleaned_data["body"]
+        
             if title != wiki_title:
                 # scenario in which you edit the title to another wiki title (two wikis having same name)
                 if util.has_entry(title):
@@ -101,7 +102,7 @@ def edit(request, wiki_title):
                 else:
                     # scenarion where the title has changed we need to remove the old file and create it
                     util.remove_entry(wiki_title);
-                    util.save_entry(title, form.cleaned_data["body"])
+                    util.save_entry(title, body)
                     return redirect("wiki_details", wiki_title=title)
             else:
                 util.save_entry(title, form.cleaned_data["body"])
@@ -110,3 +111,11 @@ def edit(request, wiki_title):
     return render(request, "encyclopedia/edit.html", {
         "form": form
     })
+
+def random(request):
+    wikis = util.list_entries()
+    
+    number = randrange(0, len(wikis) - 1)
+    wiki = wikis[number]
+
+    return details(request, wiki)
