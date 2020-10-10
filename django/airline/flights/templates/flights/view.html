@@ -1,0 +1,22 @@
+{% extends "flights/layout.html" %}
+
+{% block body %}
+
+<a href="{% url 'flights:book-flight' id=flight.id %}">Book Flight</a>
+
+<h1>#{{flight.id}}</h1>
+
+<div>Origin: {{flight.origin}}</div>
+<div>Destination: {{flight.destination}}</div>
+<div>Duration (minutes): {{flight.duration}}</div>
+
+<h1>Passengers</h1>
+<ul>
+    {% for passenger in passengers %}
+        <li>{{passenger.firstname}} {{passenger.lastname}}</li>
+    {% empty %}
+        <div>No Passengers</div>
+    {% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'flights/layout.html' %}
+
+{% block body %}
+
+<h1>Booking</h1>
+
+<form action="{% url 'flights:book-flight' id=flight.id %}" method="POST">
+    {% csrf_token %}
+
+    <div>Passenger: </div>
+    <select name="passengerId">
+        <option value="" readonly="true" hidden="true">Select your option</option>
+        {% for passenger in passengers %}
+            <option value="{{passenger.id}}">{{passenger.firstname}} {{passenger.lastname}}</option>
+        {% endfor %}
+    </select>
+
+    <input type="submit">
+</form>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth</title>
+</head>
+<body>
+    <ul>
+        {% if request.user.is_authenticated is False %}
+            <li>
+                <a href="{% url 'auth:login' %}">Login</a>
+            </li>
+        {% endif %}
+
+        {% if request.user.is_authenticated %}
+            <li>
+                <a href="{% url 'auth:logout' %}">Logout</a>
+            </li>
+        {% endif %}
+    </ul>
+    {% block body %}
+    {% endblock %}
+</body>
+</html>
