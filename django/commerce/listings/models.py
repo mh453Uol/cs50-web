@@ -1,5 +1,17 @@
 from django.db import models
 
+class University(models.Model):
+    name = models.CharField(max_length=256)
+    
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey('auctions.User', on_delete=models.CASCADE, related_name='university_created_by')
+    updated_by = models.ForeignKey('auctions.User', on_delete=models.CASCADE, related_name='university_updated_by')
+    is_deleted = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
+
 class Category(models.Model):
     name = models.CharField(max_length=256)
 
@@ -19,6 +31,7 @@ class Listing(models.Model):
     is_free = models.BooleanField(default=False)
     is_biddable = models.BooleanField(default=False)
     category = models.ManyToManyField(Category, related_name='listings')
+    university = models.ForeignKey(University, on_delete=models.CASCADE, related_name='listings')
 
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -54,3 +67,4 @@ class Bid(models.Model):
     created_by = models.ForeignKey('auctions.User', on_delete=models.CASCADE, related_name='bid_created_by')
     updated_by = models.ForeignKey('auctions.User', on_delete=models.CASCADE, related_name='bid_updated_by')
     is_deleted = models.BooleanField(default=False)
+

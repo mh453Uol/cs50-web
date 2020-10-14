@@ -6,17 +6,12 @@
 
 <form action="{% url 'index' %}">
     <div class="form-group">
-        <label for="id_title">Title</label>
-        <input class="form-control" placeholder="Title, Author, Keyword or ISBN" type="text" name="title" minlength="2" required id="id_title">
+       {{form.title}}
     </div>
 
     <div class="form-group">
-      <label for="id_location">Location</label>
-      <input id="js-location" class="form-control" placeholder="Location e.g. Leicester" required type="text">
+        {{form.university}}
     </div>
-
-    <input type="hidden" name="latitude" id="id_latitude">
-    <input  type="hidden" name="longitude" id="id_longitude">
     
     <div>
         <p>
@@ -25,21 +20,8 @@
         
         <div class="collapse" id="filters">
             <div class="form-group">
-                <label for="id_radius">Radius</label>
-                <select class="form-control" name="radius" id="id_radius">
-                    {% for radius in form.RADIUS %}
-                        <option value="{{radius.0}}">{{radius.1}}</option>
-                    {% endfor %}        
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="id_sort_order">Sort By</label>
-                <select class="form-control" name="sort_order" id="id_sort_order">
-                    {% for item in form.SORT_ORDER %}
-                        <option value="{{item.0}}">{{item.1}}</option>
-                    {% endfor %}        
-                </select>
+                <label for="id_sort_order">Sort by</label>
+                {{form.sort_order}}
             </div>
         </div>
     </div>
