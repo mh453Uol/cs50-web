@@ -1,33 +1,64 @@
 {% extends "listings/template.html" %}
+{% load humanize %}
 {% load static %}
 
 {% block body %}
 <h1>Listings</h1>
 
-<form action="{% url 'index' %}">
-    <div class="form-group">
-       {{form.title}}
-    </div>
+<div class="search-container">
+    <form action="{% url 'index' %}">
+        <div class="form-group">
+        {{form.title}}
+        </div>
 
-    <div class="form-group">
-        {{form.university}}
-    </div>
-    
-    <div>
-        <p>
-            <a data-toggle="collapse" href="#filters" role="button" aria-expanded="false" aria-controls="filters">Filters</a>
-        </p>
+        <div class="form-group">
+            {{form.university}}
+        </div>
         
-        <div class="collapse" id="filters">
-            <div class="form-group">
-                <label for="id_sort_order">Sort by</label>
-                {{form.sort_order}}
+        <div>
+            <p>
+                <a data-toggle="collapse" href="#filters" role="button" aria-expanded="false" aria-controls="filters">Filters</a>
+            </p>
+            
+            <div class="collapse" id="filters">
+                <div class="form-group">
+                    <label for="id_sort_order">Sort by</label>
+                    {{form.sort_order}}
+                </div>
             </div>
         </div>
-    </div>
 
-    <button type="submit" class="btn btn-primary btn-block">Search</button>
-  </form>
+        <button type="submit" class="btn btn-primary btn-block">Search</button>
+    </form>
+</div>
+
+
+  {% if display_listings %}
+  <div class="card-deck">
+    {% for listing in listings %}
+        <div class="card" onclick="">
+        <img class="card-img-top img-fluid listing-thumbnail" src="{{listing.image_directory}}" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">
+                <a href="{% url 'listings:detail' id=listing.id%}" class="stretched-link">{{listing.title}}</a>
+                
+                {% if listing.is_biddable %}
+                    <span class="badge badge-pill badge-primary">Auction</span>
+                {% elif listing.is_free %}
+                    <span class="badge badge-pill badge-secondary">Free</span>
+                {% endif %}
+            </h5>
+            <h6 class="card-text">£{{listing.price|intcomma:2}}</h6>
+            <p class="card-text">
+                <small class="text-muted">Last updated {{ listing.updated_on|naturaltime }}</small>
+            </p>
+        </div>
+        </div>
+        {% endfor %}
+    </div>
+  {% endif %}
+
+  
 {% endblock %}
 
 {% block scripts %}

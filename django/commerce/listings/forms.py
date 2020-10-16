@@ -1,23 +1,45 @@
 from django import forms
-from .models import University
+from .models import University, Listing
 
+def universities():
+    unis = [('','Select a university')]
+    unis += University.objects.values_list('id','name').order_by('name').filter(is_deleted=False)
 
+    return unis
+    
 class ListingSearch(forms.Form):
+
+    def __init__(self, *args, **kwargs):
+        super(ListingSearch, self).__init__(*args, **kwargs)
+        self.fields['university'] = forms.ChoiceField(choices=universities(), required=True)
+        self.fields['university'].widget.attrs.update({'class':'form-control'})
+    
+    def get_sort_order_field(self, sort_order_id):
+        if sort_order_id == '1':
+            return '-created_on'
+        elif sort_order_id == '2':
+            return 'price'
+        elif sort_order_id == '3':
+            return '-price'
+        else: 
+            return 'created_on'
+
     SORT_ORDER = (
-        ('1', 'Listed date'),
+        ('1', 'Posted date'),
         ('2', 'Low to high'),
         ('3', 'High to low'),
     )
 
-    DEFAULT_SORT_ORDER = '3'
+    DEFAULT_SORT_ORDER = '1'
 
     sort_order = forms.TypedChoiceField(choices=SORT_ORDER, coerce=str, empty_value=DEFAULT_SORT_ORDER, initial=DEFAULT_SORT_ORDER)
+    
     title = forms.CharField(min_length=2, required=True, label="Title")
-    university = forms.ModelChoiceField(queryset=University.objects.order_by('name').filter(is_deleted=False))
     
     # if False we hide the sort_order
     show_advance_filters = True
 
     title.widget.attrs.update({'class':'form-control', 'placeholder': 'Title, Author, Keyword or ISBN'})
-    university.widget.attrs.update({'class':'form-control'})
     sort_order.widget.attrs.update({'class':'form-control'})
+
+        

@@ -8,7 +8,7 @@
             "name": "Python: Django",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}\\airline\\manage.py",
+            "program": "${workspaceFolder}\\commerce\\manage.py",
             "args": [
                 "runserver",
                 "--noreload"

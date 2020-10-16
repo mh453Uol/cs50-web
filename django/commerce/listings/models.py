@@ -21,6 +21,9 @@ class Category(models.Model):
     updated_by = models.ForeignKey('auctions.User', on_delete=models.CASCADE, related_name='category_updated_by')
     is_deleted = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f"{self.name}"
+
 class Listing(models.Model):
     title = models.CharField(max_length=256)
     description = models.CharField(max_length=1026)
@@ -38,6 +41,9 @@ class Listing(models.Model):
     created_by = models.ForeignKey('auctions.User', on_delete=models.CASCADE, related_name='listing_created_by')
     updated_by = models.ForeignKey('auctions.User', on_delete=models.CASCADE, related_name='listing_updated_by')
     is_deleted = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.title}"
 
 class Watchlist(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
@@ -58,6 +64,9 @@ class Comment(models.Model):
     updated_by = models.ForeignKey('auctions.User', on_delete=models.CASCADE, related_name='comment_updated_by')
     is_deleted = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f"{self.comment}"
+
 class Bid(models.Model):
     bid = models.DecimalField(max_digits=6, decimal_places=2)
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name='bids')
@@ -67,4 +76,8 @@ class Bid(models.Model):
     created_by = models.ForeignKey('auctions.User', on_delete=models.CASCADE, related_name='bid_created_by')
     updated_by = models.ForeignKey('auctions.User', on_delete=models.CASCADE, related_name='bid_updated_by')
     is_deleted = models.BooleanField(default=False)
+
+    
+    def __str__(self):
+        return f"{self.bid}"
 
