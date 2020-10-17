@@ -42,4 +42,18 @@ class ListingSearch(forms.Form):
     title.widget.attrs.update({'class':'form-control', 'placeholder': 'Title, Author, Keyword or ISBN'})
     sort_order.widget.attrs.update({'class':'form-control'})
 
+class AuctionForm(forms.Form):
+
+    def __init__(self, starting_value, *args, **kwargs):
+        super(AuctionForm, self).__init__(*args, **kwargs)
         
+        if starting_value is not None and 'value' in starting_value:
+            value = starting_value['value']
+
+            self.fields['bid'] = forms.DecimalField(min_value=value, initial=value, decimal_places=2, required=True)
+            self.fields['bid'].widget.attrs.update({'class':'form-control', 'placeholder': f'Place a bid greater than {value}'})
+
+    bid = forms.DecimalField(decimal_places=2, required=True)
+    highestBidId = forms.CharField(widget=forms.HiddenInput())
+
+

@@ -7,6 +7,7 @@ app_name = "listings"
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path("<int:id>", views.detail, name="detail"),
+    path("<int:id>/bid", views.bid, name="bid"),
+    path("<int:id>", views.detail, name="detail")
 
 ]

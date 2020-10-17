@@ -33,7 +33,7 @@ class Listing(models.Model):
     is_active = models.BooleanField(default=True)
     is_free = models.BooleanField(default=False)
     is_biddable = models.BooleanField(default=False)
-    category = models.ManyToManyField(Category, related_name='listings')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='listings')
     university = models.ForeignKey(University, on_delete=models.CASCADE, related_name='listings')
 
     created_on = models.DateTimeField(auto_now_add=True)
