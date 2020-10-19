@@ -54,6 +54,6 @@ class AuctionForm(forms.Form):
             self.fields['bid'].widget.attrs.update({'class':'form-control', 'placeholder': f'Place a bid greater than {value}'})
 
     bid = forms.DecimalField(decimal_places=2, required=True)
-    highestBidId = forms.CharField(widget=forms.HiddenInput())
+    highestBidId = forms.IntegerField(widget=forms.HiddenInput())
 
 

@@ -41,16 +41,27 @@
         <div class="form-group">
             <label for="id_bid">
               {% if bids %}
-                {{bids | length}} bid{{bids | length | pluralize}} so far, place a bid greater than £{{highestBid.bid|intcomma:2}}
+                <b>{{bids | length}}</b> bid{{bids | length | pluralize}} so far, place a bid greater than £{{highestBid.bid|intcomma:2}}
               {% else %}
                 Place a bid greater than the starting price £{{listing.price|intcomma:2}}
               {% endif %}
             </label>
+            
+            {% if request.user.is_authenticated %}
               {{auctionForm.bid}}
               {{auctionForm.highestBidId}}
+            {% endif %}
+
           </div>
-          <button type="submit" class="btn btn-primary">Bid</button>
+
+          {% if request.user.is_authenticated %}
+            <button type="submit" class="btn btn-primary">Bid</button>
+          {% endif %}
         </form>
+        
+        {% if request.user.is_authenticated is False %}
+          <a href="{% url 'register'%}">Register so you can place a bid</a>
+        {% endif %}
     </div>
   </div>
 {% endif %}

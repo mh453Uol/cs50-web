@@ -1,8 +1,25 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.db.models import Q, Count, Max
+from django.contrib.auth.decorators import login_required
+
 from .forms import ListingSearch, AuctionForm
 from .models import University, Listing, Bid
-from django.db.models import Q, Count
 from decimal import Decimal
+
+def get_bids_ordered_by_bid_value(listing_id):
+    return list(
+        Bid.objects.filter(listing__id=listing_id).order_by('-bid').only(
+            'id', 'bid', 'created_on'
+        )
+    )
+    
+
+def get_highest_bid(listing_id):
+    return Bid.objects.filter(listing__id=listing_id).order_by('-bid').only(
+            'id', 'bid', 'created_on'
+    ).first()
+
 
 def index(request):
     form = ListingSearch(request.GET)
@@ -32,32 +49,28 @@ def index(request):
 
 def detail(request, id):
     listing = Listing.objects.select_related('created_by').prefetch_related('category').get(id=id)
-    bids = list(
-        Bid.objects.order_by('-created_on').filter(listing__id=id).only('id', 'bid', 'created_on')
-    )
-    highestBid = None
-    auctionForm = None
+    bids = get_bids_ordered_by_bid_value(id)
+    highest_bid = None
+    auction_form = None
 
     if len(bids) > 0:
-        # get the highest bid
-        highestBid = bids[0]
+        highest_bid = bids[0]
         # set the bid starting value here its the highest bid + 0.1
-        auctionForm = AuctionForm(starting_value={'value': highestBid.bid + Decimal('0.1')}, initial={'highestBidId': highestBid.id})
+        auction_form = AuctionForm(starting_value={'value': highest_bid.bid + Decimal('0.1')}, initial={'highestBidId': highest_bid.id})
     else:
         # we dont have any bids so the starting value is the listing price + 0.1
-        auctionForm = AuctionForm(starting_value={'value': listing.price + Decimal('0.1')})
+        auction_form = AuctionForm(starting_value={'value': listing.price + Decimal('0.1')})
 
     print(listing.created_by)
-    print(bids)
 
     return render(request, "listings/detail.html", {
         "listing": listing,
         "bids": bids,
-        "highestBid": highestBid,
-        "auctionForm": auctionForm
+        "highestBid": highest_bid,
+        "auctionForm": auction_form
     })
 
-
+@login_required
 def bid(request, id):
     
     if request.method == 'POST':
@@ -68,27 +81,40 @@ def bid(request, id):
             data = form.cleaned_data
             seen_bid = data['highestBidId']
             placed_bid = data['bid']
+        
             # 1. Get listing where id = listing.id, is_active is true and is_biddable (check we can make a bid on the listing)
             # 2. Get highest bid for the listing
-            # 3. If the seen_bid is not the highest bid this means the user did not have the latest data - render message
+            # 2.1 If the listing has a highest bid 
+            #   2.1.1 If the seen_bid is not the highest bid this means the user did not have the latest data - render message
+            #   2.1.2 If the placed bid <= highest bid render error message
+            # 2.2 If the listing does NOT have a bid (e.g listing are not guaranteed to have a bid)
+            #   2.2.1 Check the placed bid is greater than the listing start price
             # 4. Create bid against listing
+        
             listing = Listing.objects.filter(is_active=True, is_biddable=True, id=id).count()
 
             if listing != 1:
-                message = "You are unable to place a bid on this listing."
+                messages.error(request, 'You are unable to place a bid on this listing.')
                 return redirect(to='listings:detail', id=id)
             
-            highest_bid = Bid.objects.order_by('-created_on').filter(listing__id=id).only('id', 'bid').first()
+            highest_bid = get_highest_bid(id)
 
-            print(listing, highest_bid)
+            if highest_bid is not None:
+                if highest_bid.id != seen_bid and placed_bid <= highest_bid.bid:
+                    messages.error(request, f'Someone else placed a new bid of <b>£{highest_bid.bid}</b> since you last refreshed the page')
+                    return redirect(to='listings:detail', id=id)
 
-            if placed_bid <= highest_bid.bid:
-                message = f"Place place a bid greater than £{highest_bid.bid}"
-                return redirect(to='listings:detail', id=id)
+                if placed_bid <= highest_bid.bid:
+                    messages.error(request, f'Place place a bid greater than <b>£{highest_bid.bid}</b>')
+                    return redirect(to='listings:detail', id=id)
+            else:
+                if placed_bid <= listing.price:
+                    messages.error(request, f'Place place a bid greater than listing start price <b>£{listing.bid}</b>')
+                    return redirect(to='listings:detail', id=id)
+                
+            user = request.user
 
-            if highest_bid.id != seen_bid:
-                message = f"Someone else placed a new bid of £{highest_bid.bid} since you last refreshed the page"
-                return redirect(to='listings:detail', id=id)
+            bid = Bid.objects.create(bid=placed_bid, listing_id=id, created_by=user, updated_by=user)
+            bid.save()
 
-            
     return redirect(to='listings:detail', id=id)
