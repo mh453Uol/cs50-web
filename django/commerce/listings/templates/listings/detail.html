@@ -36,8 +36,10 @@
 <div class="card auction-container">
     <div class="card-body">
       <h2 class="card-title">Bids</h2>
+      
       <form action="{% url 'listings:bid' id=listing.id %}" method="POST">
         {% csrf_token %}
+        
         <div class="form-group">
             <label for="id_bid">
               {% if bids %}
