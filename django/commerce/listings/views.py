@@ -44,7 +44,7 @@ def index(request):
     return render(request, "listings/index.html", {
         "form": form,
         "listings": listings,
-        "display_listings": len(listings) > 0
+        "display_listings": form.is_valid()
     })
 
 def detail(request, id):

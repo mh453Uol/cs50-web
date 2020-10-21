@@ -8,18 +8,19 @@
 <div class="search-container">
     <form action="{% url 'listings:index' %}">
         <div class="form-group">
-        {{form.title}}
+            {{form.title}}
         </div>
 
         <div class="form-group">
             {{form.university}}
         </div>
-        
+
         <div>
             <p>
-                <a data-toggle="collapse" href="#filters" role="button" aria-expanded="false" aria-controls="filters">Filters</a>
+                <a data-toggle="collapse" href="#filters" role="button" aria-expanded="false"
+                    aria-controls="filters">Filters</a>
             </p>
-            
+
             <div class="collapse" id="filters">
                 <div class="form-group">
                     <label for="id_sort_order">Sort by</label>
@@ -33,19 +34,19 @@
 </div>
 
 
-  {% if display_listings %}
-  <div class="card-deck">
+{% if display_listings %}
+<div class="card-deck">
     {% for listing in listings %}
-        <div class="card">
+    <div class="card">
         <img class="card-img-top img-fluid listing-thumbnail" src="{{listing.image_directory}}" alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">
                 <a href="{% url 'listings:detail' id=listing.id%}" class="stretched-link">{{listing.title}}</a>
-                
+
                 {% if listing.is_biddable %}
-                    <span class="badge badge-pill badge-primary">Auction</span>
+                <span class="badge badge-pill badge-primary">Auction</span>
                 {% elif listing.is_free %}
-                    <span class="badge badge-pill badge-secondary">Free</span>
+                <span class="badge badge-pill badge-secondary">Free</span>
                 {% endif %}
             </h5>
             <h6 class="card-text">£{{listing.price|intcomma:2}}</h6>
@@ -53,14 +54,19 @@
                 <small class="text-muted">Last updated {{ listing.updated_on|naturaltime }}</small>
             </p>
         </div>
-        </div>
-        {% endfor %}
     </div>
-  {% endif %}
+    {% endfor %}
+</div>
+{% endif %}
 
-  
+{% if not listing %}
+<h1 class="lead text-center">
+        <b>We could not find any results, widen your filter criteria</b>
+    </h1>
+{% endif %}
+
 {% endblock %}
 
 {% block scripts %}
-   <script src="{% static 'auctions/javascript/index.js' %}">
+<script src="{% static 'auctions/javascript/index.js' %}"></script>
 {% endblock %}
