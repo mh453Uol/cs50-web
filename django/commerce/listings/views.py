@@ -33,17 +33,18 @@ def index(request):
         name = data['title']
         universityId = data['university']
 
-        listings = Listing.objects.order_by(sort_by).filter(
-            Q(title__icontains=name) | Q(description__icontains=name), 
-            is_deleted=False,
-            university__id=universityId
+        listings = list(
+            Listing.objects.order_by(sort_by).filter(
+                Q(title__icontains=name) | Q(description__icontains=name), 
+                is_deleted=False,
+                is_active=True,
+                university__id=universityId
+            ).only('id', 'title', 'description', 'price', 'image_directory', 'is_free', 'is_biddable', 'updated_on')
         )
-
-        print(listings)
    
     return render(request, "listings/index.html", {
         "form": form,
-        "listings": listings,
+        "listings": listings if len(listings) else None,
         "display_listings": form.is_valid()
     })
 

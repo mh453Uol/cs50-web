@@ -57,13 +57,16 @@
     </div>
     {% endfor %}
 </div>
-{% endif %}
 
-{% if not listing %}
-<h1 class="lead text-center">
+{% if listing is None %}
+    <h1 class="lead text-center">
         <b>We could not find any results, widen your filter criteria</b>
     </h1>
 {% endif %}
+
+{% endif %}
+
+
 
 {% endblock %}
 
