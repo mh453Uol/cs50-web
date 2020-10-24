@@ -6,7 +6,10 @@
 <h1>{{listing.title}}</h1>
 
 <div class="card">
-    <img class="card-img-top img-fluid listing-thumbnail" src="{{listing.image_directory}}" alt="Card image cap">
+    {% for image in listing.listing_images.all %}
+      <img class="card-img-top img-fluid listing-thumbnail" src="{{image.image.url}}" alt="Card image cap">
+    {% endfor %}
+
     <div class="card-body">
         <h5 class="card-title">
             {{listing.title}}

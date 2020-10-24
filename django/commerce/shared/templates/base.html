@@ -20,11 +20,11 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">Books</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
-            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#toggle"
+            aria-controls="toggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <div class="collapse navbar-collapse" id="toggle">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'listings:index' %}">Listings<span class="sr-only">(current)</span></a>
@@ -37,7 +37,7 @@
                     <a class="nav-link" href="#">Wishlist</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Create Listing</a>
+                    <a class="nav-link" href="{% url 'listings:create' %}">Create Listing</a>
                 </li>
                 {% endif %}
             </ul>
@@ -77,6 +77,10 @@
         </div>
         {% endfor %}
         {% endif %}
+        
+        <h3 class="display-4">
+            {% block body-header %}{% endblock %}
+        </h3>
 
         {% block body %}
         {% endblock %}
@@ -94,6 +98,7 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
 
+    
     {% block scripts %}
     {% endblock %}
 

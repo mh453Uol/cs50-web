@@ -1,0 +1,83 @@
+{% extends "listings/template.html" %}
+
+{% block body-header %}Create Listing{% endblock %}
+
+{% block body %}
+
+<form action="{% url 'listings:create' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="id_title">{{form.title.label}}</label>
+        {{form.title}}
+    </div>
+
+    <div class="form-group">
+        <label for="id_description">{{form.description.label}}</label>
+        {{form.description}}
+        <small id="description" class="form-text text-muted">
+            Provide a description about the listing e.g. whether it has been used, any defects, were you are based etc.
+        </small>
+    </div>
+
+    <div class="form-group">
+        <div class="custom-file">
+            {{form.images}}
+            <label for="id_images" class="custom-file-label" for="id_images" id="id_images_label">Choose images...</label>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="id_price">{{form.price.label}}</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupPrepend3">£</span>
+            </div>
+            {{form.price}}
+            <div class="invalid-feedback">
+                Please choose a username.
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="id_listing_type">{{form.listing_type.label}}</label>
+        {{form.listing_type}}
+    </div>
+
+    <div class="form-group">
+        <label for="id_university">{{form.university.label}}</label>
+        {{form.university}}
+    </div>
+
+    <div class="form-group">
+        <label for="id_category">{{form.category.label}}</label>
+        {{form.category}}
+    </div>
+
+    {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+    {% endfor %}
+
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function (event) {
+
+        var fileUpload = document.getElementById('id_images');
+
+        fileUpload.addEventListener('change', function (input) {
+            const fileList = this.files;
+            const numberOfFiles = fileList.length;
+            const label = input.target.value.replace(/\\/g, '/').replace(/.*\//, '');
+
+            const labelEl = document.getElementById('id_images_label');
+            labelEl.innerText = numberOfFiles > 1 ? `${numberOfFiles} files selected` : label;
+        });
+    });
+</script>
+{% endblock %}

@@ -2,8 +2,9 @@
 {% load humanize %}
 {% load static %}
 
+{% block body-header %}Listing{% endblock %}
+
 {% block body %}
-<h1>Listings</h1>
 
 <div class="search-container">
     <form action="{% url 'listings:index' %}">
@@ -58,7 +59,7 @@
     {% endfor %}
 </div>
 
-{% if listing is None %}
+{% if listings|length == 0 %}
     <h1 class="lead text-center">
         <b>We could not find any results, widen your filter criteria</b>
     </h1>
