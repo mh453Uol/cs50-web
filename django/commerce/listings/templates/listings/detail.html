@@ -1,39 +1,11 @@
 {% extends "listings/template.html" %}
-{% load humanize %}
 {% load static %}
+{% load humanize %}
 
 {% block body %}
 <h1>{{listing.title}}</h1>
 
-<div class="card">
-    {% for image in listing.listing_images.all %}
-      <img class="card-img-top img-fluid listing-thumbnail" src="{{image.image.url}}" alt="Card image cap">
-    {% endfor %}
-
-    <div class="card-body">
-        <h5 class="card-title">
-            {{listing.title}}
-
-            {% if listing.is_biddable %}
-            <span class="badge badge-pill badge-primary">Auction</span>
-            {% elif listing.is_free %}
-            <span class="badge badge-pill badge-secondary">Free</span>
-            {% endif %}
-        </h5>
-        <h6 class="card-text">£{{listing.price|intcomma:2}}</h6>
-        <p class="card-text">{{listing.description}}</p>
-        
-        <p class="card-text">
-          Listed by <a href="#">{{ listing.created_by.get_full_name }}</a>
-        </p>
-        <p class="card-text">
-            <small class="text-muted">Last updated {{ listing.updated_on|naturaltime }}</small>
-        </p>
-    </div>
-    <div class="card-footer text-muted">
-        <div>Category <a href="#">{{listing.category.name}}</a></div>
-    </div>
-</div>
+{% include "../partial/listing.html" %}
 
 {% if listing.is_biddable %}
 <div class="card auction-container">

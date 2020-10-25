@@ -1,0 +1,59 @@
+{% load humanize %}
+
+<div class="row">
+  {% for listing in listings %}
+  <div class="col-sm-6 col-md-4 col-lg-3 pt-2">
+    <div class="card">
+
+      <div id="listing-{{listing.id}}-carousel" class="carousel slide bg-dark" data-ride="carousel"
+        data-interval="false">
+        <div class="carousel-inner">
+          {% for image in listing.listing_images.all %}
+          <div class="carousel-item {% if forloop.counter == 1 %} active {% endif %}">
+            <img class="card-img-top img-fluid listing-thumbnail" src="{{image.image.url}}" alt="{{listing.title}}">
+          </div>
+          {% empty %}
+          <img class="card-img-top img-fluid listing-thumbnail" src="../media/no-image-placeholder.webp" alt="Image not available">
+          {% endfor %}
+        </div>
+
+        {% if listing.listing_images.all|length > 1 %}
+        <a class="carousel-control-prev" href="#listing-{{listing.id}}-carousel" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#listing-{{listing.id}}-carousel" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+        {% endif %}
+      </div>
+
+      <div class="card-body stretch-link-container">
+        <h5 class="card-title">
+          
+          <a href="{% url 'listings:detail' id=listing.id%}" class="stretched-link">{{listing.title}}</a>
+
+          {% if listing.is_biddable %}
+          <span class="badge badge-pill badge-primary">Auction</span>
+          {% elif listing.is_free %}
+          <span class="badge badge-pill badge-secondary">Free</span>
+          {% endif %}
+        </h5>
+        <h6 class="card-text">£{{listing.price|intcomma:2}}</h6>
+        <p class="card-text">{{listing.description}}</p>
+
+        <p class="card-text">
+          Listed by <a href="#">{{ listing.created_by.get_full_name }}</a>
+        </p>
+        <p class="card-text">
+          <small class="text-muted">Last updated {{ listing.updated_on|naturaltime }}</small>
+        </p>
+      </div>
+      <div class="card-footer text-muted">
+        <div>Category <a href="#">{{listing.category.name}}</a></div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
