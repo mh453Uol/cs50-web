@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.db.models import Q, Count, Max
+from django.db.models import Q, Count, Max, Prefetch
 from django.contrib.auth.decorators import login_required
 
 from .forms import ListingSearch, AuctionForm, CreateListing
@@ -38,7 +38,11 @@ def index(request):
                 is_deleted=False,
                 is_active=True,
                 university__id=universityId
-            ).only('id', 'title', 'description', 'price', 'is_free', 'is_biddable', 'updated_on')
+            ).prefetch_related(
+                Prefetch('listing_images', queryset=Images.objects.all().only('image')))
+            .only(
+                'id', 'title', 'description', 'price', 'is_free', 'is_biddable', 'updated_on',
+            )
         )
 
     return render(request, "listings/index.html", {
@@ -61,7 +65,7 @@ def detail(request, id):
         highest_bid = bids[0]
         # set the bid starting value here its the highest bid + 0.1
         auction_form = AuctionForm(starting_value={
-                                   'value': highest_bid.bid + Decimal('0.1')}, initial={'highestBidId': highest_bid.id})
+            'value': highest_bid.bid + Decimal('0.1')}, initial={'highestBidId': highest_bid.id})
     else:
         # we dont have any bids so the starting value is the listing price + 0.1
         auction_form = AuctionForm(
@@ -71,6 +75,7 @@ def detail(request, id):
 
     return render(request, "listings/detail.html", {
         "listing": listing,
+        "listings": [listing],
         "bids": bids,
         "highestBid": highest_bid,
         "auctionForm": auction_form
