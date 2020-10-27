@@ -51,7 +51,7 @@ class ListingSearch(forms.Form):
 
     sort_order = forms.TypedChoiceField(choices=SORT_ORDER, coerce=str, empty_value=DEFAULT_SORT_ORDER, initial=DEFAULT_SORT_ORDER)
     
-    title = forms.CharField(min_length=2, required=True, label="Title")
+    title = forms.CharField(min_length=2, required=False, label="Title")
     
     # if False we hide the sort_order
     show_advance_filters = False
