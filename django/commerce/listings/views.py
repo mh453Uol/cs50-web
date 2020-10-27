@@ -24,6 +24,11 @@ def index(request):
     form = ListingSearch(request.GET)
     listings = []
 
+    show_all_filters = request.GET.get('show_filters', None)
+
+    if show_all_filters is not None:
+        form.show_advance_filters = True
+
     if form.is_valid():
         # load listings select listings where
         #   listing.title is contains title, listing.description contains title
@@ -52,6 +57,7 @@ def index(request):
                 'id', 'title', 'description', 'price', 'is_free', 'is_biddable', 'updated_on'
             )
         )
+
 
     return render(request, "listings/index.html", {
         "form": form,

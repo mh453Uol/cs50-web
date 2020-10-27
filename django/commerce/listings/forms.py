@@ -54,7 +54,7 @@ class ListingSearch(forms.Form):
     title = forms.CharField(min_length=2, required=True, label="Title")
     
     # if False we hide the sort_order
-    show_advance_filters = True
+    show_advance_filters = False
 
     title.widget.attrs.update({'class':'form-control', 'placeholder': 'Title or description'})
     sort_order.widget.attrs.update({'class':'form-control'})
