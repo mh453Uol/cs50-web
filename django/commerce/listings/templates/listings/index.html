@@ -1,7 +1,7 @@
 {% extends "listings/template.html" %}
 {% load static %}
 
-{% block body-header %}Listing{% endblock %}
+{% block body-header %}Listings{% endblock %}
 
 {% block body %}
 
@@ -22,6 +22,11 @@
             </p>
 
             <div class="collapse" id="filters">
+                <div class="form-group">
+                    <label for="id_category">Category</label>
+                    {{form.category}}
+                </div>
+
                 <div class="form-group">
                     <label for="id_sort_order">Sort by</label>
                     {{form.sort_order}}

@@ -1,0 +1,22 @@
+{% extends "listings/template.html" %}
+
+{% block body-header %}
+Categories {% if categories|length > 0 %} ({{categories|length}}) {% endif %}
+{% endblock %}
+
+{% block body %}
+
+<ul>
+    {% for category in categories %}
+        <li>
+            <a href="{{url 'listings:index'}}"></a>{{category}}
+        </li>
+    {% empty %}
+    <h1 class="lead text-center">
+        <b>No wishlists, search through the listing to add items to your wishlist.</b>
+    </h1>
+    {% endfor %}
+</ul>
+</div>
+
+{% endblock %}

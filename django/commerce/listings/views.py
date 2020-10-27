@@ -4,7 +4,7 @@ from django.db.models import Q, Count, Max, Prefetch
 from django.contrib.auth.decorators import login_required
 
 from .forms import ListingSearch, AuctionForm, CreateListing
-from .models import University, Listing, Bid, Images, Category
+from .models import University, Listing, Bid, Images, Category, Watchlist
 from decimal import Decimal
 
 
@@ -31,17 +31,25 @@ def index(request):
         sort_by = form.get_sort_order_field(data['sort_order'])
         name = data['title']
         universityId = data['university']
+        categoryId = data['category']
 
+        query = Q(
+                    Q(title__icontains=name) | Q(description__icontains=name),
+                    is_deleted=False,
+                    is_active=True,
+                )
+        
+        if universityId is not None:
+            query.add(Q(university_id=universityId), Q.AND)
+        
+        if categoryId is not None:
+            query.add(Q(category_id=categoryId), Q.AND)
+        
         listings = list(
-            Listing.objects.order_by(sort_by).filter(
-                Q(title__icontains=name) | Q(description__icontains=name),
-                is_deleted=False,
-                is_active=True,
-                university__id=universityId
-            ).prefetch_related(
-                Prefetch('listing_images', queryset=Images.objects.all().only('image')))
-            .only(
-                'id', 'title', 'description', 'price', 'is_free', 'is_biddable', 'updated_on',
+            Listing.objects.order_by(sort_by).filter(query).prefetch_related(
+                'listing_images'
+            ).only(
+                'id', 'title', 'description', 'price', 'is_free', 'is_biddable', 'updated_on'
             )
         )
 
@@ -54,10 +62,16 @@ def index(request):
 
 def detail(request, id):
     listing = Listing.objects.select_related('created_by').prefetch_related(
-        'category', 'listing_images'
+        'category', 'listing_images', 
     ).get(id=id)
 
-    bids = get_bids_ordered_by_bid_value(id)    
+    bids = get_bids_ordered_by_bid_value(id)
+    
+    is_on_wishlist = False
+
+    if request.user.is_authenticated:
+        is_on_wishlist = Watchlist.objects.filter(listing__id=id, created_by=request.user, is_deleted=False).exists()
+
     highest_bid = None
     auction_form = None
 
@@ -71,13 +85,13 @@ def detail(request, id):
         auction_form = AuctionForm(
             starting_value={'value': listing.price + Decimal('0.1')})
 
-    print(listing.created_by)
 
     return render(request, "listings/detail.html", {
         "listing": listing,
         "listings": [listing],
         "bids": bids,
         "highestBid": highest_bid,
+        "on_wishlist": is_on_wishlist,
         "auctionForm": auction_form
     })
 
@@ -170,3 +184,47 @@ def create(request):
         return render(request, 'listings/create.html', {
             'form': CreateListing(),
         })
+
+@login_required
+def add_to_wishlist(request, id):
+    if Listing.objects.filter(pk=id, is_deleted=False).exists():
+        wishlist = Watchlist.objects.create(listing_id=id, created_by=request.user, updated_by=request.user)
+        wishlist.save()
+    else:
+        messages.error(request, f'Could add listing to wishlist')
+        
+    return redirect(to='listings:detail', id=id)
+
+@login_required
+def remove_wishlist(request, id):
+    wishlist = Watchlist.objects.get(pk=id);
+    if wishlist:
+        wishlist.is_deleted = True
+        wishlist.save()
+    else:
+        messages.error(request, f'Could not remove wishlist {id}')
+
+    return redirect(to='listings:wishlist')
+
+@login_required
+def wishlist(request):
+    wishlists = list(
+        Watchlist.objects.order_by('-created_on').filter(is_deleted=False, created_by=request.user).select_related('listing').only(
+            'listing__id', 'listing__title', 'created_on'
+        )
+    )
+
+    return render(request, 'listings/wishlist.html', {
+        'wishlists': wishlists
+    })
+
+def categories(request):
+
+    categories = Category.objects.filter(is_deleted=False).order_by('name').only(
+        'id', 'name'
+    )
+
+    return render(request, 'listings/categories.html', {
+        'categories': categories
+    })
+

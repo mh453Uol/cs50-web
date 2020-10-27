@@ -25,8 +25,11 @@ class ListingSearch(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(ListingSearch, self).__init__(*args, **kwargs)
-        self.fields['university'] = forms.ChoiceField(choices=universities(), required=True)
+        self.fields['university'] = forms.TypedChoiceField(choices=universities(), required=False, coerce=int, empty_value=None)
         self.fields['university'].widget.attrs.update({'class':'form-control'})
+
+        self.fields['category'] = forms.TypedChoiceField(choices=categories(), required=False, coerce=int, empty_value=None)
+        self.fields['category'].widget.attrs.update({'class':'form-control'})
     
     def get_sort_order_field(self, sort_order_id):
         if sort_order_id == '1':
@@ -53,7 +56,7 @@ class ListingSearch(forms.Form):
     # if False we hide the sort_order
     show_advance_filters = True
 
-    title.widget.attrs.update({'class':'form-control', 'placeholder': 'Title, Author, Keyword or ISBN'})
+    title.widget.attrs.update({'class':'form-control', 'placeholder': 'Title or description'})
     sort_order.widget.attrs.update({'class':'form-control'})
 
 class AuctionForm(forms.Form):

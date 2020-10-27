@@ -5,43 +5,63 @@
 {% block body %}
 <h1>{{listing.title}}</h1>
 
-{% include "../partial/listing.html" %}
-
-{% if listing.is_biddable %}
-<div class="card auction-container">
-    <div class="card-body">
-      <h2 class="card-title">Bids</h2>
-      
-      <form action="{% url 'listings:bid' id=listing.id %}" method="POST">
-        {% csrf_token %}
-        
-        <div class="form-group">
-            <label for="id_bid">
-              {% if bids %}
-                <b>{{bids | length}}</b> bid{{bids | length | pluralize}} so far, place a bid greater than £{{highestBid.bid|intcomma:2}}
-              {% else %}
-                Place a bid greater than the starting price £{{listing.price|intcomma:2}}
-              {% endif %}
-            </label>
-            
-            {% if request.user.is_authenticated %}
-              {{auctionForm.bid}}
-              {{auctionForm.highestBidId}}
-            {% endif %}
-
-          </div>
-
-          {% if request.user.is_authenticated %}
-            <button type="submit" class="btn btn-primary">Bid</button>
-          {% endif %}
-        </form>
-        
-        {% if request.user.is_authenticated is False %}
-          <a href="{% url 'register'%}">Register so you can place a bid</a>
-        {% endif %}
-    </div>
+{% if request.user.is_authenticated %}
+  <div class="pb-2">
+    {% if on_wishlist %}
+      <span class="badge badge-success">Watchlist</span>
+    {% else %}
+    <form action="{% url 'listings:add-to-wishlist' id=listing.id %}" method="POST">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-sm btn-primary">
+        Add to watchlist
+      </button>
+    </form>
+    {% endif %}
   </div>
 {% endif %}
+
+<div class="row">
+  <div class="col-md-7">
+    {% include "../partial/listing.html" with view='details' %}
+  </div>
+  <div class="col-md-5">
+    {% if listing.is_biddable %}
+    <div class="card auction-container">
+        <div class="card-body">
+          <h2 class="card-title">Bids</h2>
+          
+          <form action="{% url 'listings:bid' id=listing.id %}" method="POST">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="id_bid">
+                  {% if bids %}
+                    <b>{{bids | length}}</b> bid{{bids | length | pluralize}} so far, place a bid greater than £{{highestBid.bid|intcomma:2}}
+                  {% else %}
+                    Place a bid greater than the starting price £{{listing.price|intcomma:2}}
+                  {% endif %}
+                </label>
+                
+                {% if request.user.is_authenticated %}
+                  {{auctionForm.bid}}
+                  {{auctionForm.highestBidId}}
+                {% endif %}
+
+              </div>
+
+              {% if request.user.is_authenticated %}
+                <button type="submit" class="btn btn-primary">Bid</button>
+              {% endif %}
+            </form>
+            
+            {% if request.user.is_authenticated is False %}
+              <a href="{% url 'register'%}">Register so you can place a bid</a>
+            {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
 
 {% endblock %}
 
