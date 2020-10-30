@@ -124,9 +124,9 @@ def bid(request, id):
             # 4. Create bid against listing
 
             listing = Listing.objects.filter(
-                is_active=True, is_biddable=True, id=id).count()
+                is_active=True, is_biddable=True, id=id).only('id', 'price').first()
 
-            if listing != 1:
+            if not listing:
                 messages.error(
                     request, 'You are unable to place a bid on this listing.')
                 return redirect(to='listings:detail', id=id)

@@ -8,12 +8,12 @@
 {% if request.user.is_authenticated %}
   <div class="pb-2">
     {% if on_wishlist %}
-      <span class="badge badge-success">Watchlist</span>
+      <span class="badge badge-success">Wishlist</span>
     {% else %}
     <form action="{% url 'listings:add-to-wishlist' id=listing.id %}" method="POST">
       {% csrf_token %}
       <button type="submit" class="btn btn-sm btn-primary">
-        Add to watchlist
+        Add to wishlist
       </button>
     </form>
     {% endif %}
@@ -42,15 +42,22 @@
                   {% endif %}
                 </label>
                 
-                {% if request.user.is_authenticated %}
+                {% if request.user.is_authenticated and request.user.id is not listing.created_by.id %}
                   {{auctionForm.bid}}
                   {{auctionForm.highestBidId}}
                 {% endif %}
 
               </div>
-
               {% if request.user.is_authenticated %}
+                {% if request.user.id is listing.created_by.id %}
+                  {% if bids %}
+                    <button class="btn btn-danger btn-block">End bid at price £{{highestBid.bid|intcomma:2}}</button>
+                  {% else %}
+                    <button class="btn btn-danger btn-block">Close bid (No bids placed)</button>
+                  {% endif %}
+                {% else %}
                 <button type="submit" class="btn btn-primary">Bid</button>
+                {% endif %}
               {% endif %}
             </form>
             
