@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db.models import Q, Count, Max, Prefetch
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 
 from .forms import ListingSearch, AuctionForm, CreateListing
 from .models import University, Listing, Bid, Images, Category, Watchlist
@@ -11,14 +12,16 @@ from decimal import Decimal
 def get_bids_ordered_by_bid_value(listing_id):
     return list(
         Bid.objects.filter(listing__id=listing_id).order_by('-bid').only(
-            'id', 'bid', 'created_on'
+            'id', 'bid', 'created_on', 'created_by__id'
         )
     )
+
 
 def get_highest_bid(listing_id):
     return Bid.objects.filter(listing__id=listing_id).order_by('-bid').only(
         'id', 'bid', 'created_on'
     ).first()
+
 
 def index(request):
     form = ListingSearch(request.GET)
@@ -43,13 +46,13 @@ def index(request):
                     is_deleted=False,
                     is_active=True,
                 )
-        
+
         if universityId is not None:
             query.add(Q(university_id=universityId), Q.AND)
-        
+
         if categoryId is not None:
             query.add(Q(category_id=categoryId), Q.AND)
-        
+
         listings = list(
             Listing.objects.order_by(sort_by).filter(query).prefetch_related(
                 'listing_images'
@@ -57,7 +60,6 @@ def index(request):
                 'id', 'title', 'description', 'price', 'is_free', 'is_biddable', 'updated_on'
             )
         )
-
 
     return render(request, "listings/index.html", {
         "form": form,
@@ -68,15 +70,16 @@ def index(request):
 
 def detail(request, id):
     listing = Listing.objects.select_related('created_by').prefetch_related(
-        'category', 'listing_images', 
+        'category', 'listing_images',
     ).get(id=id)
 
     bids = get_bids_ordered_by_bid_value(id)
-    
+
     is_on_wishlist = False
 
     if request.user.is_authenticated:
-        is_on_wishlist = Watchlist.objects.filter(listing__id=id, created_by=request.user, is_deleted=False).exists()
+        is_on_wishlist = Watchlist.objects.filter(
+            listing__id=id, created_by=request.user, is_deleted=False).exists()
 
     highest_bid = None
     auction_form = None
@@ -90,7 +93,6 @@ def detail(request, id):
         # we dont have any bids so the starting value is the listing price + 0.1
         auction_form = AuctionForm(
             starting_value={'value': listing.price + Decimal('0.1')})
-
 
     return render(request, "listings/detail.html", {
         "listing": listing,
@@ -173,44 +175,50 @@ def create(request):
                 listing.university_id = university
 
             if category is not None:
-                listing.category_id = category          
+                listing.category_id = category
 
-            listing.created_by=request.user
-            listing.updated_by=request.user
+            listing.created_by = request.user
+            listing.updated_by = request.user
             listing.save()
-    
+
             files = request.FILES.getlist('images')
 
             Images.objects.bulk_create(
-                [Images(listing=listing, image=image) for image in files]   
+                [Images(listing=listing, image=image) for image in files]
             )
-            
-        return redirect('listings:detail', id = listing.id)
+
+        return redirect('listings:detail', id=listing.id)
     else:
         return render(request, 'listings/create.html', {
             'form': CreateListing(),
         })
 
+
 @login_required
 def add_to_wishlist(request, id):
-    if Listing.objects.filter(pk=id, is_deleted=False).exists():
-        wishlist = Watchlist.objects.create(listing_id=id, created_by=request.user, updated_by=request.user)
-        wishlist.save()
-    else:
-        messages.error(request, f'Could add listing to wishlist')
-        
+    if request.method == 'POST':
+        if Listing.objects.filter(pk=id, is_deleted=False).exists():
+            wishlist = Watchlist.objects.create(
+                listing_id=id, created_by=request.user, updated_by=request.user)
+            wishlist.save()
+        else:
+            messages.error(request, f'Could add listing to wishlist')
+
     return redirect(to='listings:detail', id=id)
+
 
 @login_required
 def remove_wishlist(request, id):
-    wishlist = Watchlist.objects.get(pk=id);
-    if wishlist:
-        wishlist.is_deleted = True
-        wishlist.save()
-    else:
-        messages.error(request, f'Could not remove wishlist {id}')
+    if request.method == 'POST':
+        wishlist = Watchlist.objects.get(pk=id);
+        if wishlist:
+            wishlist.is_deleted = True
+            wishlist.save()
+        else:
+            messages.error(request, f'Could not remove wishlist {id}')
 
     return redirect(to='listings:wishlist')
+
 
 @login_required
 def wishlist(request):
@@ -224,6 +232,7 @@ def wishlist(request):
         'wishlists': wishlists
     })
 
+
 def categories(request):
 
     categories = Category.objects.filter(is_deleted=False).order_by('name').only(
@@ -233,4 +242,30 @@ def categories(request):
     return render(request, 'listings/categories.html', {
         'categories': categories
     })
+
+@login_required
+def close_bid(request, id):
+    if request.method == 'POST':
+        listing = Listing.objects.filter(id=id, created_by=request.user.id).only(
+            'id','created_by'
+        ).first()
+    
+        if not listing:
+            messages.error(request, f'Could not find listing {id}')
+
+        listing.is_active = False
+
+        listing.save()
+    
+    return redirect(to='listings:detail', id=id)
+
+
+
+    
+
+
+
+
+
+    
 

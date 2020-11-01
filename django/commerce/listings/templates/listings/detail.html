@@ -3,6 +3,26 @@
 {% load humanize %}
 
 {% block body %}
+
+
+{% if listing.is_biddable and listing.is_active is False %}
+
+{% if highestBid.created_by.id == request.user.id %}
+<div class="alert alert-success" role="alert">
+  🥳 Congratulations you won the bid
+</div>
+{% endif %}
+
+
+<div class="alert alert-primary" role="alert">
+  {% if bids %}
+      Auction has ended, with a total of <b>{{bids | length}}</b> bid{{bids | length | pluralize}} placed with the winning bid at <b>£{{highestBid.bid|intcomma:2}}</b>
+  {% else %}
+      Auction has ended, with a total of 0 bids
+  {% endif %}
+  </div>
+{% endif %}
+  
 <h1>{{listing.title}}</h1>
 
 {% if request.user.is_authenticated %}
@@ -25,7 +45,7 @@
     {% include "../partial/listing.html" with view='details' %}
   </div>
   <div class="col-md-5">
-    {% if listing.is_biddable %}
+    {% if listing.is_biddable and listing.is_active %}
     <div class="card auction-container">
         <div class="card-body">
           <h2 class="card-title">Bids</h2>
@@ -48,18 +68,22 @@
                 {% endif %}
 
               </div>
-              {% if request.user.is_authenticated %}
-                {% if request.user.id is listing.created_by.id %}
-                  {% if bids %}
-                    <button class="btn btn-danger btn-block">End bid at price £{{highestBid.bid|intcomma:2}}</button>
-                  {% else %}
-                    <button class="btn btn-danger btn-block">Close bid (No bids placed)</button>
-                  {% endif %}
-                {% else %}
+              {% if request.user.is_authenticated and request.user.id is not listing.created_by.id%}
                 <button type="submit" class="btn btn-primary">Bid</button>
-                {% endif %}
               {% endif %}
             </form>
+
+            {% if request.user.is_authenticated and request.user.id is listing.created_by.id %}
+              <form action="{% url 'listings:close-bid' id=listing.id %}" method="POST">
+                {% csrf_token %}
+
+                {% if bids %}
+                  <button type="submit" class="btn btn-danger btn-block">End bid at price £{{highestBid.bid|intcomma:2}}</button>
+                {% else %}
+                  <button type="submit" class="btn btn-danger btn-block">Close bid (No bids placed)</button>
+                {% endif %}
+              </form>
+            {% endif %}
             
             {% if request.user.is_authenticated is False %}
               <a href="{% url 'register'%}">Register so you can place a bid</a>
