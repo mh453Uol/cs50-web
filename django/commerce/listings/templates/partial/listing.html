@@ -49,7 +49,7 @@
         
         <p class="card-text">
           {% if view == 'details' %}
-          <small class="text-muted">Listed by <a href="#">{{ listing.created_by.get_full_name }}</a> and</small>
+          <small class="text-muted">Listed by <a href="{% url 'profile' id=listing.created_by.id %}">{{ listing.created_by.get_full_name }}</a> and</small>
           {% endif %}
 
           <small class="text-muted">last updated {{ listing.updated_on|naturaltime }}</small>

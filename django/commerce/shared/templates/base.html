@@ -13,6 +13,7 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     {% block head %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     {% endblock %}
     <title>{% block title %}Auctions{% endblock %}</title>
 </head>
@@ -49,7 +50,7 @@
                         {{ user.username }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="{% url 'profile' id=request.user.id %}">Profile</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
                     </div>
