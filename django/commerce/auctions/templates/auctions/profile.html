@@ -1,0 +1,26 @@
+{% extends "auctions/layout.html" %}
+{% load humanize %}
+
+{% block body %}
+
+    <h2>{{profile_user.get_full_name}}
+
+        {% if user.id is not profile_user.id %}
+        <a href="{% url 'messages' %}" class="btn btn-sm btn-secondary" style="vertical-align:bottom">Message</a>
+        {% endif %}
+
+    </h2>
+
+    <p>{{profile_user.get_full_name}} has been a member for <b>{{profile_user.date_joined|naturaltime}}</b></p>
+
+    <p class="lead">Listings</p>
+    
+    {% include "../partial/listing.html" with listings=listings %}
+
+    {% if listings|length == 0 %}
+    <h1 class="lead text-center">
+        <b>{{profile_user.get_full_name}} has not published any listing.</b>
+    </h1>
+    {% endif %}
+
+{% endblock %}

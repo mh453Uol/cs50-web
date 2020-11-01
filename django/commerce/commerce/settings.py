@@ -62,7 +62,7 @@ ROOT_URLCONF = 'commerce.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [(os.path.join(BASE_DIR, 'shared/templates'))],
+        'DIRS': [(os.path.join(BASE_DIR, 'shared'))],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -150,6 +150,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'

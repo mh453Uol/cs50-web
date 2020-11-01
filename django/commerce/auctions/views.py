@@ -3,8 +3,11 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.http import Http404
+from django.contrib.auth.decorators import login_required
 
 from .models import User
+from listings.models import Listing
 
 
 def index(request):
@@ -61,3 +64,33 @@ def register(request):
         return redirect("listings:index")
     else:
         return render(request, "auctions/register.html")
+
+def profile(request, id):
+    user = User.objects.filter(id=id, is_active=True).first()
+
+    if not user:
+        raise Http404()
+
+    listings = list(
+            Listing.objects.order_by('-updated_on').filter(is_deleted=False, created_by__id = id).prefetch_related(
+                'listing_images'
+            ).only(
+                'id', 'title', 'description', 'price', 'is_free', 'is_biddable', 'updated_on', 'is_deleted'
+            )
+        )
+    
+    return render(request, 'auctions/profile.html', {
+        "profile_user": user,
+        "listings": listings
+    })
+
+@login_required
+def messages(request):
+   recipent = request.GET.get('recipent', None)
+   listing = request.GET.get('listing', None)
+
+   User = User.objects.filter(id=recipent, is_active=False).only('id', 'first_name', 'last_name')
+
+
+    
+
