@@ -55,6 +55,7 @@ class Watchlist(models.Model):
 
 class Message(models.Model):
     message = models.CharField(max_length=1026)
+    is_read = models.BooleanField(default=False)
 
     recipient = models.ForeignKey('auctions.User', on_delete=models.CASCADE, related_name='messages')
 
