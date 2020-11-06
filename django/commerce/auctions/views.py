@@ -92,6 +92,13 @@ def message(request, recipient_id):
         Q(recipient__id=request.user.id) | Q(recipient__id=recipient_id)
     )
 
+    if request.method == 'GET':
+        conversation = Conversation.objects.filter(conversation_established).only('id').first()
+
+        if conversation:
+            return redirect(to="conversation", conversation_id=conversation.id)
+    
+ 
     if request.method == 'POST':
         message = request.POST.get("message", "")
 
@@ -114,16 +121,18 @@ def message(request, recipient_id):
 
         return redirect(to="conversation", conversation_id=conversation.id)
 
+
     return redirect(to="messages")
 
 @login_required
 def conversation(request, conversation_id):
+    # todo set conversation recipient_has_unread_messages to false
 
-    conversation = Conversation.objects.select_related('created_by','recipient').get(id=conversation_id)
+    conversation = Conversation.objects.select_related('recipient','created_by').filter(id=conversation_id)[0]
     messages = []
 
     if conversation:
-        messages = Message.objects.order_by('created_on').filter(conversation=conversation.id)
+        messages = list(Message.objects.order_by('created_on').prefetch_related('created_by').filter(conversation=conversation.id))
 
     recipient = conversation.get_recipient(request.user.id)
 
@@ -138,7 +147,7 @@ def conversation(request, conversation_id):
 def messages(request):
     user_id = request.user.id
 
-    # Get all conversations however 
+    # Get all conversations user is apart of 
     conversations = list(
         Conversation.objects.order_by('created_on').select_related('created_by', 'recipient').filter(
             Q(Q(recipient__id=user_id) | Q(created_by__id=user_id))

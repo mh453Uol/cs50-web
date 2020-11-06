@@ -5,19 +5,14 @@
 <h4>Conversation with {{recipient.get_full_name}}</h4>
 
 {% for message in conversation_messages %}
-<div class="card {% if message.created_by.id == recipient.id %} text-right {% endif %}">
+<div class="card {% if message.created_by.id is not request.user.id %} text-right {% endif %}">
   <div class="card-body">
     <span class="card-text">
       {{message.message}}
     </span>
-    <p class="card-text"><small class="text-muted">
-      {% if message.created_by.id == recipient.id %}
-      ({{message.created_by.get_full_name}}) 
-      {% else %}
-      (You)
-      {% endif %}
-
-      {{message.created_on}}</small></p>
+    <p class="card-text">
+      <small class="text-muted"><a href="{% url 'profile' id=message.created_by.id %}">{{message.created_by.get_full_name}}</a> - {{message.created_on}}</small>
+    </p>
   </div>
 </div>
 {% empty %}

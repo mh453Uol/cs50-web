@@ -21,10 +21,10 @@ class Conversation(models.Model):
         return f"{self.recipient & self.created_by}"
 
     def get_recipient(self, current_user_id):
-        if current_user_id is self.recipient.id:
-            return self.recipient;
-        else:
+        if current_user_id == self.recipient.id:
             return self.created_by;
+        else:
+            return self.recipient;
 
 
 class Message(models.Model):
