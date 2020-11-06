@@ -53,21 +53,6 @@ class Watchlist(models.Model):
     updated_by = models.ForeignKey('auctions.User', on_delete=models.CASCADE, related_name='watchlist_updated_by')
     is_deleted = models.BooleanField(default=False)
 
-class Message(models.Model):
-    message = models.CharField(max_length=1026)
-    is_read = models.BooleanField(default=False)
-
-    recipient = models.ForeignKey('auctions.User', on_delete=models.CASCADE, related_name='messages')
-
-    created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(auto_now=True)
-    created_by = models.ForeignKey('auctions.User', on_delete=models.CASCADE, related_name='comment_created_by')
-    updated_by = models.ForeignKey('auctions.User', on_delete=models.CASCADE, related_name='comment_updated_by')
-    is_deleted = models.BooleanField(default=False)
-
-    def __str__(self):
-        return f"{self.message}"
-
 class Bid(models.Model):
     bid = models.DecimalField(max_digits=6, decimal_places=2)
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name='bids')

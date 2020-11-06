@@ -5,8 +5,9 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
-from .models import User
+from .models import User, Message, Conversation
 from listings.models import Listing
 
 
@@ -85,12 +86,65 @@ def profile(request, id):
     })
 
 @login_required
-def messages(request):
-   recipent = request.GET.get('recipent', None)
-   listing = request.GET.get('listing', None)
+def message(request, recipient_id):
 
-   User = User.objects.filter(id=recipent, is_active=False).only('id', 'first_name', 'last_name')
+    conversation_established = Q(
+        Q(recipient__id=request.user.id) | Q(recipient__id=recipient_id)
+    )
 
+    if request.method == 'POST':
+        message = request.POST.get("message", "")
 
+        recipient_exists = User.objects.filter(id=recipient_id).exists()
+
+        if not recipient_exists or message is "":
+            return redirect(to="conversation")
+            
+        conversation = Conversation.objects.filter(conversation_established).only('id').first()
+
+        if conversation:
+            new_message = Message(message=message, created_by=request.user, updated_by=request.user, conversation=conversation)
+            new_message.save()
+        else:
+            new_conversation = Conversation.objects.create(recipient_id=recipient_id, created_by=request.user, updated_by=request.user)
+            new_conversation.save()
     
+            new_message = Message(message=message, created_by=request.user, updated_by=request.user, conversation=new_conversation)
+            new_message.save()
 
+        return redirect(to="conversation", conversation_id=conversation.id)
+
+    return redirect(to="messages")
+
+@login_required
+def conversation(request, conversation_id):
+
+    conversation = Conversation.objects.select_related('created_by','recipient').get(id=conversation_id)
+    messages = []
+
+    if conversation:
+        messages = Message.objects.order_by('created_on').filter(conversation=conversation.id)
+
+    recipient = conversation.get_recipient(request.user.id)
+
+    return render(request, "auctions/conversation.html", {
+        "conversation": conversation,
+        "conversation_messages": messages,
+        "recipient": recipient
+    })
+
+
+@login_required
+def messages(request):
+    user_id = request.user.id
+
+    # Get all conversations however 
+    conversations = list(
+        Conversation.objects.order_by('created_on').select_related('created_by', 'recipient').filter(
+            Q(Q(recipient__id=user_id) | Q(created_by__id=user_id))
+        )
+    )
+
+    return render(request, "auctions/conversations.html", {
+        "conversations": conversations,
+    })

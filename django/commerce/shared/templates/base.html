@@ -27,7 +27,7 @@
         {% get_unread_messages request.user.id %}
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="btn btn-sm {% if unread_messages is 0 %} btn-dark {% else %} btn-success {% endif %}" href="{% url 'listings:create' %}">Messages
+                <a class="btn btn-sm {% if unread_messages is 0 %} btn-dark {% else %} btn-success {% endif %}" href="{% url 'messages' %}">Messages
                     <span class="badge badge-light">{{unread_messages}}</span>
                 </a>
             </li>

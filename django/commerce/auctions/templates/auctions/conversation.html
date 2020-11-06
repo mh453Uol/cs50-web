@@ -1,0 +1,41 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<h4>Conversation with {{recipient.get_full_name}}</h4>
+
+{% for message in conversation_messages %}
+<div class="card {% if message.created_by.id == recipient.id %} text-right {% endif %}">
+  <div class="card-body">
+    <span class="card-text">
+      {{message.message}}
+    </span>
+    <p class="card-text"><small class="text-muted">
+      {% if message.created_by.id == recipient.id %}
+      ({{message.created_by.get_full_name}}) 
+      {% else %}
+      (You)
+      {% endif %}
+
+      {{message.created_on}}</small></p>
+  </div>
+</div>
+{% empty %}
+<p>Introduce yourself since its the first time you have messaged {{recipient.get_full_name}}</p>
+{% endfor %}  
+
+<form action="{% url 'new-message' recipient_id=recipient.id %}" method="POST">
+  {% csrf_token %}
+  <div class="input-group">
+    <textarea class="form-control" rows="3" name="message"></textarea>
+    <div class="input-group-append">
+      <button class="btn btn-primary" type="submit">Send</button>
+    </div>
+  </div>
+
+  <input type="hidden" name="recipient" value="{{recipient.id}}">
+  <input type="hidden" name="conversation" value="{{conversation.id}}">
+
+</form>
+
+{% endblock %}
