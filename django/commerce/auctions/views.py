@@ -140,12 +140,20 @@ def message(request, recipient_id):
 
 @login_required
 def conversation(request, conversation_id):
+    
+    has_access = Q(Q(recipient_1_id=request.user.id) | Q(recipient_2_id = request.user.id))
 
-    conversation = Conversation.objects.select_related('recipient_1','recipient_2').get(id=conversation_id)
+    conversation = Conversation.objects.select_related('recipient_1','recipient_2').only(
+        'id', 'recipient_1_unread_messages', 'recipient_1_id', 'recipient_1__first_name', 'recipient_1__last_name',
+        'recipient_2_unread_messages', 'recipient_2_id', 'recipient_2__first_name', 'recipient_2__last_name',
+    ).get(Q(id = conversation_id) & Q(has_access))
+
     messages = []
 
     if conversation:
-        messages = list(Message.objects.order_by('created_on').prefetch_related('created_by').filter(conversation=conversation.id))
+        messages = list(
+            Message.objects.order_by('created_on').prefetch_related('created_by').filter(conversation=conversation.id)
+        )
 
     # if the recipient has unread_messages set it to false since they are reading the messages now
     if conversation.user_has_unread_messages(request.user.id) is True:
@@ -173,5 +181,5 @@ def messages(request):
     )
 
     return render(request, "auctions/conversations.html", {
-        "conversations": conversations,
+        "conversations": conversations
     })
