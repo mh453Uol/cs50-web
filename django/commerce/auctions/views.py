@@ -85,20 +85,30 @@ def profile(request, id):
         "listings": listings
     })
 
+
+def conversation_established_query(recipient_1, recipient_2):
+    return Q(
+        Q(Q(recipient_1_id=recipient_1) & Q(recipient_2_id=recipient_2)) | Q(Q(recipient_1_id=recipient_2) & Q(recipient_2_id=recipient_1))   
+    )
+
 @login_required
 def message(request, recipient_id):
 
-    conversation_established = Q(
-        Q(recipient__id=request.user.id) | Q(recipient__id=recipient_id)
-    )
+    conversation_established = conversation_established_query(request.user.id, recipient_id)
 
     if request.method == 'GET':
         conversation = Conversation.objects.filter(conversation_established).only('id').first()
 
+        recipient = User.objects.only('first_name', 'last_name').get(id=recipient_id)
+
         if conversation:
             return redirect(to="conversation", conversation_id=conversation.id)
-    
- 
+        else:
+            return render(request, "auctions/conversation.html", {
+                    "conversation": conversation,
+                    "recipient": recipient
+                })
+
     if request.method == 'POST':
         message = request.POST.get("message", "")
 
@@ -110,13 +120,17 @@ def message(request, recipient_id):
         conversation = Conversation.objects.filter(conversation_established).only('id').first()
 
         if conversation:
-            new_message = Message(message=message, created_by=request.user, updated_by=request.user, conversation=conversation)
+            new_message = Message(recipient_id=recipient_id, message=message, created_by=request.user, updated_by=request.user, conversation=conversation)
             new_message.save()
+
+            conversation.set_recipient_unread_messages(request.user.id)
+            conversation.save()
         else:
-            new_conversation = Conversation.objects.create(recipient_id=recipient_id, created_by=request.user, updated_by=request.user)
-            new_conversation.save()
+            conversation = Conversation.objects.create(recipient_1_id=recipient_id, recipient_2_id=request.user.id, created_by=request.user, updated_by=request.user)
+            conversation.set_recipient_unread_messages(request.user.id)
+            conversation.save()
     
-            new_message = Message(message=message, created_by=request.user, updated_by=request.user, conversation=new_conversation)
+            new_message = Message(recipient_id=recipient_id, message=message, created_by=request.user, updated_by=request.user, conversation=conversation)
             new_message.save()
 
         return redirect(to="conversation", conversation_id=conversation.id)
@@ -126,13 +140,17 @@ def message(request, recipient_id):
 
 @login_required
 def conversation(request, conversation_id):
-    # todo set conversation recipient_has_unread_messages to false
 
-    conversation = Conversation.objects.select_related('recipient','created_by').filter(id=conversation_id)[0]
+    conversation = Conversation.objects.select_related('recipient_1','recipient_2').get(id=conversation_id)
     messages = []
 
     if conversation:
         messages = list(Message.objects.order_by('created_on').prefetch_related('created_by').filter(conversation=conversation.id))
+
+    # if the recipient has unread_messages set it to false since they are reading the messages now
+    if conversation.user_has_unread_messages(request.user.id) is True:
+        conversation.read_messages(request.user.id)
+        conversation.save()
 
     recipient = conversation.get_recipient(request.user.id)
 
@@ -149,8 +167,8 @@ def messages(request):
 
     # Get all conversations user is apart of 
     conversations = list(
-        Conversation.objects.order_by('created_on').select_related('created_by', 'recipient').filter(
-            Q(Q(recipient__id=user_id) | Q(created_by__id=user_id))
+        Conversation.objects.order_by('created_on').select_related('recipient_1', 'recipient_2').filter(
+            Q(Q(recipient_1_id=user_id) | Q(recipient_2_id=user_id))
         )
     )
 

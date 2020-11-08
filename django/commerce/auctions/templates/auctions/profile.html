@@ -5,7 +5,7 @@
 
     <h2>{{profile_user.get_full_name}}
 
-        {% if user.id is not profile_user.id %}
+        {% if request.user.id is not profile_user.id %}
         <a href="{% url 'new-message' recipient_id=profile_user.id %}" class="btn btn-sm btn-secondary" style="vertical-align:bottom">Message</a>
         {% endif %}
 
