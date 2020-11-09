@@ -21,7 +21,7 @@ class Conversation(models.Model):
     is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.recipient_1 & self.recipient_2}"
+        return f"Conversation between {self.recipient_1.name()} and {self.recipient_2.name()}"
 
     def get_recipient(self, current_user_id):
         return self.recipient_2 if current_user_id is self.recipient_1.id else self.recipient_1
@@ -54,4 +54,4 @@ class Message(models.Model):
     is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.message}"
+        return f"Message in conversation {self.conversation.id}"
