@@ -1,0 +1,17 @@
+.listing-thumbnail {
+    width: 100%;
+    height: 70vh;
+    object-fit: contain;
+}
+
+.search-container {
+    margin-bottom: 10px;
+}
+
+.auction-container {
+    margin-top: 10px;
+}
+
+.stretch-link-container {
+    transform: rotate(0);
+}

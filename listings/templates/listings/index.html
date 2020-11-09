@@ -1,0 +1,57 @@
+{% extends "listings/template.html" %}
+{% load static %}
+
+{% block body-header %}Listings{% endblock %}
+
+{% block body %}
+
+<div class="search-container">
+    <form action="{% url 'listings:index' %}">
+        <div class="form-group">
+            {{form.title}}
+        </div>
+
+        <div class="form-group">
+            {{form.university}}
+        </div>
+
+        <div>
+            <p>
+                <a data-toggle="collapse" href="#filters" role="button" aria-expanded="false" aria-controls="filters">Filters</a>
+            </p>
+
+            <div class="collapse {% if form.show_advance_filters %} show {% endif %}" id="filters">
+                <div class="form-group">
+                    <label for="id_category">Category</label>
+                    {{form.category}}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_sort_order">Sort by</label>
+                    {{form.sort_order}}
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Search</button>
+    </form>
+</div>
+
+
+{% if display_listings %}
+    {% include "../partial/listing.html" with listings=listings %}
+
+    {% if listings|length == 0 %}
+    <h1 class="lead text-center">
+        <b>We could not find any results, widen your filter criteria</b>
+    </h1>
+    {% endif %}
+
+{% endif %}
+
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'auctions/javascript/index.js' %}"></script>
+{% endblock %}

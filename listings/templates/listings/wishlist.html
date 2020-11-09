@@ -1,0 +1,31 @@
+{% extends "listings/template.html" %}
+{% load humanize %}
+
+{% block body-header %}
+    Wishlist {% if wishlists|length > 0 %} ({{wishlists|length}}) {% endif %}
+{% endblock %}
+
+{% block body %}
+
+<div class="list-group">
+    {% for wishlist in wishlists %}
+    <div class="list-group-item flex-column">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-2">
+            <a href="{% url 'listings:detail' id=wishlist.listing.id %}">{{wishlist.listing.title}}</a>
+        </h5>
+        <small>{{wishlist.created_on|naturaltime}}</small>
+      </div>
+      <form action="{% url 'listings:remove-wishlist' id=wishlist.id %}" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-sm btn-block btn-secondary">Remove from wishlist</button>
+      </form>
+    </div>
+    {% empty %}
+    <h1 class="lead text-center">
+        <b>No wishlists, search through the listing to add items to your wishlist.</b>
+    </h1>
+    {% endfor %}
+</div>
+
+{% endblock %}

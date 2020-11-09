@@ -1,0 +1,22 @@
+{% extends "listings/template.html" %}
+{% load static %}
+
+{% block body-header %}
+Categories {% if categories|length > 0 %} ({{categories|length}}) {% endif %}
+{% endblock %}
+
+{% block body %}
+<ul>
+    {% for category in categories %}
+        <li>
+            <a href="{% url 'listings:index' %}?title=&university=&category={{category.id}}&sort_order=1&show_filters=true">{{category}}</a>
+        </li>
+    {% empty %}
+    <h1 class="lead text-center">
+        <b>No categories, ask the admin to add a category.</b>
+    </h1>
+    {% endfor %}
+</ul>
+</div>
+
+{% endblock %}
