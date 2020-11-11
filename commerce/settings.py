@@ -16,7 +16,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', DEFAULT_SECRET_KEY)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if 'DEBUG' in os.environ else False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['student-listings.herokuapp.com', 'localhost', '127.0.0.1']
 
 MESSAGE_TAGS = {
     message_constants.ERROR: 'danger'
