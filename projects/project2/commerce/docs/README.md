@@ -1,3 +1,18 @@
+## Run in dev enviroment
+For the first time you have to do the following
+
+1. `python manage.py migrate`
+   
+After you have created the sqldb you can run the app as follows
+
+1. `python manage.py runserver`
+
+## Run in preprod enviroment
+
+In preprod enviroment we use AWS S3 bucket to store media files
+
+1. `python manage.py collectstatic --noinput && MODE=PREPROD python manage.py runserver`
+
 ## Deploying the django app
 
 Current this app is deployed to Heroku and is part of a mono repo `cs50-web`
