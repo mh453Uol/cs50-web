@@ -21,7 +21,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("", include("auctions.urls")),
     path("admin/", admin.site.urls),
-    path("listings/", include("listings.urls", namespace="listings"))
-    
-    # allow media (images to be publically accessible)
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path("listings/", include("listings.urls", namespace="listings")) 
+] 
+
+# allow media (images to be publically accessible)
+if settings.DEBUG: 
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
