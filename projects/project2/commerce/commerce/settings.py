@@ -1,7 +1,7 @@
 import os
 import dj_database_url
 import environ
-
+from json import loads
 from django.contrib.messages import constants as message_constants
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -15,7 +15,7 @@ env = environ.Env(
     AWS_SECRET_ACCESS_KEY=(str, ''),
     AWS_STORAGE_BUCKET_NAME=(str, ''),
     AWS_S3_CUSTOM_DOMAIN=(str, ''),
-    AWS_S3_OBJECT_PARAMETERS=(dict, {'CacheControl': 'max-age=86400'}),
+    AWS_S3_OBJECT_PARAMETERS=(str, '{"CacheControl": "max-age=86400"}'),
     AWS_DEFAULT_ACL=(str, ''),
     DEFAULT_FILE_STORAGE = (str, 'django.core.files.storage.FileSystemStorage')
 )
@@ -85,31 +85,32 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'commerce.wsgi.application'
 
-LOGGING = {
-    'disable_existing_loggers': False,
-    'version': 1,
-    'handlers': {
-        'console': {
-            # logging handler that outputs log messages to terminal
-            'class': 'logging.StreamHandler',
-            'level': 'DEBUG', # message level to be written to console
-        }
-    },
-    'loggers': {
-        '': {
-            # this sets root level logger to log debug and higher level
-            # logs to console. All other loggers inherit settings from
-            # root level logger.
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': False, # this tells logger to send logging message
-                                # to its parent (will send if set to True)
+if DEBUG:
+    LOGGING = {
+        'disable_existing_loggers': False,
+        'version': 1,
+        'handlers': {
+            'console': {
+                # logging handler that outputs log messages to terminal
+                'class': 'logging.StreamHandler',
+                'level': 'DEBUG', # message level to be written to console
+            }
         },
-        'django.db': {
-            'level': 'DEBUG'
+        'loggers': {
+            '': {
+                # this sets root level logger to log debug and higher level
+                # logs to console. All other loggers inherit settings from
+                # root level logger.
+                'handlers': ['console'],
+                'level': 'DEBUG',
+                'propagate': False, # this tells logger to send logging message
+                                    # to its parent (will send if set to True)
+            },
+            'django.db': {
+                'level': 'DEBUG'
+            }
         }
     }
-}
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -173,7 +174,7 @@ AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN')
-AWS_S3_OBJECT_PARAMETERS = env('AWS_S3_OBJECT_PARAMETERS')
+AWS_S3_OBJECT_PARAMETERS = loads(env('AWS_S3_OBJECT_PARAMETERS'))
 AWS_DEFAULT_ACL = env('AWS_DEFAULT_ACL')
 
 DEFAULT_FILE_STORAGE = env('DEFAULT_FILE_STORAGE')
