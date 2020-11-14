@@ -27,7 +27,7 @@ class Category(models.Model):
 
 class Listing(models.Model):
     title = models.CharField(max_length=256)
-    description = models.CharField(max_length=1026)
+    description = models.TextField(max_length=1026)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     is_active = models.BooleanField(default=True)
     is_free = models.BooleanField(default=False)
