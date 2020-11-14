@@ -72,6 +72,7 @@
       document.querySelectorAll('img').forEach((img) => {
         img.onerror = function() {
           img.src = "{% static 'images/no-image-placeholder.webp' %}";
+          img.onerror = "";
           return true;
         }
       });
