@@ -1,5 +1,5 @@
 from django import forms
-from .models import University, Listing, Images, Category
+from .models import University, Listing, Image, Category
 
 def universities():
     unis = [('','Select a university')]
