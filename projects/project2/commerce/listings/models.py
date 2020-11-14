@@ -71,7 +71,7 @@ def get_image_filename(instance, filename):
     id = instance.listing.id
     now = datetime.datetime.now()
     extension = filename.split(".")[-1]
-    return f'listing/{id}/{now}.{extension}'
+    return f'listings/{id}/{now}.{extension}'
 
 class Images(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name='listing_images')
