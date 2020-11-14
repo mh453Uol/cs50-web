@@ -27,7 +27,7 @@ class Category(models.Model):
 
 class Listing(models.Model):
     title = models.CharField(max_length=256)
-    description = models.CharField(max_length=1026)
+    description = models.TextField(max_length=1026)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     is_active = models.BooleanField(default=True)
     is_free = models.BooleanField(default=False)
@@ -73,7 +73,7 @@ def get_image_filename(instance, filename):
     extension = filename.split(".")[-1]
     return f'listings/{id}/{now}.{extension}'
 
-class Images(models.Model):
+class Image(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name='listing_images')
     # directory which holds the uploaded images
     image = models.ImageField(null=True, blank=True, upload_to=get_image_filename, verbose_name='Image')

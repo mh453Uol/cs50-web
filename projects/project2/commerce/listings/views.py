@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 
 from .forms import ListingSearch, AuctionForm, CreateListing
-from .models import University, Listing, Bid, Images, Category, Watchlist
+from .models import University, Listing, Bid, Image, Category, Watchlist
 from decimal import Decimal
 
 
@@ -183,8 +183,8 @@ def create(request):
 
             files = request.FILES.getlist('images')
 
-            Images.objects.bulk_create(
-                [Images(listing=listing, image=image) for image in files]
+            Image.objects.bulk_create(
+                [Image(listing=listing, image=image) for image in files]
             )
 
         return redirect('listings:detail', id=listing.id)
