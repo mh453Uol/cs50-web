@@ -57,7 +57,7 @@ def index(request):
             Listing.objects.order_by(sort_by).filter(query).prefetch_related(
                 'listing_images'
             ).only(
-                'id', 'title', 'description', 'price', 'is_free', 'is_biddable', 'updated_on'
+                'id', 'title', 'description', 'price', 'is_free', 'is_biddable', 'updated_on', 'created_by'
             )
         )
 
@@ -258,6 +258,23 @@ def close_bid(request, id):
         listing.save()
     
     return redirect(to='listings:detail', id=id)
+
+
+@login_required
+def delete(request, id):
+    if request.method == 'POST':
+        listing = Listing.objects.filter(id=id, created_by_id=request.user.id).only(
+            'id','created_by'
+        ).first()
+
+        if not listing:
+            messages.error(request, f'Could not find listing {id}')
+
+        listing.is_deleted = True
+
+        listing.save()
+    
+    return redirect(to='profile', id=request.user.id)
 
 
 

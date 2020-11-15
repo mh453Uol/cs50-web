@@ -15,7 +15,7 @@
 
     <p class="lead">Listings</p>
     
-    {% include "../partial/listing.html" with listings=listings %}
+    {% include "../partial/listing.html" with listings=listings view='profile' %}
 
     {% if listings|length == 0 %}
     <h1 class="lead text-center">

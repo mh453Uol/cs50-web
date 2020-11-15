@@ -73,10 +73,10 @@ def profile(request, id):
         raise Http404()
 
     listings = list(
-            Listing.objects.order_by('-updated_on').filter(is_deleted=False, created_by__id = id).prefetch_related(
+            Listing.objects.order_by('-updated_on').filter(is_deleted=False, created_by_id = id).prefetch_related(
                 'listing_images'
             ).only(
-                'id', 'title', 'description', 'price', 'is_free', 'is_biddable', 'updated_on', 'is_deleted'
+                'id', 'title', 'description', 'price', 'is_free', 'is_biddable', 'updated_on', 'created_by', 'is_deleted'
             )
         )
     

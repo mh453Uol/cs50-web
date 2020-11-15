@@ -33,7 +33,7 @@
       <div class="card-body">
         <div class="stretch-link-container">
           <h5 class="card-title">
-            <a href="{% url 'listings:detail' id=listing.id%}" class="stretched-link">{{listing.title}}</a>
+            <a href="{% url 'listings:detail' id=listing.id %}" class="stretched-link">{{listing.title}}</a>
 
             {% if listing.is_biddable %}
             <span class="badge badge-pill badge-primary">Auction</span>
@@ -55,7 +55,15 @@
 
           <small class="text-muted">last updated {{ listing.updated_on|naturaltime }}</small>
         </p>
+
+        {% if request.user.id == listing.created_by_id and view == 'profile' %}
+        <form action="{% url 'listings:delete' id=listing.id %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger btn-block">Delete</button>
+        </form>
+        {% endif %}
       </div>
+
       {% if view == 'details' %}
       <div class="card-footer text-muted">
         <div>Category <a href="#">{{listing.category.name}}</a></div>
