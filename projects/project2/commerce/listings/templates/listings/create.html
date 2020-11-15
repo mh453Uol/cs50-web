@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<form action="{% url 'listings:create' %}" method="post" enctype="multipart/form-data">
+<form action="{% url 'listings:create' %}" method="post" enctype="multipart/form-data" id="listing-form">
     {% csrf_token %}
     <div class="form-group">
         <label for="id_title">{{form.title.label}}</label>
@@ -59,17 +59,18 @@
         {{ hidden }}
     {% endfor %}
 
-    <button class="btn btn-primary" type="submit">Submit</button>
+    <button class="btn btn-primary" type="submit" id="listing-submit-buttom">
+        Submit
+        <span class="spinner-border spinner-border-sm d-none" id="listing-submit-spinner" role="status" aria-hidden="true"></span>
+    </button>
 </form>
 
-{% endblock %}
 
-{% block scripts %}
 <script>
     document.addEventListener('DOMContentLoaded', function (event) {
-
+        
         var fileUpload = document.getElementById('id_images');
-
+        
         fileUpload.addEventListener('change', function (input) {
             const fileList = this.files;
             const numberOfFiles = fileList.length;
@@ -78,6 +79,18 @@
             const labelEl = document.getElementById('id_images_label');
             labelEl.innerText = numberOfFiles > 1 ? `${numberOfFiles} files selected` : label;
         });
+
+        const form = document.getElementById('listing-form');
+
+        form.onsubmit = function(form) {
+            // Disable submit buttom and show loader
+            const submitButton = document.getElementById('listing-submit-buttom');
+            submitButton.disabled = true;
+            
+            const submitButtonSpinner = document.getElementById('listing-submit-spinner');
+            submitButtonSpinner.classList.remove('d-none');
+        }
     });
 </script>
+
 {% endblock %}
