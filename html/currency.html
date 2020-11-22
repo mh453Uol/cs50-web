@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Exchange</title>
+</head>
+
+<body>
+    <form>
+        <span for="selected-currency">1</label>
+        <input list="currencies" id="selected-currency">
+        <span for="selected-currency">is worth:</label>
+
+        <datalist id="currencies">
+            <option value="HKD"></option>
+            <option value="ISK"></option>
+            <option value="PHP"></option>
+            <option value="DKK"></option>
+            <option value="HUF"></option>
+            <option value="CZK"></option>
+            <option value="GBP"></option>
+            <option value="RON"></option>
+            <option value="SEK"></option>
+            <option value="IDR"></option>
+            <option value="INR"></option>
+            <option value="BRL"></option>
+            <option value="RUB"></option>
+            <option value="HRK"></option>
+            <option value="JPY"></option>
+            <option value="THB"></option>
+            <option value="CHF"></option>
+            <option value="EUR"></option>
+            <option value="MYR"></option>
+            <option value="BGN"></option>
+            <option value="TRY"></option>
+            <option value="CNY"></option>
+            <option value="NOK"></option>
+            <option value="NZD"></option>
+            <option value="ZAR"></option>
+            <option value="USD"></option>
+            <option value="MXN"></option>
+            <option value="SGD"></option>
+            <option value="AUD"></option>
+            <option value="ILS"></option>
+            <option value="KRW"></option>
+            <option value="PLN"></option>
+        </datalist>
+
+        <div id="exchange-rates">
+            <ul></ul>
+        </div>
+    </form>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const selectedCurrency = document.getElementById('selected-currency');
+
+            selectedCurrency.onchange = () => { onSelectedCurrency() };
+
+            function onSelectedCurrency() {
+                const base = selectedCurrency.value;
+                const container = document.querySelector('#exchange-rates > ul');
+
+                container.innerHTML = 'Loading...';
+
+                getExchangeRates(base).then(data => {
+                    const all = Object.keys(data.rates).sort()
+
+                    let display = '';
+
+                    all.forEach((currency) => {
+                        display+= `<li>${currency}: ${data.rates[currency]}</li>`
+                    });
+
+                    container.innerHTML = display;
+
+                })
+
+            }
+
+            function getExchangeRates(base) {
+                return fetch(`https://api.exchangeratesapi.io/latest?base=${base}`)
+                    .then(response => response.json())
+            }
+
+        });
+    </script>
+</body>
+
+</html>

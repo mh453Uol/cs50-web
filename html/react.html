@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React</title>
+
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="app2"></div>
+
+    <script type="text/babel">
+
+        class Game extends React.Component {
+            constructor(props) {
+                super(props);
+
+                this.state = {
+                    score: this.props.score || 0,
+                    question: this.getQuestion(1),
+                    response: ""
+                }
+            }
+
+            getRandomInt(min, max) {
+                min = Math.ceil(min);
+                max = Math.floor(max);
+                return Math.floor(Math.random() * (max - min) + min);
+            }
+
+            getQuestion(difficulty) {
+                difficulty = difficulty * 2;
+                const left = this.getRandomInt(0, difficulty * difficulty)
+                const right = this.getRandomInt(difficulty, difficulty * difficulty)
+
+                return {
+                    label: `${left} + ${right}`,
+                    answer: left + right
+                }
+            }
+
+            handleSubmit = (event) => {
+                const answer = parseInt(this.state.response);
+                                
+                let score = this.state.score;
+
+                if (answer == this.state.question.answer) {
+                    score = score + 1;    
+                }
+
+                this.setState(state => ({
+                    score: score,
+                    question: this.getQuestion(score),
+                    response: ""
+                }))
+            }
+
+            updateResponse = (event) => {
+                const response = event.target.value;
+
+                this.setState(state => ({
+                    response : response
+                }))
+            } 
+            render() {
+                return (
+                    <div>
+                        <h2>Score: {this.state.score}</h2>
+                        <p>What is {this.state.question.label} ?</p>
+                        <input 
+                            type="number" 
+                            onChange={this.updateResponse} 
+                            value={this.state.response}>
+                        </input>
+                        <button onClick={this.handleSubmit}>Submit</button>
+                    </div>
+                )
+            }
+        }
+        class Timer extends React.Component {
+            constructor(props) {
+                super(props);
+
+                this.state = {
+                    seconds: this.props.start || 0
+                }
+            }
+
+            tick() {
+                this.setState(state => ({
+                    count: this.state.count,
+                    seconds: this.state.seconds + 1
+                }))
+            }
+
+            componentDidMount() {
+                this.interval = setInterval(() => this.tick(), 1000);
+            }
+
+            render() {
+                let label = 'seconds';
+
+                if (this.state.seconds <= 1) {
+                    label = 'second'
+                }
+
+                return (
+                    <p>{this.state.seconds} {label}</p>
+                )
+            }
+        }
+
+        class Counter extends React.Component {
+            
+            constructor(props) {
+                super(props);
+
+                this.state = {
+                    count: 0,
+                    seconds: 0
+                }
+            }
+
+
+            render() {
+                let units = 'seconds';
+
+                if (this.state.seconds <= 1) {
+                    units = 'second';
+                }
+
+                return (
+                    <div>
+                        <h1>{this.state.count}</h1>
+                        <button onClick={this.increment}>Count</button>
+                    </div>
+                )
+            }
+
+            increment = () => {
+                // Change state object
+                this.setState(state => ({
+                    count: state.count + 1
+                }))
+            }
+
+        }
+
+        class Greet extends React.Component {
+
+            render() {
+                return (
+                    <h1>Hello {this.props.name}!</h1>
+                )
+            }
+        }
+
+        class App extends React.Component {
+            render() {
+                return (
+                    <div>
+                        <div>
+                            <Greet name="Majid"></Greet>
+                            <Greet name="Cameron"></Greet>
+                            <Greet></Greet>
+                        </div>
+                        <hr/>
+                        <div>
+                            <Counter></Counter>
+                        </div>
+                        <hr/>
+                        <div>
+                            <Timer start={10}></Timer>
+                            <Timer></Timer>
+                        </div>
+                        <hr/>
+                        <div>
+                            <Game></Game>
+                        </div>
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(<App/>, document.querySelector('#app'));
+    </script>
+</body>
+
+</html>
