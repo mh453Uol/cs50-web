@@ -1,13 +1,20 @@
 var mailboxController = function (mailboxService, composeEmailView) {
 
     var initialize = function () {
+        composeEmailView.initialize();
+
         // Use buttons to toggle between views
         document.querySelector('#inbox').addEventListener('click', () => loadMailbox('inbox'));
         document.querySelector('#sent').addEventListener('click', () => loadMailbox('sent'));
         document.querySelector('#archived').addEventListener('click', () => loadMailbox('archive'));
-        document.querySelector('#compose').addEventListener('click', composeEmail);
+        document.querySelector('#compose').addEventListener('click', () => composeEmail());
 
-        document.querySelector('#compose-form').onsubmit = () => onSendEmail(e);
+        const emailForm = document.querySelector('#compose-form');
+
+        emailForm.addEventListener('submit', (event) => {
+            onSendEmail(event);
+            loadMailbox('inbox');
+        });
 
         // By default, load the inbox
         loadMailbox('inbox');
@@ -36,17 +43,18 @@ var mailboxController = function (mailboxService, composeEmailView) {
     }
 
 
-    var onSendEmail = function (e) {
+    var onSendEmail = function (event) {
+
         event.preventDefault();
         event.stopPropagation();
 
         mailboxService.sendEmail({
-            recipients: composeEmailView.recipients.value.split(','),
-            subject: composeEmailView.subject.value,
-            body: composeEmailView.body.value
+            recipients: composeEmailView.recipients(),
+            subject: composeEmailView.subject(),
+            body: composeEmailView.body()
         })
         .then(data => {
-
+            console.log(data);
         })
 
     }
