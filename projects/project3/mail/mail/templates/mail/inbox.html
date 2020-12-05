@@ -19,7 +19,7 @@
     }
 
     .email-row-from {
-        max-width: 30%;
+        max-width: 20%;
         padding-right: 10px;
     }
 
@@ -29,7 +29,7 @@
     }
 
     .email-row-recieved {
-        max-width: 10%;
+        max-width: 20%;
     }
 
     .truncate {
@@ -40,7 +40,7 @@
 </style>
 
 <div id="emails-view">
-    <h3>Inbox</h3>
+    <h3 id="email-heading">Inbox</h3>
     <ul class="list-group" id="email-list-container">
         <!-- <li class="list-group-item">
             <div class="email-row">
@@ -89,7 +89,7 @@
                     <b>{{subject}}</b>
                     {{body}}
                 </div>
-                <div class="email-row-recieved truncate" title="{{formatTime timestamp}}">{{formatTime timestamp 'en-gb'}}</div>
+                <div class="email-row-recieved truncate" title="{{formatTime timestamp 'en-gb' '{ "dateStyle": "long", "timeStyle": "long" }' }}">{{formatTime timestamp 'en-gb' '{ "dateStyle": "short", "timeStyle": "short" }' }}</div>
             </div>
         </li>
         {{/each}}
@@ -104,7 +104,10 @@
     crossorigin="anonymous"></script>
 
 <script src="{% static 'mail/services/mailbox.service.js' %}"></script>
+
 <script src="{% static 'mail/views/compose-email.view.js' %}"></script>
+<script src="{% static 'mail/views/mailbox.view.js' %}"></script>
+
 <script src="{% static 'mail/controllers/mailbox.controller.js' %}"></script>
 
 <script>
@@ -114,7 +117,7 @@
             var date = new Date(date);
     
             locale = locale || '';
-            formatOptions = formatOptions || {};
+            formatOptions = formatOptions ? JSON.parse(formatOptions) : {};
     
             return new Intl.DateTimeFormat(locale, formatOptions).format(date)
         });
@@ -122,4 +125,4 @@
         mailboxController.init();
     });
 </script>
-{% endblock %}
+{% endblock %}:
