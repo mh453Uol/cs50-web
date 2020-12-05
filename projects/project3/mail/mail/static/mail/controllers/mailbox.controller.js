@@ -20,17 +20,33 @@ var mailboxController = function (mailboxService, composeEmailView) {
         loadMailbox('inbox');
     }
 
-    var loadMailbox = function (mailbox) {
+    var loadMailbox = function (mailboxType) {
 
-        mailboxService.getMailbox(mailbox)
-            .then(data => console.log(data));
+        mailboxService.getMailbox(mailboxType)
+            .then(data => {
+                renderMailbox(mailboxType, data);
+            });
+    }
 
+    var renderMailbox = function (mailboxType, emails) {
         // Show the mailbox and hide other views
         document.querySelector('#emails-view').style.display = 'block';
         document.querySelector('#compose-view').style.display = 'none';
 
-        // Show the mailbox name
-        document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
+        let source = document.getElementById("email-template").innerHTML;
+        let template = Handlebars.compile(source);
+
+        let html = template({emails: emails});
+
+        document.getElementById("email-list-container").innerHTML = html;
+
+        let rows = document.querySelectorAll("#email-list-container li");
+        
+        rows.forEach(
+            (row) => row.onclick = () => { 
+                viewMailbox(mailboxType, row.dataset.emailId);
+            }
+        );
     }
 
     var composeEmail = function () {
@@ -40,6 +56,10 @@ var mailboxController = function (mailboxService, composeEmailView) {
 
         // Clear out composition fields
         composeEmailView.reset();
+    }
+
+    var viewMailbox = function (mailboxType, mailboxId) {
+        console.log(mailboxType, mailboxId);
     }
 
 

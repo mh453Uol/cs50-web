@@ -9,6 +9,12 @@ var mailboxService = function() {
 
         return fetch(`/emails/${type}`)
                 .then(response => response.json())
+                .then(response => {
+                    response.map(
+                        (record) => record.timestamp = new Date(record.timestamp))
+
+                    return response
+                })
     }
 
     var sendEmail = function(email) {
