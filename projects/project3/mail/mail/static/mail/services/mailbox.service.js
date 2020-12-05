@@ -26,8 +26,14 @@ var mailboxService = function() {
         .then(response => response.json())
     }
 
+    var getEmail = function (emailId) {
+        return fetch(`/emails/${emailId}`)
+            .then(response => response.json());
+    }
+
     return {
         getMailbox: getMailbox,
-        sendEmail: sendEmail
+        sendEmail: sendEmail,
+        getEmail: getEmail
     }
 }();

@@ -12,8 +12,9 @@ var mailboxController = function (mailboxService, composeEmailView, mailboxView)
         const emailForm = document.querySelector('#compose-form');
 
         emailForm.addEventListener('submit', (event) => {
-            onSendEmail(event);
-            loadMailbox('inbox');
+            onSendEmail(event).then(response => {
+                loadMailbox('inbox');
+            })
         });
 
         // By default, load the inbox
@@ -29,7 +30,7 @@ var mailboxController = function (mailboxService, composeEmailView, mailboxView)
     }
 
     var renderMailbox = function (mailboxType, emails) {
-        mailboxView.initialize(mailboxType, emails, viewMailbox);
+        mailboxView.initialize(mailboxType, emails, viewEmail);
     }
 
     var composeEmail = function () {
@@ -41,13 +42,13 @@ var mailboxController = function (mailboxService, composeEmailView, mailboxView)
         composeEmailView.reset();
     }
 
-    var viewMailbox = function (mailboxType, mailboxId) {
-        console.log(mailboxType, mailboxId);
+    var viewEmail = function (mailboxType, emailId) {
+        console.log(mailboxType, emailId);
         
-        // mailboxService.getMailbox(mailboxType)
-        // .then(data => {
-        //     renderMailbox(mailboxType, data);
-        // });
+        mailboxService.getEmail(emailId)
+        .then(data => {
+            console.log(data);
+        });
 
     }
 
@@ -57,15 +58,11 @@ var mailboxController = function (mailboxService, composeEmailView, mailboxView)
         event.preventDefault();
         event.stopPropagation();
 
-        mailboxService.sendEmail({
+        return mailboxService.sendEmail({
             recipients: composeEmailView.recipients(),
             subject: composeEmailView.subject(),
             body: composeEmailView.body()
         })
-        .then(data => {
-            console.log(data);
-        })
-
     }
 
     return {

@@ -12,6 +12,10 @@
 <hr>
 
 <style>
+    #email-list-container li[data-email-read="false"] {
+        background-color: lightgrey;
+    }
+
     .email-row {
         display: flex;
         justify-content: space-between;
@@ -82,7 +86,7 @@
 {% verbatim %}
 <script id="email-template" type="text/x-handlebars-template">
         {{#each emails}}
-        <li class="list-group-item" data-email-id="{{id}}">
+        <li class="list-group-item" data-email-id="{{id}}" data-email-read="{{read}}">
             <div class="email-row">
                 <div class="email-row-from truncate" title="{{sender}}">{{sender}}</div>
                 <div class="email-row-subject-and-body truncate" title="{{subject}} - {{body}}">
