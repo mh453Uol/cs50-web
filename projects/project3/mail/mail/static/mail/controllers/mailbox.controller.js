@@ -62,6 +62,12 @@ var mailboxController = function (mailboxService, composeEmailView, mailboxView)
         let html = template(email);
 
         document.getElementById("email-details-container").innerHTML = html;
+
+        if (email.read === false) {
+            mailboxService.markEmailAsRead(email.id).catch(reject => {
+                console.log(reject);
+            })
+        }
     }
 
 

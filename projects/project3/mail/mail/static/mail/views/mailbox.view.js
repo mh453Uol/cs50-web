@@ -4,6 +4,7 @@ var mailboxView = function () {
         // Show the mailbox and hide other views
         document.querySelector('#mailbox-view').style.display = 'block';
         document.querySelector('#compose-view').style.display = 'none';
+        document.querySelector('#email-view').style.display = 'none';
         
         // Set mailbox heading
         document.querySelector('#mailbox-heading').innerHTML = getHeading(mailboxType);

@@ -31,9 +31,18 @@ var mailboxService = function() {
             .then(response => response.json());
     }
 
+    var markEmailAsRead = function (emailId) {
+        return fetch(`/emails/${emailId}`, {
+            method: 'PUT',
+            body: JSON.stringify({ read: true })
+        })
+    }
+
+
     return {
         getMailbox: getMailbox,
         sendEmail: sendEmail,
-        getEmail: getEmail
+        getEmail: getEmail,
+        markEmailAsRead: markEmailAsRead
     }
 }();
