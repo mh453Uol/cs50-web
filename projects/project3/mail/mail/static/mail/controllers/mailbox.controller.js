@@ -13,7 +13,7 @@ var mailboxController = function (mailboxService, composeEmailView, mailboxView)
 
         emailForm.addEventListener('submit', (event) => {
             onSendEmail(event).then(response => {
-                loadMailbox('inbox');
+                loadMailbox('sent');
             })
         });
 
@@ -35,7 +35,8 @@ var mailboxController = function (mailboxService, composeEmailView, mailboxView)
 
     var composeEmail = function () {
         // Show compose view and hide other views
-        document.querySelector('#emails-view').style.display = 'none';
+        document.querySelector('#mailbox-view').style.display = 'none';
+        document.querySelector("#email-view").style.display = 'none';
         document.querySelector('#compose-view').style.display = 'block';
 
         // Clear out composition fields
@@ -43,13 +44,24 @@ var mailboxController = function (mailboxService, composeEmailView, mailboxView)
     }
 
     var viewEmail = function (mailboxType, emailId) {
-        console.log(mailboxType, emailId);
-        
-        mailboxService.getEmail(emailId)
-        .then(data => {
-            console.log(data);
+
+        mailboxService.getEmail(emailId).then(data => {
+            renderEmail(data);
         });
 
+    }
+
+    var renderEmail = function (email) {
+        document.querySelector("#email-view").style.display = 'block';
+        document.querySelector('#mailbox-view').style.display = 'none';
+        document.querySelector('#compose-view').style.display = 'none';
+
+        let source = document.getElementById("email-details-template").innerHTML;
+        let template = Handlebars.compile(source);
+
+        let html = template(email);
+
+        document.getElementById("email-details-container").innerHTML = html;
     }
 
 

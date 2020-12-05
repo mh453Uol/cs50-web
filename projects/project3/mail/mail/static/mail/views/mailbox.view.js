@@ -2,11 +2,11 @@ var mailboxView = function () {
 
     var initialize = function (mailboxType, emails, onEmailClick) {
         // Show the mailbox and hide other views
-        document.querySelector('#emails-view').style.display = 'block';
+        document.querySelector('#mailbox-view').style.display = 'block';
         document.querySelector('#compose-view').style.display = 'none';
         
         // Set mailbox heading
-        document.querySelector('#email-heading').innerHTML = getHeading(mailboxType);
+        document.querySelector('#mailbox-heading').innerHTML = getHeading(mailboxType);
 
         renderTemplate(emails);
 

@@ -12,6 +12,10 @@
 <hr>
 
 <style>
+    #email-view {
+        display: none;
+    }
+
     #email-list-container li[data-email-read="false"] {
         background-color: lightgrey;
     }
@@ -43,24 +47,14 @@
     }
 </style>
 
-<div id="emails-view">
-    <h3 id="email-heading">Inbox</h3>
+<div id="mailbox-view">
+    <h3 id="mailbox-heading">Inbox</h3>
     <ul class="list-group" id="email-list-container">
-        <!-- <li class="list-group-item">
-            <div class="email-row">
-                <div class="email-row-from truncate" title="fred@gmail.comfred@gmail.comfred@gmail.com">fred@gmail.comfred@gmail.comfred@gmail.com</div>
-                <div class="email-row-subject-and-body truncate" title="Thanks for updating your info">
-                    <b>Thanks for updating your info</b>
-                    
-                    Hello Majid,
-                    Thanks for updating your profile information.
-                    If you didn’t make this change, please contact us.
-                
-                </div>
-                <div class="email-row-recieved truncate">2 Dec</div>
-            </div>
-        </li> -->
     </ul>
+</div>
+
+<div id="email-view">
+    <div id="email-details-container"></div>
 </div>
 
 
@@ -85,7 +79,7 @@
 
 {% verbatim %}
 <script id="email-template" type="text/x-handlebars-template">
-        {{#each emails}}
+    {{#each emails}}
         <li class="list-group-item" data-email-id="{{id}}" data-email-read="{{read}}">
             <div class="email-row">
                 <div class="email-row-from truncate" title="{{sender}}">{{sender}}</div>
@@ -97,7 +91,29 @@
             </div>
         </li>
         {{/each}}
-    </script>
+</script>
+
+<script id="email-details-template" type="text/x-handlebars-template">
+    <div class="truncate" title="{{sender}}">
+        <b>From</b>: {{sender}}
+    </div>
+    <div class="truncate" title="{{recipients}}">
+        <b>To</b>: {{recipients}}
+    </div>
+    <div class="truncate" title="{{subject}}">
+        <b>Subject</b>: {{subject}}
+    </div>
+    <div class="truncate" title="{{formatTime timestamp 'en-gb' '{ "dateStyle": "long", "timeStyle": "long" }' }}">
+        <b>Timestamp</b>:{{formatTime timestamp 'en-gb' '{ "dateStyle": "long", "timeStyle": "long" }' }}
+    </div>
+
+    <hr>
+
+    <div>{{body}}</div>
+
+    <button type="button" class="btn btn-primary btn-lg btn-block mt-3">Reply</button>
+</script>
+
 {% endverbatim %}
 
 {% endblock %}
@@ -119,10 +135,10 @@
 
         Handlebars.registerHelper('formatTime', function (date, locale, formatOptions) {
             var date = new Date(date);
-    
+
             locale = locale || '';
             formatOptions = formatOptions ? JSON.parse(formatOptions) : {};
-    
+
             return new Intl.DateTimeFormat(locale, formatOptions).format(date)
         });
 
