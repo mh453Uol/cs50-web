@@ -1,4 +1,4 @@
-var mailboxController = function (mailboxService, composeEmailView) {
+var mailboxController = function (mailboxService, composeEmailView, mailboxView) {
 
     var initialize = function () {
         composeEmailView.initialize();
@@ -29,24 +29,7 @@ var mailboxController = function (mailboxService, composeEmailView) {
     }
 
     var renderMailbox = function (mailboxType, emails) {
-        // Show the mailbox and hide other views
-        document.querySelector('#emails-view').style.display = 'block';
-        document.querySelector('#compose-view').style.display = 'none';
-
-        let source = document.getElementById("email-template").innerHTML;
-        let template = Handlebars.compile(source);
-
-        let html = template({emails: emails});
-
-        document.getElementById("email-list-container").innerHTML = html;
-
-        let rows = document.querySelectorAll("#email-list-container li");
-        
-        rows.forEach(
-            (row) => row.onclick = () => { 
-                viewMailbox(mailboxType, row.dataset.emailId);
-            }
-        );
+        mailboxView.initialize(mailboxType, emails, viewMailbox);
     }
 
     var composeEmail = function () {
@@ -60,6 +43,12 @@ var mailboxController = function (mailboxService, composeEmailView) {
 
     var viewMailbox = function (mailboxType, mailboxId) {
         console.log(mailboxType, mailboxId);
+        
+        // mailboxService.getMailbox(mailboxType)
+        // .then(data => {
+        //     renderMailbox(mailboxType, data);
+        // });
+
     }
 
 
@@ -84,4 +73,4 @@ var mailboxController = function (mailboxService, composeEmailView) {
         loadMailbox: loadMailbox,
     }
 
-}(mailboxService, composeEmailView);
+}(mailboxService, composeEmailView, mailboxView);
