@@ -1,0 +1,155 @@
+{% extends "mail/layout.html" %}
+{% load static %}
+
+{% block body %}
+<h2>{{ request.user.email }}</h2>
+
+<button class="btn btn-sm btn-outline-primary" id="inbox">Inbox</button>
+<button class="btn btn-sm btn-outline-primary" id="compose">Compose</button>
+<button class="btn btn-sm btn-outline-primary" id="sent">Sent</button>
+<button class="btn btn-sm btn-outline-primary" id="archived">Archived</button>
+<a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
+<hr>
+
+<style>
+    #email-view {
+        display: none;
+    }
+
+    #email-list-container li[data-email-read="false"] {
+        background-color: lightgrey;
+    }
+
+    .email-row {
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+
+    .email-row-from {
+        max-width: 20%;
+        padding-right: 10px;
+    }
+
+    .email-row-subject-and-body {
+        max-width: 60%;
+        padding-right: 10px;
+    }
+
+    .email-row-recieved {
+        max-width: 20%;
+    }
+
+    .truncate {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+
+<div id="mailbox-view">
+    <h3 id="mailbox-heading">Inbox</h3>
+    <ul class="list-group" id="email-list-container">
+    </ul>
+</div>
+
+<div id="email-view">
+    <div id="email-details-container"></div>
+</div>
+
+
+<div id="compose-view" style="display: none;">
+    <h3>New Email</h3>
+    <form id="compose-form">
+        <div class="form-group">
+            From: <input disabled class="form-control" value="{{ request.user.email }}">
+        </div>
+        <div class="form-group">
+            To: <input id="compose-recipients" class="form-control"
+                placeholder="Multiple recipients separated by comma e.g dave@gmail.com, bob@gmail.com" 
+                required>
+        </div>
+        <div class="form-group">
+            <input class="form-control" id="compose-subject" placeholder="Subject" required>
+        </div>
+        <textarea class="form-control" id="compose-body" placeholder="Body" required></textarea>
+        <input type="submit" class="btn btn-primary" />
+    </form>
+</div>
+
+
+{% verbatim %}
+<script id="email-template" type="text/x-handlebars-template">
+    {{#each emails}}
+        <li class="list-group-item" data-email-id="{{id}}" data-email-read="{{read}}">
+            <div class="email-row">
+                <div class="email-row-from truncate" title="{{sender}}">{{sender}}</div>
+                <div class="email-row-subject-and-body truncate" title="{{subject}} - {{body}}">
+                    <b>{{subject}}</b>
+                    {{body}}
+                </div>
+                <div class="email-row-recieved truncate" title="{{formatTime timestamp 'en-gb' '{ "dateStyle": "long", "timeStyle": "long" }' }}">{{formatTime timestamp 'en-gb' '{ "dateStyle": "short", "timeStyle": "short" }' }}</div>
+            </div>
+        </li>
+        {{/each}}
+</script>
+
+<script id="email-details-template" type="text/x-handlebars-template">
+    <div class="truncate" title="{{sender}}">
+        <b>From</b>: {{sender}}
+    </div>
+    <div class="truncate" title="{{recipients}}">
+        <b>To</b>: {{recipients}}
+    </div>
+    <div class="truncate" title="{{subject}}">
+        <b>Subject</b>: {{subject}}
+    </div>
+    <div class="truncate" title="{{formatTime timestamp 'en-gb' '{ "dateStyle": "long", "timeStyle": "long" }' }}">
+        <b>Timestamp</b>:{{formatTime timestamp 'en-gb' '{ "dateStyle": "long", "timeStyle": "long" }' }}
+    </div>
+
+    <hr>
+
+    <div>{{body}}</div>
+
+    <button type="button" class="btn btn-primary btn-lg btn-block mt-3" id="email-reply" 
+        data-sender="{{sender}}" 
+        data-subject="{{subject}}" 
+        data-body="{{body}}" 
+        data-timestamp="{{formatTime timestamp 'en-gb' '{ "dateStyle": "long", "timeStyle": "long" }' }}">
+        Reply
+    </button>
+</script>
+
+{% endverbatim %}
+
+{% endblock %}
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"
+    integrity="sha512-zT3zHcFYbQwjHdKjCu6OMmETx8fJA9S7E6W7kBeFxultf75OPTYUJigEKX58qgyQMi1m1EgenfjMXlRZG8BXaw=="
+    crossorigin="anonymous"></script>
+
+<script src="{% static 'mail/services/mailbox.service.js' %}"></script>
+
+<script src="{% static 'mail/views/compose-email.view.js' %}"></script>
+<script src="{% static 'mail/views/mailbox.view.js' %}"></script>
+
+<script src="{% static 'mail/controllers/mailbox.controller.js' %}"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        Handlebars.registerHelper('formatTime', function (date, locale, formatOptions) {
+            var date = new Date(date);
+
+            locale = locale || '';
+            formatOptions = formatOptions ? JSON.parse(formatOptions) : {};
+
+            return new Intl.DateTimeFormat(locale, formatOptions).format(date)
+        });
+
+        mailboxController.init();
+    });
+</script>
+{% endblock %}:
