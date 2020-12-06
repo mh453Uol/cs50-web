@@ -91,7 +91,7 @@ var mailboxController = function (mailboxService, composeEmailView, mailboxView)
 
             console.log(senderEmail);
 
-            const body = `On ${senderEmail.timestamp} ${senderEmail.sender} wrote: ${senderEmail.body}`;
+            const body = `On ${senderEmail.timestamp} ${senderEmail.sender} wrote: ${senderEmail.body}` + "\r\n";
 
             const isReply = senderEmail.subject.substring(0,3).toUpperCase() === "RE:"
             const subject = isReply ? senderEmail.subject : `Re: ${senderEmail.subject}`;
