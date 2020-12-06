@@ -28,11 +28,32 @@ var composeEmailView = function() {
         return body.value;
     }
 
+    var setRecipients = (value) => {
+        if (value) {
+            recipients.value = value;
+        }
+    }
+
+    var setSubject = (value) => {
+        if (value) {
+            subject.value = value;
+        }
+    }
+
+    var setBody = (value) => {
+        if (value) {
+            body.value = value;
+        }
+    }
+
     return {
         initialize: initialize,
-        recipients: getRecipients,
-        subject: getSubject,
-        body: getBody,
+        getRecipients: getRecipients,
+        getSubject: getSubject,
+        getBody: getBody,
+        setRecipients: setRecipients,
+        setSubject: setSubject,
+        setBody: setBody,
         reset: reset
     }
 }();

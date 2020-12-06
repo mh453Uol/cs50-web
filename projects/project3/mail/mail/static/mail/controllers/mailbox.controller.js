@@ -33,7 +33,7 @@ var mailboxController = function (mailboxService, composeEmailView, mailboxView)
         mailboxView.initialize(mailboxType, emails, viewEmail);
     }
 
-    var composeEmail = function () {
+    var composeEmail = function (to, subject, body) {
         // Show compose view and hide other views
         document.querySelector('#mailbox-view').style.display = 'none';
         document.querySelector("#email-view").style.display = 'none';
@@ -41,6 +41,21 @@ var mailboxController = function (mailboxService, composeEmailView, mailboxView)
 
         // Clear out composition fields
         composeEmailView.reset();
+
+        console.log(to, subject, body)
+
+        // Prefill to, subject and body
+        if (to) {
+            composeEmailView.setRecipients(to);
+        }
+
+        if (subject) {
+            composeEmailView.setSubject(subject);
+        }
+
+        if (body) {
+            composeEmailView.setBody(body);
+        }
     }
 
     var viewEmail = function (mailboxType, emailId) {
@@ -63,11 +78,26 @@ var mailboxController = function (mailboxService, composeEmailView, mailboxView)
 
         document.getElementById("email-details-container").innerHTML = html;
 
+        // If emails not read mark as read now
         if (email.read === false) {
             mailboxService.markEmailAsRead(email.id).catch(reject => {
                 console.log(reject);
             })
         }
+
+        // Add event listener for the reply button click
+        document.querySelector("#email-reply").addEventListener("click", (event) => {
+            const senderEmail = event.target.dataset;
+
+            console.log(senderEmail);
+
+            const body = `On ${senderEmail.timestamp} ${senderEmail.sender} wrote: ${senderEmail.body}`;
+
+            const isReply = senderEmail.subject.substring(0,3).toUpperCase() === "RE:"
+            const subject = isReply ? senderEmail.subject : `Re: ${senderEmail.subject}`;
+
+            composeEmail(senderEmail.sender, subject, body);
+        });
     }
 
 
@@ -77,9 +107,9 @@ var mailboxController = function (mailboxService, composeEmailView, mailboxView)
         event.stopPropagation();
 
         return mailboxService.sendEmail({
-            recipients: composeEmailView.recipients(),
-            subject: composeEmailView.subject(),
-            body: composeEmailView.body()
+            recipients: composeEmailView.getRecipients(),
+            subject: composeEmailView.getSubject(),
+            body: composeEmailView.getBody()
         })
     }
 
