@@ -9,10 +9,11 @@ def file_url(filename):
     return pathlib.Path(os.path.abspath(filename)).as_uri()
 
 chromedriver_path = 'chromedriver.exe'
-
 driver = webdriver.Chrome(executable_path=chromedriver_path)
 
 class WebpageTests(unittest.TestCase):        
+
+    _driver = driver
 
     def test_title(self):
         driver.get(file_url("counter.html"))
@@ -37,7 +38,11 @@ class WebpageTests(unittest.TestCase):
         
         counter = driver.find_element_by_id("counter")
         self.assertEqual(counter.text, "-10")
-
+    
+    @classmethod
+    def tearDownClass(cls):
+        cls._driver.close()
+        cls._driver.quit()
 
 if __name__ == '__main__':
     unittest.main()
