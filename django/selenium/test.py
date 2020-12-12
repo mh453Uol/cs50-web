@@ -12,7 +12,10 @@ chromedriver_path = os.environ.get('CHROMEWEBDRIVER', 'chromedriver.exe')
 
 print(f'Using chromedriver: {chromedriver_path}')
 
-driver = webdriver.Chrome(executable_path=chromedriver_path)
+options = webdriver.ChromeOptions()
+options.headless = True
+
+driver = webdriver.Chrome(executable_path=chromedriver_path, options=options)
 
 class WebpageTests(unittest.TestCase):        
 
