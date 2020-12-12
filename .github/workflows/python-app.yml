@@ -50,6 +50,6 @@ jobs:
     - name: Run e2e tests
       run: |
         google-chrome --version
-        echo $CHROMEWEBDRIVER
         whereis google-chrome
+        export CHROMEWEBDRIVER=/usr/bin/google-chrome
         python test.py
