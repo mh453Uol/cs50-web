@@ -10,9 +10,6 @@ def file_url(filename):
 
 chromedriver_path = os.environ.get('CHROMEWEBDRIVER', 'chromedriver.exe')
 
-s = '0755'
-os.chmod(chromedriver_path, int(s, base=8))
-
 print(f'Using chromedriver: {chromedriver_path}')
 
 driver = webdriver.Chrome(executable_path=chromedriver_path)
