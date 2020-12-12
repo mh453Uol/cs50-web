@@ -50,5 +50,5 @@ jobs:
     - name: Run e2e tests
       run: |
         google-chrome --version
-        
+        chmod 777 $CHROMEWEBDRIVER
         python test.py
