@@ -51,4 +51,5 @@ jobs:
       run: |
         google-chrome --version
         echo $CHROMEWEBDRIVER
+        whereis google-chrome
         python test.py
