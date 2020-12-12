@@ -49,5 +49,5 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run e2e tests
       run: |
-        nohup $CHROMEWEBDRIVER/chromedriver --url-base=/wd/hub /dev/null 2>&1 &
+        export CHROMEWEBDRIVER=$CHROMEWEBDRIVER/chromedriver
         python test.py
