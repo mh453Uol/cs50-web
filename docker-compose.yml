@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=password
+
+  web:
+    build: . # Use Dockerfile in current directory
+    volumes: 
+      - .:/usr/src/app # mount cwd to usr/src/app
+    ports:
+      - "8000:8000" # machine 8000 maps to 8000
