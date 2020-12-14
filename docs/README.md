@@ -12,8 +12,8 @@ After you have created the sqldb you can run the app as follows
 
 In preprod enviroment we use AWS S3 bucket to store media files
 
-1. `python manage.py collectstatic --noinput && MODE=PREPROD`
-2. `python manage.py runserver`
+1. `python manage.py collectstatic --noinput`
+2. `MODE=PREPROD python manage.py runserver`
 
 ## Deploying the django app
 
