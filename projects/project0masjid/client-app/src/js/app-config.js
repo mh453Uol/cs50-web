@@ -1,8 +1,9 @@
 
 let config = {
     getApiUrl() {
-        // TODO Heroku does not allow TLS on free dynos
-        const baseUrl = "https://masjidma.herokuapp.com";
+        // TODO revert back to https://masjidma.herokuapp.com since as of today (28/12/2020) that dyno has ran out of usage.
+        // revert back to above url by end of month (1/1/2021)
+        const baseUrl = "https://masjidma2.herokuapp.com";
         
         let template = `${baseUrl}/api/v1/{{tenant}}/prayers`
 
