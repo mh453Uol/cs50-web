@@ -42,7 +42,8 @@ def logout_view(request):
 
 def register(request):
     if request.method == "POST":
-        username = request.POST["username"]
+        first_name = request.POST["first_name"]
+        last_name = request.POST["last_name"]
         email = request.POST["email"]
 
         # Ensure password matches confirmation
@@ -55,11 +56,17 @@ def register(request):
 
         # Attempt to create new user
         try:
-            user = User.objects.create_user(username, email, password)
+            user = User.objects.create_user(
+                username = email,
+                email = email,
+                password = password,
+                first_name = first_name,
+                last_name = last_name
+            )
             user.save()
         except IntegrityError:
             return render(request, "auctions/register.html", {
-                "message": "Username already taken."
+                "message": "Email already taken."
             })
         login(request, user)
         return redirect("listings:index")
