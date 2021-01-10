@@ -1,4 +1,9 @@
 ## https://student-listings.herokuapp.com/listings/search/
+
+You can see a demo of the listing application here - https://vimeo.com/498875636
+
+Test credentials (email@gmail.com/password)
+
 ## Run in dev enviroment
 For the first time you have to do the following
 
