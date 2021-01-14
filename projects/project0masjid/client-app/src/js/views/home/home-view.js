@@ -52,18 +52,11 @@ function initialize() {
 
     prayerTable.setPrayerTimes(state.dailyPrayerTimes, state.jamaatTimes);
 
-    state.nextSalah = state.jamaatTimes.getNextPrayer();
-    setNextSalahComponent();
+    onUpdateView();
 
-    // When the user clicks the previous and next button we run the initialize function which would set multiple intervals.
-    if (state.interval) {
-      clearInterval(state.interval);
-    }
-    
-    // Every minute update the next salah duration
-    state.interval = setInterval(() => {
-      updateNextSalahComponents();
-    }, 1000 * 60);
+    document.addEventListener("visibilitychange", () => {
+      onVisibilityChange();
+    });
 
   });
 }
@@ -204,10 +197,12 @@ function highlightSalahRow(rowName) {
   row.classList.add('table-active');
 }
 
-function unhighlightSalahRow(rowName) {
-  const row = document.querySelector(`.js-${rowName.toLowerCase()}-row`);
+function unhighlightSalahRow() {
+  const row = document.querySelector(`tr.table-active`);
 
-  row.classList.remove('table-active');
+  if (row) {
+    row.classList.remove('table-active');
+  }
 }
 
 function updateNextSalahComponents() {
@@ -217,6 +212,27 @@ function updateNextSalahComponents() {
 
   setNextSalahComponent();
 }
+
+function onUpdateView() {
+  updateNextSalahComponents();
+
+  if (isSameDate(state.date, new Date())) {
+    unhighlightSalahRow();
+    highlightSalahRow(state.nextSalah.name);
+  }
+}
+
+/**
+ * When the user switches tab and comes back recompute the next salah and highlighting the salah row.
+ */
+function onVisibilityChange() {
+
+  if (document.visibilityState == 'visible') {
+    onUpdateView();
+  }
+
+}
+
 
 export default {
   initialize,

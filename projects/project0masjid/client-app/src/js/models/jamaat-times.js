@@ -92,7 +92,8 @@ export class JamaatTimes {
         } else {
             // Completed all salahs for today so value is tomorrow Fajr
             // Since its Fajr tomorow we add 1 day to the fajr time
-            salah = addDays(1, new Date(this.fajr.getTime()));
+            salah = this.fajr;
+            addDays(1, salah);
             value.name = "Fajr";
             value.time = this.getFajr();
         }
