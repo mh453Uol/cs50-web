@@ -8,4 +8,5 @@ UI deployed to netlify, and api uses a heroku free tier dyno.
 
 ## Browser compatibility
 1. IE 10 - Using babel-polyfill
+2. Latest Chrome & Firefox
 
