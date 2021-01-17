@@ -1,3 +1,5 @@
+import 'whatwg-fetch'
+
 import hijriDateService from './hijri-date.service';
 import '../css/stylev2.css';
 
