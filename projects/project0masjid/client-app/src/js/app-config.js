@@ -1,3 +1,4 @@
+import { getQueryString } from './util.js'
 
 let config = {
     getApiUrl() {
@@ -34,8 +35,7 @@ let config = {
 
 function getSelectedTenant() {    
     // look at the url since we have a tenant parameter e.g. xyz.com?tenant=1
-    const url = new URL(window.location.href);
-    let tenantId = url.searchParams.get('tenant');
+    let tenantId = getQueryString('tenant', window.location.href);
 
     // if tenant not specified look at localStorage else default back
     if (!tenantId) {
