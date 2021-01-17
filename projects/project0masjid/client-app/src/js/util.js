@@ -33,7 +33,7 @@ function formatAsHoursMinutes(date) {
 }
 
 function timeAgo(date) {
-    const value = {hours: 0, minutes: 0};
+    const value = { hours: 0, minutes: 0 };
     if (date instanceof Date) {
 
         const now = new Date();
@@ -64,7 +64,7 @@ function timeAgo(date) {
 function addDays(wholeDays, date) {
     if (!(date instanceof Date)) {
         console.warn("Cannot addDays() to object which is not a date", date);
-        return; 
+        return;
     }
     date.setTime(date.getTime() + (wholeDays * (1000 * 60 * 60 * 24)));
 }
@@ -75,10 +75,23 @@ function toUTC(date) {
 }
 
 function isSameDate(date1, date2) {
-    return  date1.getUTCFullYear() === date2.getUTCFullYear() &&
-            date1.getUTCMonth() === date2.getUTCMonth() && 
-            date1.getUTCDate() === date2.getUTCDate()
+    return date1.getUTCFullYear() === date2.getUTCFullYear() &&
+        date1.getUTCMonth() === date2.getUTCMonth() &&
+        date1.getUTCDate() === date2.getUTCDate()
 }
+
+/**
+ * Get the value of a querystring
+ * @param  {String} field The field to get the value of
+ * @param  {String} url   The URL to get the value from (optional)
+ * @return {String}       The field value
+ */
+var getQueryString = function (field, url) {
+    var href = url ? url : window.location.href;
+    var reg = new RegExp('[?&]' + field + '=([^&#]*)', 'i');
+    var string = reg.exec(href);
+    return string ? string[1] : null;
+};
 
 export {
     escapeHtml,
@@ -87,5 +100,6 @@ export {
     timeAgo,
     toUTC,
     isSameDate,
-    addDays
+    addDays,
+    getQueryString
 }
