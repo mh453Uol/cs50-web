@@ -109,7 +109,7 @@ function setTenantDetails() {
   );
   
   for(let i = 0; i < dropdownItemEl.length; i++) {
-    dropdownItemEl[i].addEventListener('click', () => changeTenant(item.dataset.tenantId));
+    dropdownItemEl[i].addEventListener('click', () => changeTenant(dropdownItemEl[i].dataset.tenantId));
   }
 
   // Set the tenant name in the navbar
