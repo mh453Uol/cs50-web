@@ -107,9 +107,10 @@ function setTenantDetails() {
   const dropdownItemEl = document.querySelectorAll(
     '#tenant-dropdown .dropdown-item'
   );
-  dropdownItemEl.forEach((item) =>
-    item.addEventListener('click', () => changeTenant(item.dataset.tenantId))
-  );
+  
+  for(let i = 0; i < dropdownItemEl.length; i++) {
+    dropdownItemEl[i].addEventListener('click', () => changeTenant(item.dataset.tenantId));
+  }
 
   // Set the tenant name in the navbar
   const el = document.querySelector('.establishment-name');
