@@ -30,20 +30,34 @@ module.exports = (env, argv) => {
       path: path.resolve(__dirname, 'dist'),
     },
     module: {
-      rules: [{
-        test: /\.css$/,
-        use: [{
-            // Extract stylev2.css into separate file and automatically add <link href="main.css" rel="stylesheet">
-            loader: MiniCssExtractPlugin.loader,
+      rules: [
+        {
+          // Only run `.js` files through Babel
+          test: /\.m?js$/,
+          exclude: /(node_modules)/,
+          use: {
+            loader: 'babel-loader',
             options: {
-
-              // MiniCssExtractPlugin use hot module replacement when in development
-              hmr: devMode,
+              presets: ['@babel/preset-env']
             }
-          },
-          'css-loader',
-        ]
-      }]
+          }
+        },
+        {
+          test: /\.css$/,
+          use: [
+            {
+              // Extract stylev2.css into separate file and automatically add <link href="main.css" rel="stylesheet">
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+
+                // MiniCssExtractPlugin use hot module replacement when in development
+                hmr: devMode,
+              }
+            },
+            'css-loader',
+          ]
+        }
+      ]
     }
   };
 
