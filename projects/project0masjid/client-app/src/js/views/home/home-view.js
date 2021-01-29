@@ -193,7 +193,8 @@ function setNextSalahComponent() {
 }
 
 function highlightSalahRow(rowName) {
-  const row = document.querySelector(`.js-${rowName.toLowerCase()}-row`);
+  rowName = rowName.split(" ").join("-").toLowerCase();
+  const row = document.querySelector(`.js-${rowName}-row`);
 
   row.classList.add('table-active');
 }
