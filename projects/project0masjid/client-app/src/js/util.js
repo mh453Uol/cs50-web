@@ -22,10 +22,10 @@ function fromTextualTimeToDate(hhmm) {
 
 function formatAsHoursMinutes(date) {
     if (date instanceof Date) {
-        return date.toLocaleString("en-us", {
-            hour12: true,
+        return date.toLocaleString("en-GB", {
             hour: 'numeric',
-            minute: 'numeric'
+            minute: 'numeric',
+            hourCycle: "h12"
         })
     }
 
