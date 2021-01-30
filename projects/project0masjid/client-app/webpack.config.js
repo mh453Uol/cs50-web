@@ -7,13 +7,29 @@ module.exports = (env, argv) => {
   const devMode = argv.mode === 'development';
 
   const config = {
-    entry: './src/js/index.js',
+    entry: {
+      index: './src/js/index.js',
+      about: './src/js/about.js',
+      contact: './src/js/contact.js'
+    },
     plugins: [
       new HtmlWebpackPlugin({
+        filename: 'index.html',
         template: './src/html/index.html',
+        chunks: ['index']
       }),
       new HtmlWebpackPlugin({
-        template: './src/html/prayertimes.html',
+        title: 'About',
+        filename: 'about.html',
+        template: './src/html/about.html',
+        chunks: ['about']
+      }),
+      new HtmlWebpackPlugin({
+        title: 'Contact Us',
+        filename: 'contact-us.html',
+        template: './src/html/contact-us.html',
+        chunks: ['contact']
+
       }),
       new CopyWebpackPlugin({
         patterns: [{
@@ -30,20 +46,36 @@ module.exports = (env, argv) => {
       path: path.resolve(__dirname, 'dist'),
     },
     module: {
-      rules: [{
-        test: /\.css$/,
-        use: [{
-            // Extract stylev2.css into separate file and automatically add <link href="main.css" rel="stylesheet">
-            loader: MiniCssExtractPlugin.loader,
+      rules: [
+        {
+          // Only run `.js` files through Babel
+          test: /\.m?js$/,
+          exclude: /(node_modules)/,
+          use: {
+            loader: 'babel-loader',
             options: {
-
-              // MiniCssExtractPlugin use hot module replacement when in development
-              hmr: devMode,
+              presets: [
+                ['@babel/preset-env', { useBuiltIns: 'usage' }]
+              ]
             }
-          },
-          'css-loader',
-        ]
-      }]
+          }
+        },
+        {
+          test: /\.css$/,
+          use: [
+            {
+              // Extract stylev2.css into separate file and automatically add <link href="main.css" rel="stylesheet">
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+
+                // MiniCssExtractPlugin use hot module replacement when in development
+                hmr: devMode,
+              }
+            },
+            'css-loader',
+          ]
+        }
+      ]
     }
   };
 

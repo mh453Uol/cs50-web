@@ -92,9 +92,26 @@ export class JamaatTimes {
         } else {
             // Completed all salahs for today so value is tomorrow Fajr
             // Since its Fajr tomorow we add 1 day to the fajr time
-            salah = addDays(1, new Date(this.fajr.getTime()));
+            salah = this.fajr;
+            addDays(1, salah);
             value.name = "Fajr";
             value.time = this.getFajr();
+        }
+
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getDay
+        // 0 = Sunday, 1 = Monday, ... , 5 = Friday = 5, Sunday = 6
+        const isFriday = new Date().getDay() == 5;
+
+        if (isFriday) {
+            if (this.jummah1 && now <= this.jummah1.getTime()) {
+                salah = this.jummah1;
+                value.name = "1st Jummah";
+                value.time = this.getJummah1();
+            } else if (this.jummah2 && now <= this.jummah2.getTime()) {
+                salah = this.jummah2;
+                value.name = "2nd Jummah";
+                value.time = this.getJummah2();
+            } 
         }
 
         if (salah) {
