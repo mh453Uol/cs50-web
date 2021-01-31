@@ -1,6 +1,4 @@
-import {
-    config,
-} from './app-config';
+import { config } from '../app-config';
 
 function getPrayerTimes(date) {
     const url = `${config.getApiUrl()}/daily?date=${date.toISOString()}`;
