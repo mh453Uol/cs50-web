@@ -8,9 +8,9 @@ module.exports = (env, argv) => {
 
   const config = {
     entry: {
-      index: './src/js/index.js',
-      about: './src/js/about.js',
-      contact: './src/js/contact.js'
+      index: './src/js/views/index.js',
+      about: './src/js/views/about.js',
+      contact: './src/js/views/contact.js'
     },
     plugins: [
       new HtmlWebpackPlugin({
