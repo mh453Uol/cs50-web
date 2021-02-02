@@ -1,24 +1,10 @@
-import prayerTimeService from '../../prayertimes.service';
-import {
-  escapeHtml,
-  toUTC,
-  isSameDate,
-  addDays
-} from '../../util';
-import {
-  JamaatTimes
-} from '../../models/jamaat-times';
-import {
-  DailyPrayerTimes
-} from '../../models/daily-prayer-times';
-import {
-  config,
-  setTenant
-} from '../../app-config';
+import prayerTimeService from '../../services/prayertimes.service';
+import { escapeHtml, toUTC, isSameDate, addDays } from '../../util';
+import { JamaatTimes } from '../../models/jamaat-times';
+import { DailyPrayerTimes } from '../../models/daily-prayer-times';
+import { config, setTenant } from '../../app-config';
 import prayerTable from './prayer-table.component';
-import {
-  NextSalahComponent
-} from './next-salah.component';
+import { NextSalahComponent } from './next-salah.component';
 
 let state = {
   dailyPrayerTimes: new DailyPrayerTimes(),
@@ -107,8 +93,8 @@ function setTenantDetails() {
   const dropdownItemEl = document.querySelectorAll(
     '#tenant-dropdown .dropdown-item'
   );
-  
-  for(let i = 0; i < dropdownItemEl.length; i++) {
+
+  for (let i = 0; i < dropdownItemEl.length; i++) {
     dropdownItemEl[i].addEventListener('click', () => changeTenant(dropdownItemEl[i].dataset.tenantId));
   }
 
