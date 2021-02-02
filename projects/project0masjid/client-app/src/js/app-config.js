@@ -12,11 +12,13 @@ let config = {
     },
     tenants: [{
             name: 'Southcourt Masjid',
-            id: '4'
+            id: '4',
+            ramadanSeriesEndpoint: 'https://script.google.com/macros/s/AKfycbxHRHduPb9XglrXuCyuZTCdShFRH_R7g3ojvZ4-MpPad0_ORf1pXlpQxw/exec?sheetId=1WxWsepAQTQoaaUK30qiQ2GBAyEOd7q1Sf7BXCVgX9gE&sheetName=tenant-4-ramadan'
         },
         {
             name: 'Aylesbury Masjid ',
-            id: '3'
+            id: '3',
+            ramadanSeriesEndpoint: 'https://script.google.com/macros/s/AKfycbxHRHduPb9XglrXuCyuZTCdShFRH_R7g3ojvZ4-MpPad0_ORf1pXlpQxw/exec?sheetId=1WxWsepAQTQoaaUK30qiQ2GBAyEOd7q1Sf7BXCVgX9gE&sheetName=tenant-3-ramadan'
         }
     ],
     tenant: '',
