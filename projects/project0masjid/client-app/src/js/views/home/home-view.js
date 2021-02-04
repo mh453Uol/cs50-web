@@ -100,7 +100,7 @@ function setTenantDetails() {
 
   // Set the tenant name in the navbar
   const el = document.querySelector('.establishment-name');
-  el.innerHTML = config.getTenantName();
+  el.innerHTML = config.getTenant().name;
 }
 
 function getTenantDropdownEl() {
