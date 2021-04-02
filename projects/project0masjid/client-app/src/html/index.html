@@ -89,6 +89,32 @@
                 </div>
             </div>
 
+            <div class="js-ramandan m-2">
+                <p class="lead text-center">
+                    <b>1st Ramadan (Mon 13th April)</b>
+                </p>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="suhoor col">
+                            <div class="card bg-success text-white">
+                                <div class="card-body">
+                                    <div class="text-center"><b>Suhoor Ends</b></div>
+                                    <div class="text-center">4:00 AM</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="iftar col">
+                            <div class="card bg-success text-white">
+                                <div class="card-body">
+                                    <div class="text-center"><b>Iftar</b></div>
+                                    <div class="text-center">8:00 PM</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="table-responsive table-bordered">
                 <table class="table" id="js-prayer-time-table">
                     <thead>
@@ -125,8 +151,14 @@
                             <td id="js-asr-start">-</td>
                             <td id="js-asr-jamaat">-</td>
                         </tr>
+                        <tr class="js-ramadan">
+                            <th scope="row">Iftar</th>
+                            <td id="js-ramadan-iftar" colspan="2">-</td>
+                        </tr>
                         <tr class="js-maghrib-row">
-                            <th scope="row">Maghrib</th>
+                            <th scope="row">Maghrib
+                                <span class="js-iftar-start d-none">(Iftar Start)</span>
+                            </th>
                             <td id="js-magrib-start">-</td>
                             <td id="js-magrib-jamaat">-</td>
                         </tr>
