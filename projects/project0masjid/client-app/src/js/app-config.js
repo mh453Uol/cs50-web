@@ -1,4 +1,4 @@
-import { getQueryString, inRange } from './util.js'
+import { getQueryString, inRange, toUTC, dateDiff } from './util.js'
 
 let config = {
     getApiUrl() {
@@ -14,16 +14,16 @@ let config = {
             name: 'Southcourt Masjid',
             id: '4',
             displayRamadanTimes: true,
-            ramadanStart: new Date(2021,3,13),
-            ramadanEnd: new Date(2021,4,13),
+            ramadanStart: new Date(Date.UTC(2021,3,13)),
+            ramadanEnd: new Date(Date.UTC(2021,4,13)),
             ramadanTimetableEndpoint: 'https://script.google.com/macros/s/AKfycbxHRHduPb9XglrXuCyuZTCdShFRH_R7g3ojvZ4-MpPad0_ORf1pXlpQxw/exec?sheetId=1WxWsepAQTQoaaUK30qiQ2GBAyEOd7q1Sf7BXCVgX9gE&sheetName=tenant-4-ramadan'
         },
         {
             name: 'Aylesbury Masjid ',
             id: '3',
             displayRamadanTimes: false,
-            ramadanStart: new Date(2021,3,13),
-            ramadanEnd: new Date(2021,4,13),
+            ramadanStart:new Date(Date.UTC(2021,3,13)),
+            ramadanEnd: new Date(Date.UTC(2021,4,13)),
             ramadanTimetableEndpoint: 'https://script.google.com/macros/s/AKfycbxHRHduPb9XglrXuCyuZTCdShFRH_R7g3ojvZ4-MpPad0_ORf1pXlpQxw/exec?sheetId=1WxWsepAQTQoaaUK30qiQ2GBAyEOd7q1Sf7BXCVgX9gE&sheetName=tenant-3-ramadan'
         }
     ],
