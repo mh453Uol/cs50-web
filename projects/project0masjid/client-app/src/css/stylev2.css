@@ -49,6 +49,10 @@
     word-wrap: break-word;
 }
 
+.js-ramadan {
+    margin-bottom: 0px !important;
+}
+
 .js-ramadan p {
     font-weight: 500;
 }

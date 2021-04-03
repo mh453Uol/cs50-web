@@ -239,6 +239,10 @@ function toggleRamadanDetails() {
 
   const tenant = getSelectedTenant();
 
+  if (tenant.ramadanTimetable) {
+    document.querySelector('.js-ramadan-timetable').href = `${tenant.ramadanTimetable}`;
+  }
+
   let date = state.date;
   // compute if its the 1st, 2nd, 3rd day of ramadan
   let ordinalRamadanDay = dateDiff(tenant.ramadanStart, date) + 1;
