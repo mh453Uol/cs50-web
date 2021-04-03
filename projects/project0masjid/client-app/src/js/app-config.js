@@ -1,4 +1,4 @@
-import { getQueryString } from './util.js'
+import { getQueryString, inRange } from './util.js'
 
 let config = {
     getApiUrl() {
@@ -13,13 +13,18 @@ let config = {
     tenants: [{
             name: 'Southcourt Masjid',
             id: '4',
-            ramadanTimetable: 'https://scontent-lhr8-2.xx.fbcdn.net/v/t1.0-9/93056834_3083146418442523_1203906541686620160_o.jpg?_nc_cat=101&ccb=2&_nc_sid=730e14&_nc_ohc=x4OAZ7VXn6oAX9gqkKK&_nc_ht=scontent-lhr8-2.xx&oh=137835cb3db3c93354b69f156bcb6f97&oe=60405A52',
-            ramadanSeriesEndpoint: 'https://script.google.com/macros/s/AKfycbxHRHduPb9XglrXuCyuZTCdShFRH_R7g3ojvZ4-MpPad0_ORf1pXlpQxw/exec?sheetId=1WxWsepAQTQoaaUK30qiQ2GBAyEOd7q1Sf7BXCVgX9gE&sheetName=tenant-4-ramadan'
+            displayRamadanTimes: true,
+            ramadanStart: new Date(2021,3,13),
+            ramadanEnd: new Date(2021,4,13),
+            ramadanTimetableEndpoint: 'https://script.google.com/macros/s/AKfycbxHRHduPb9XglrXuCyuZTCdShFRH_R7g3ojvZ4-MpPad0_ORf1pXlpQxw/exec?sheetId=1WxWsepAQTQoaaUK30qiQ2GBAyEOd7q1Sf7BXCVgX9gE&sheetName=tenant-4-ramadan'
         },
         {
             name: 'Aylesbury Masjid ',
             id: '3',
-            ramadanSeriesEndpoint: 'https://script.google.com/macros/s/AKfycbxHRHduPb9XglrXuCyuZTCdShFRH_R7g3ojvZ4-MpPad0_ORf1pXlpQxw/exec?sheetId=1WxWsepAQTQoaaUK30qiQ2GBAyEOd7q1Sf7BXCVgX9gE&sheetName=tenant-3-ramadan'
+            displayRamadanTimes: false,
+            ramadanStart: new Date(2021,3,13),
+            ramadanEnd: new Date(2021,4,13),
+            ramadanTimetableEndpoint: 'https://script.google.com/macros/s/AKfycbxHRHduPb9XglrXuCyuZTCdShFRH_R7g3ojvZ4-MpPad0_ORf1pXlpQxw/exec?sheetId=1WxWsepAQTQoaaUK30qiQ2GBAyEOd7q1Sf7BXCVgX9gE&sheetName=tenant-3-ramadan'
         }
     ],
     tenant: '',
@@ -35,8 +40,15 @@ let config = {
         return null;
     },
 }
+function getSelectedTenant() {
+    const tenantId = window.localStorage.getItem("tenant");
 
-function getSelectedTenant() {    
+    const tenant = config.tenants.find(t => t.id === tenantId);
+
+    return tenant;
+}
+
+function getSelectedTenantId() {    
     // look at the url since we have a tenant parameter e.g. xyz.com?tenant=1
     let tenantId = getQueryString('tenant', window.location.href);
 
@@ -57,17 +69,31 @@ function getSelectedTenant() {
     return tenantId;
 }
 
+function isRamadan(date) {
+    const tenantId = window.localStorage.getItem("tenant");
+
+    const tenant = config.tenants.find(t => t.id === tenantId);
+
+    if (tenant) {
+        return tenant.displayRamadanTimes || inRange(date, tenant.ramadanStart, tenant.ramadanEnd);
+    }
+
+    return false;
+}
+
 function setTenant(tenantId) {
     config.tenant = tenantId;
     window.localStorage.setItem('tenant', tenantId);
 }
 
 function initialize() {
-    config.tenant = getSelectedTenant();
+    config.tenant = getSelectedTenantId();
 }
 
 export {
     config,
     initialize,
-    setTenant
+    setTenant,
+    isRamadan,
+    getSelectedTenant
 }
