@@ -253,9 +253,12 @@ function toggleRamadanDetails() {
   const dateLabel = date.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
   const ramadanDateLabel = `${ordinalRamadanDay} Ramadan (${dateLabel})`
 
-  document.querySelector('.js-ramadan p b').innerHTML = escapeHtml(ramadanDateLabel);
+  document.querySelector('.js-ramadan p').innerHTML = escapeHtml(ramadanDateLabel);
 
   ramadanContainer.classList.remove('d-none');
+
+  setSuhoorTime('-');
+  setIftarTime('-');
 
 }
 

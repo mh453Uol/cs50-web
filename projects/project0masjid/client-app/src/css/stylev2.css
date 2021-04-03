@@ -49,6 +49,14 @@
     word-wrap: break-word;
 }
 
+.js-ramadan p {
+    font-weight: 500;
+}
+
+.js-ramadan-times .card-body {
+    padding: 0.5rem;
+}
+
 .js-ramadan .suhoor.col {
     padding-left: 0px;
     padding-right: 5px;
