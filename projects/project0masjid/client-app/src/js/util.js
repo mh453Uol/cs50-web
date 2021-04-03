@@ -80,6 +80,33 @@ function isSameDate(date1, date2) {
         date1.getUTCDate() === date2.getUTCDate()
 }
 
+function inRange(date, start, end) {
+    const predicate = (date >= start) && (date <= end);
+    console.log(date, start, end);
+    return predicate;
+}
+
+function dateDiff(first, second) {
+    // Take the difference between the dates and divide by milliseconds per day.
+    // Round to nearest whole number to deal with DST.
+    return Math.round((second-first)/(1000*60*60*24));
+}
+
+function ordinalSuffixOf(i) {
+    var j = i % 10,
+        k = i % 100;
+    if (j == 1 && k != 11) {
+        return i + "st";
+    }
+    if (j == 2 && k != 12) {
+        return i + "nd";
+    }
+    if (j == 3 && k != 13) {
+        return i + "rd";
+    }
+    return i + "th";
+}
+
 /**
  * Get the value of a querystring
  * @param  {String} field The field to get the value of
@@ -101,5 +128,8 @@ export {
     toUTC,
     isSameDate,
     addDays,
-    getQueryString
+    getQueryString,
+    inRange,
+    dateDiff,
+    ordinalSuffixOf
 }

@@ -89,17 +89,20 @@
                 </div>
             </div>
 
-            <div class="js-ramandan m-2">
+            <div class="js-ramadan m-2 d-none">
                 <p class="lead text-center">
-                    <b>1st Ramadan (Mon 13th April)</b>
+                    <b>-</b>
                 </p>
-                <div class="container-fluid">
+
+                <div class="js-ramadan-times container-fluid">
                     <div class="row">
                         <div class="suhoor col">
                             <div class="card bg-success text-white">
                                 <div class="card-body">
                                     <div class="text-center"><b>Suhoor Ends</b></div>
-                                    <div class="text-center">4:00 AM</div>
+                                    <div class="text-center">
+                                        <span class="js-suhoor-end">-</span> 
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -107,7 +110,9 @@
                             <div class="card bg-success text-white">
                                 <div class="card-body">
                                     <div class="text-center"><b>Iftar</b></div>
-                                    <div class="text-center">8:00 PM</div>
+                                    <div class="text-center ">
+                                        <span class="js-iftar-start">-</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -150,10 +155,6 @@
                             <th scope="row">Asr</th>
                             <td id="js-asr-start">-</td>
                             <td id="js-asr-jamaat">-</td>
-                        </tr>
-                        <tr class="js-ramadan">
-                            <th scope="row">Iftar</th>
-                            <td id="js-ramadan-iftar" colspan="2">-</td>
                         </tr>
                         <tr class="js-maghrib-row">
                             <th scope="row">Maghrib
