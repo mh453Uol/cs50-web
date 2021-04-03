@@ -1,4 +1,4 @@
-import { getQueryString } from './util.js'
+import { getQueryString, inRange, toUTC, dateDiff } from './util.js'
 
 let config = {
     getApiUrl() {
@@ -12,28 +12,44 @@ let config = {
     },
     tenants: [{
             name: 'Southcourt Masjid',
-            id: '4'
+            id: '4',
+            displayRamadanTimes: true,
+            ramadanStart: new Date(Date.UTC(2021,3,13)),
+            ramadanEnd: new Date(Date.UTC(2021,4,13)),
+            //ramadanTimetable: 'https://drive.google.com/file/d/1MtxZTlSaGghoXsuFkrPlfCutTlBAAbEC/view'
+            ramadanTimetable: 'https://drive.google.com/uc?export=view&id=1MtxZTlSaGghoXsuFkrPlfCutTlBAAbEC'
         },
         {
             name: 'Aylesbury Masjid ',
-            id: '3'
+            id: '3',
+            displayRamadanTimes: false,
+            ramadanStart:new Date(Date.UTC(2021,3,13)),
+            ramadanEnd: new Date(Date.UTC(2021,4,13)),
+            ramadanTimetableEndpoint: 'https://script.google.com/macros/s/AKfycbxHRHduPb9XglrXuCyuZTCdShFRH_R7g3ojvZ4-MpPad0_ORf1pXlpQxw/exec?sheetId=1WxWsepAQTQoaaUK30qiQ2GBAyEOd7q1Sf7BXCVgX9gE&sheetName=tenant-3-ramadan'
         }
     ],
     tenant: '',
-    getTenantName() {
+    getTenant() {
         const tenant = this.tenants.find(t => t.id == this.tenant);
 
         if (tenant) {
-            return tenant.name;
+            return tenant;
         }
 
         console.warn(`could not find tenant ${this.tenant}`);
 
-        return '';
-    }
+        return null;
+    },
+}
+function getSelectedTenant() {
+    const tenantId = window.localStorage.getItem("tenant");
+
+    const tenant = config.tenants.find(t => t.id === tenantId);
+
+    return tenant;
 }
 
-function getSelectedTenant() {    
+function getSelectedTenantId() {    
     // look at the url since we have a tenant parameter e.g. xyz.com?tenant=1
     let tenantId = getQueryString('tenant', window.location.href);
 
@@ -54,17 +70,31 @@ function getSelectedTenant() {
     return tenantId;
 }
 
+function isRamadan(date) {
+    const tenantId = window.localStorage.getItem("tenant");
+
+    const tenant = config.tenants.find(t => t.id === tenantId);
+
+    if (tenant) {
+        return tenant.displayRamadanTimes || inRange(date, tenant.ramadanStart, tenant.ramadanEnd);
+    }
+
+    return false;
+}
+
 function setTenant(tenantId) {
     config.tenant = tenantId;
     window.localStorage.setItem('tenant', tenantId);
 }
 
 function initialize() {
-    config.tenant = getSelectedTenant();
+    config.tenant = getSelectedTenantId();
 }
 
 export {
     config,
     initialize,
-    setTenant
+    setTenant,
+    isRamadan,
+    getSelectedTenant
 }

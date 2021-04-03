@@ -1,8 +1,8 @@
 import prayerTimeService from '../../services/prayertimes.service';
-import { escapeHtml, toUTC, isSameDate, addDays } from '../../util';
+import { escapeHtml, toUTC, isSameDate, addDays, dateDiff, ordinalSuffixOf } from '../../util';
 import { JamaatTimes } from '../../models/jamaat-times';
 import { DailyPrayerTimes } from '../../models/daily-prayer-times';
-import { config, setTenant } from '../../app-config';
+import { config, isRamadan, setTenant, getSelectedTenant } from '../../app-config';
 import prayerTable from './prayer-table.component';
 import { NextSalahComponent } from './next-salah.component';
 
@@ -23,6 +23,9 @@ onTomorrowButtonClicked();
 function initialize() {
   setTenantDetails();
 
+  // either show or hide the ramadan container
+  toggleRamadanDetails();
+
   isLoading(true);
 
   prayerTable.isLoading(true);
@@ -35,6 +38,8 @@ function initialize() {
 
     state.jamaatTimes = getJammatTimes(jamaat);
     state.dailyPrayerTimes = getDailyPrayerTimes(daily);
+
+    toggleRamadanTimes();
 
     prayerTable.setPrayerTimes(state.dailyPrayerTimes, state.jamaatTimes);
 
@@ -100,7 +105,8 @@ function setTenantDetails() {
 
   // Set the tenant name in the navbar
   const el = document.querySelector('.establishment-name');
-  el.innerHTML = config.getTenantName();
+  el.innerHTML = config.getTenant().name;
+
 }
 
 function getTenantDropdownEl() {
@@ -221,6 +227,74 @@ function onVisibilityChange() {
 
 }
 
+
+function toggleRamadanDetails() {
+
+  const ramadanContainer = document.querySelector('.js-ramadan');
+
+  if (isRamadan(state.date) === false) {
+    ramadanContainer.classList.add('d-none');
+    return;
+  }
+
+  const tenant = getSelectedTenant();
+
+  let date = state.date;
+  // compute if its the 1st, 2nd, 3rd day of ramadan
+  let ordinalRamadanDay = dateDiff(tenant.ramadanStart, date) + 1;
+  ordinalRamadanDay = ordinalSuffixOf(ordinalRamadanDay);
+
+  // Set first day of ramadan if we are not in ramadan season
+  if (date <= tenant.ramadanStart) {
+    date = tenant.ramadanStart;
+    ordinalRamadanDay = '1st';
+  }
+
+  const dateLabel = date.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+  const ramadanDateLabel = `${ordinalRamadanDay} Ramadan (${dateLabel})`
+
+  document.querySelector('.js-ramadan p').innerHTML = escapeHtml(ramadanDateLabel);
+
+  ramadanContainer.classList.remove('d-none');
+
+  setSuhoorTime('-');
+  setIftarTime('-');
+
+}
+
+function toggleRamadanTimes() {
+  const tenant = getSelectedTenant();
+
+  let suhoor = state.dailyPrayerTimes.getFajr();
+  let iftar = state.dailyPrayerTimes.getMaghrib();
+
+  // Load ramadan start times (fajr) and (maghrib) since we are not in ramadan season
+  if (state.date < tenant.ramadanStart) {
+    prayerTimeService.getPrayerTimes(tenant.ramadanStart)
+      .then((dailySalah) => {
+        const salah = getDailyPrayerTimes(dailySalah);
+
+        suhoor = salah.getFajr();
+        iftar = salah.getMaghrib();
+        
+        setSuhoorTime(suhoor);
+        setIftarTime(iftar);
+      })
+  } else {
+    setSuhoorTime(suhoor);
+    setIftarTime(iftar);
+  }
+}
+
+function setSuhoorTime(suhoor) {
+  const suhoorLabel = document.querySelector('.js-suhoor-end');
+  suhoorLabel.innerHTML = escapeHtml(suhoor);
+}
+
+function setIftarTime(iftar) {
+  const iftarLabel = document.querySelector('.js-iftar-start');
+  iftarLabel.innerHTML = escapeHtml(iftar);
+}
 
 export default {
   initialize,

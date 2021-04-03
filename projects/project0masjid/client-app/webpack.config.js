@@ -10,7 +10,8 @@ module.exports = (env, argv) => {
     entry: {
       index: './src/js/views/index.js',
       about: './src/js/views/about.js',
-      contact: './src/js/views/contact.js'
+      contact: './src/js/views/contact.js',
+      ramadan: './src/js/views/ramadan.js'
     },
     plugins: [
       new HtmlWebpackPlugin({
@@ -29,7 +30,12 @@ module.exports = (env, argv) => {
         filename: 'contact-us.html',
         template: './src/html/contact-us.html',
         chunks: ['contact']
-
+      }),
+      new HtmlWebpackPlugin({
+        title: 'Ramadan 2021',
+        filename: 'ramadan.html',
+        template: './src/html/ramadan.html',
+        chunks: ['ramadan']
       }),
       new CopyWebpackPlugin({
         patterns: [{
