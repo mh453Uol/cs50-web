@@ -16,7 +16,8 @@ let config = {
             displayRamadanTimes: true,
             ramadanStart: new Date(Date.UTC(2021,3,13)),
             ramadanEnd: new Date(Date.UTC(2021,4,13)),
-            ramadanTimetableEndpoint: 'https://script.google.com/macros/s/AKfycbxHRHduPb9XglrXuCyuZTCdShFRH_R7g3ojvZ4-MpPad0_ORf1pXlpQxw/exec?sheetId=1WxWsepAQTQoaaUK30qiQ2GBAyEOd7q1Sf7BXCVgX9gE&sheetName=tenant-4-ramadan'
+            //ramadanTimetable: 'https://drive.google.com/file/d/1MtxZTlSaGghoXsuFkrPlfCutTlBAAbEC/view'
+            ramadanTimetable: 'https://drive.google.com/uc?export=view&id=1MtxZTlSaGghoXsuFkrPlfCutTlBAAbEC'
         },
         {
             name: 'Aylesbury Masjid ',
