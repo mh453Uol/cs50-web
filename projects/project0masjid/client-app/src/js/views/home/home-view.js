@@ -273,8 +273,6 @@ function toggleRamadanTimes() {
 
         suhoor = salah.getFajr();
         iftar = salah.getMaghrib();
-
-        console.log(suhoor, iftar);
         
         setSuhoorTime(suhoor);
         setIftarTime(iftar);
