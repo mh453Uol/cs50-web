@@ -100,7 +100,7 @@
                 <div class="js-ramadan-times container-fluid">
                     <div class="row">
                         <div class="suhoor col">
-                            <div class="card bg-success text-white">
+                            <div class="card">
                                 <div class="card-body">
                                     <div class="text-center"><b>Suhoor Ends</b></div>
                                     <div class="text-center">
@@ -110,7 +110,7 @@
                             </div>
                         </div>
                         <div class="iftar col">
-                            <div class="card bg-success text-white">
+                            <div class="card">
                                 <div class="card-body">
                                     <div class="text-center"><b>Iftar</b></div>
                                     <div class="text-center ">
@@ -121,21 +121,21 @@
                         </div>
                     </div>
                 </div>
-                <a href="#" class="btn btn-link btn-block js-ramadan-timetable" role="button">Ramadan Timetable</a>
+                <a href="#" class="btn btn-primary btn-block js-ramadan-timetable" role="button">Ramadan Timetable <span class="urdu-text">رمضان ٹائم ٹیبل</span></a>
             </div>
 
             <div class="table-responsive table-bordered">
                 <table class="table" id="js-prayer-time-table">
                     <thead>
                         <tr>
-                            <th scope="col">Salah</th>
-                            <th scope="col">Start</th>
-                            <th scope="col">Jamaat</th>
+                            <th scope="col">Salah<span class="float-right">نماز</span></th>
+                            <th scope="col" style="width:31%">Start <span class="float-right">شروع کریں</span></th>
+                            <th scope="col" style="width:31%">Jamaat <span class="float-right">جمات</span></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="js-fajr-row">
-                            <th scope="row">Fajr</th>
+                            <th scope="row">Fajr <span class="float-right">فجر</span></th>
                             <td id="js-fajr-start">-</td>
                             <td id="js-fajr-jamaat">-</td>
                         </tr>
@@ -151,31 +151,31 @@
                             <td id="js-dahawa-kubra-jamaat">-</td>
                         </tr>
                         <tr class="js-dhuhr-row">
-                            <th scope="row">Dhuhr</th>
+                            <th scope="row">Dhuhr <span class="float-right">ظہر</span></th>
                             <td id="js-dhuhr-start">-</td>
                             <td id="js-dhuhr-jamaat">-</td>
                         </tr>
                         <tr class="js-asr-row">
-                            <th scope="row">Asr</th>
+                            <th scope="row">Asr <span class="float-right">اثر</span></th>
                             <td id="js-asr-start">-</td>
                             <td id="js-asr-jamaat">-</td>
                         </tr>
                         <tr class="js-maghrib-row">
-                            <th scope="row">Maghrib</th>
+                            <th scope="row">Maghrib <span class="float-right">مغرب</span></th>
                             <td id="js-magrib-start">-</td>
                             <td id="js-magrib-jamaat">-</td>
                         </tr>
                         <tr class="js-isha-row">
-                            <th scope="row">Isha</th>
+                            <th scope="row">Isha <span class="float-right">عشاء</span></th>
                             <td id="js-isha-start">-</td>
                             <td id="js-isha-jamaat">-</td>
                         </tr>
                         <tr class="js-1st-jummah-row">
-                            <th scope="row">Jummah 1</th>
+                            <th scope="row">Jummah 1 <span class="float-right">جمعہ</span></th>
                             <td colspan="2" class="text-center" id="js-jummah1-jamaat">-</td>
                         </tr>
                         <tr class=js-2nd-jummah-row>
-                            <th scope="row">Jummah 2</th>
+                            <th scope="row">Jummah 2 <span class="float-right">جمعہ</span></th>
                             <td colspan="2" class="text-center" id="js-jummah2-jamaat">-</td>
                         </tr>
                     </tbody>
