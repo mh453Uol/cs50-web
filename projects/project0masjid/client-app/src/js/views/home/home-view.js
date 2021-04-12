@@ -245,7 +245,7 @@ function toggleRamadanDetails() {
 
   let date = state.date;
   // compute if its the 1st, 2nd, 3rd day of ramadan
-  let ordinalRamadanDay = dateDiff(tenant.ramadanStart, date) + 1;
+  let ordinalRamadanDay = dateDiff(tenant.ramadanStart, date);
   ordinalRamadanDay = ordinalSuffixOf(ordinalRamadanDay);
 
   // Set first day of ramadan if we are not in ramadan season
