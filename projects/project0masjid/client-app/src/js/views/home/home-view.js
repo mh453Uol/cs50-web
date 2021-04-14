@@ -1,5 +1,5 @@
 import prayerTimeService from '../../services/prayertimes.service';
-import { escapeHtml, toUTC, isSameDate, addDays, dateDiff, ordinalSuffixOf } from '../../util';
+import { escapeHtml, toUTC, isSameDate, addDays, dateDiffInDays, ordinalSuffixOf } from '../../util';
 import { JamaatTimes } from '../../models/jamaat-times';
 import { DailyPrayerTimes } from '../../models/daily-prayer-times';
 import { config, isRamadan, setTenant, getSelectedTenant } from '../../app-config';
@@ -245,11 +245,12 @@ function toggleRamadanDetails() {
 
   let date = state.date;
   // compute if its the 1st, 2nd, 3rd day of ramadan
-  let ordinalRamadanDay = dateDiff(tenant.ramadanStart, date);
+  let ordinalRamadanDay = dateDiffInDays(tenant.ramadanStart, date) + 1;
+
   ordinalRamadanDay = ordinalSuffixOf(ordinalRamadanDay);
 
   // Set first day of ramadan if we are not in ramadan season
-  if (date <= tenant.ramadanStart || ordinalRamadanDay === 0) {
+  if (date <= tenant.ramadanStart) {
     date = tenant.ramadanStart;
     ordinalRamadanDay = '1st';
   }

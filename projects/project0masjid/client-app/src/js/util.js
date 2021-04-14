@@ -86,10 +86,15 @@ function inRange(date, start, end) {
     return predicate;
 }
 
-function dateDiff(first, second) {
-    // Take the difference between the dates and divide by milliseconds per day.
-    // Round to nearest whole number to deal with DST.
-    return Math.round((second-first)/(1000*60*60*24));
+const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+
+// a and b are javascript Date objects
+function dateDiffInDays(a, b) {
+  // Discard the time and time-zone information.
+  const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+  const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+  return Math.floor((utc2 - utc1) / _MS_PER_DAY);
 }
 
 function ordinalSuffixOf(i) {
@@ -130,6 +135,6 @@ export {
     addDays,
     getQueryString,
     inRange,
-    dateDiff,
+    dateDiffInDays,
     ordinalSuffixOf
 }
