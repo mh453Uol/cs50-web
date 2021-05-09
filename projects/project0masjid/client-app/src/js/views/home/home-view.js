@@ -1,5 +1,5 @@
 import prayerTimeService from '../../services/prayertimes.service';
-import { escapeHtml, toUTC, isSameDate, addDays, dateDiffInDays, ordinalSuffixOf } from '../../util';
+import { escapeHtml, toUTC, isSameDate, addDays, dateDiffInDays, ordinalSuffixOf, inRange } from '../../util';
 import { JamaatTimes } from '../../models/jamaat-times';
 import { DailyPrayerTimes } from '../../models/daily-prayer-times';
 import { config, isRamadan, setTenant, getSelectedTenant } from '../../app-config';
@@ -22,6 +22,8 @@ onTomorrowButtonClicked();
 
 function initialize() {
   setTenantDetails();
+
+  toggleAnnouncement();
 
   // either show or hide the ramadan container
   toggleRamadanDetails();
@@ -299,6 +301,28 @@ function setSuhoorTime(suhoor) {
 function setIftarTime(iftar) {
   const iftarLabel = document.querySelector('.js-iftar-start');
   iftarLabel.innerHTML = escapeHtml(iftar);
+}
+
+function toggleAnnouncement() {
+  const tenant = getSelectedTenant();
+
+  if (tenant.announcements) {
+
+    let announcements = tenant.announcements.filter(
+      announcement => inRange(state.date, announcement.from, announcement.to)
+    );
+
+    let announcement = announcements.pop();
+
+    const el = document.querySelector('.js-announcements');
+
+    if (announcement) {
+      el.querySelector('p').innerText = announcement.message;
+      el.classList.remove('d-none');
+    } else {
+      el.classList.add('d-none');
+    }
+  }
 }
 
 export default {

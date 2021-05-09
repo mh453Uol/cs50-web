@@ -82,7 +82,6 @@ function isSameDate(date1, date2) {
 
 function inRange(date, start, end) {
     const predicate = (date >= start) && (date <= end);
-    console.log(date, start, end);
     return predicate;
 }
 

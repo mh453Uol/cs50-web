@@ -94,3 +94,9 @@
     margin-bottom: 5px;
 }
 
+.js-announcements p {
+    font-weight: 500;
+    margin-bottom: 0px !important;
+
+}
+

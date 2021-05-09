@@ -13,19 +13,34 @@ let config = {
     tenants: [{
             name: 'Southcourt Masjid',
             id: '4',
-            displayRamadanTimes: true,
+            displayRamadanTimes: false,
+            // Date.UTC month is from 0 to 11
             ramadanStart: new Date(Date.UTC(2021,3,13)),
-            ramadanEnd: new Date(Date.UTC(2021,4,13)),
+            ramadanEnd: new Date(Date.UTC(2021,4,12,23,0,0,0,0)),
             //ramadanTimetable: 'https://drive.google.com/file/d/1MtxZTlSaGghoXsuFkrPlfCutTlBAAbEC/view'
-            ramadanTimetable: 'https://drive.google.com/uc?export=view&id=1MtxZTlSaGghoXsuFkrPlfCutTlBAAbEC'
+            ramadanTimetable: 'https://drive.google.com/uc?export=view&id=1MtxZTlSaGghoXsuFkrPlfCutTlBAAbEC',
+            announcements : [
+                // {
+                //     message: "🎉 Eid Salah Jamaat Times - 6:30AM, 8:00AM and 9:30AM",
+                //     from: new Date(Date.UTC(2021,4,12,21,0,0,0,0)),
+                //     to: new Date(Date.UTC(2021,4,13,23,0,0,0,0))
+                // }
+            ]
         },
         {
             name: 'Aylesbury Masjid ',
             id: '3',
-            displayRamadanTimes: true,
+            displayRamadanTimes: false,
             ramadanStart:new Date(Date.UTC(2021,3,14)),
-            ramadanEnd: new Date(Date.UTC(2021,4,13)),
-            ramadanTimetable: 'https://drive.google.com/uc?export=view&id=1kS2mh-SoS-qkRvrt3G9dpzWTzpI9LvmC'
+            ramadanEnd: new Date(Date.UTC(2021,4,13,23,0,0,0,0)),
+            ramadanTimetable: 'https://drive.google.com/uc?export=view&id=1kS2mh-SoS-qkRvrt3G9dpzWTzpI9LvmC',
+            announcements : [
+                // {
+                //     message: "🎉 Eid Prayer Jamaat Times - 8:00AM, 9:00AM and 10:00AM",
+                //     from: new Date(Date.UTC(2021,4,13,22,0,0,0,0)),
+                //     to: new Date(Date.UTC(2021,4,14,23,0,0,0,0))
+                // }
+            ]
         }
     ],
     tenant: '',
