@@ -21,7 +21,7 @@ let config = {
             ramadanTimetable: 'https://drive.google.com/uc?export=view&id=1MtxZTlSaGghoXsuFkrPlfCutTlBAAbEC',
             announcements : [
                 {
-                    message: "🎉 Eid ul Fitr 2021 will be on Wednesday 13th Insha’Allah \n Eid Salah - 6:30AM, 8:00AM and 9:30AM",
+                    message: "🎉 Eid ul Fitr 2021 will be on Thursday 13th Insha’Allah \n Eid Salah - 6:30AM, 8:00AM and 9:30AM \n Last few hours remaining of the blessed month of Ramadhan, please pray for peace and security for all around the globe",
                     from: new Date(Date.UTC(2021,4,11,20,0,0,0,0)),
                     to: new Date(Date.UTC(2021,4,13,10,0,0,0,0))
                 },
@@ -41,7 +41,7 @@ let config = {
             ramadanTimetable: 'https://drive.google.com/uc?export=view&id=1kS2mh-SoS-qkRvrt3G9dpzWTzpI9LvmC',
             announcements : [
                 {
-                    message: "🎉 Eid ul Fitr 2021 will be on Wednesday 13th Insha’Allah \n Eid Salah - 8:00AM, 9:00AM and 10:00AM",
+                    message: "🎉 Eid ul Fitr 2021 will be on Thursday 13th Insha’Allah \n Eid Salah - 8:00AM, 9:00AM and 10:00AM",
                     from: new Date(Date.UTC(2021,4,11,20,0,0,0,0)),
                     to: new Date(Date.UTC(2021,4,13,10,0,0,0,0))
                 },
