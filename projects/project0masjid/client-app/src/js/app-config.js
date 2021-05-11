@@ -21,9 +21,14 @@ let config = {
             ramadanTimetable: 'https://drive.google.com/uc?export=view&id=1MtxZTlSaGghoXsuFkrPlfCutTlBAAbEC',
             announcements : [
                 {
-                    message: "🎉 Eid Salah Jamaat Times - 6:30AM, 8:00AM and 9:30AM",
-                    from: new Date(Date.UTC(2021,4,12,21,0,0,0,0)),
-                    to: new Date(Date.UTC(2021,4,13,23,0,0,0,0))
+                    message: "🎉 Eid ul Fitr 2021 will be on May 13 Insha’Allah \n Eid Salah - 6:30AM, 8:00AM and 9:30AM",
+                    from: new Date(Date.UTC(2021,4,11,20,0,0,0,0)),
+                    to: new Date(Date.UTC(2021,4,13,10,0,0,0,0))
+                },
+                {
+                    message: "🎉 Eid Mubarak! Wish you all a very happy and peaceful Eid",
+                    from: new Date(Date.UTC(2021,4,13,11,0,0,0,0)),
+                    to: new Date(Date.UTC(2021,4,14))
                 }
             ]
         },
@@ -36,9 +41,14 @@ let config = {
             ramadanTimetable: 'https://drive.google.com/uc?export=view&id=1kS2mh-SoS-qkRvrt3G9dpzWTzpI9LvmC',
             announcements : [
                 {
-                    message: "🎉 Eid Prayer Jamaat Times - 8:00AM, 9:00AM and 10:00AM",
-                    from: new Date(Date.UTC(2021,4,13,22,0,0,0,0)),
-                    to: new Date(Date.UTC(2021,4,14,23,0,0,0,0))
+                    message: "🎉 Eid ul Fitr 2021 will be on May 13 Insha’Allah \n Eid Salah - 8:00AM, 9:00AM and 10:00AM",
+                    from: new Date(Date.UTC(2021,4,11,20,0,0,0,0)),
+                    to: new Date(Date.UTC(2021,4,13,10,0,0,0,0))
+                },
+                {
+                    message: "🎉 Eid Mubarak! Wish you all a very happy and peaceful Eid.",
+                    from: new Date(Date.UTC(2021,4,13,11,0,0,0,0)),
+                    to: new Date(Date.UTC(2021,4,14))
                 }
             ]
         }
