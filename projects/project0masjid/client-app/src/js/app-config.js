@@ -8,7 +8,7 @@ let config = {
         
         let template = `${baseUrl}/api/v1/{{tenant}}/prayers`
 
-        return template.replace(/{{tenant}}/g, config.tenant);
+        return template.replace(/{{tenant}}/g, config.tenant)
     },
     tenants: [{
             name: 'Southcourt Masjid',
@@ -21,12 +21,12 @@ let config = {
             ramadanTimetable: 'https://drive.google.com/uc?export=view&id=1MtxZTlSaGghoXsuFkrPlfCutTlBAAbEC',
             announcements : [
                 {
-                    message: "🎉 Eid ul Fitr 2021 will be on Thursday 13th Insha’Allah \n Eid Salah - 6:30AM, 8:00AM and 9:30AM \n",
+                    message: "🎉 Eid ul Fitr 2021 will be on Thursday 13th Insha’Allah. \n Eid Salah - 6:30AM, 8:00AM and 9:30AM \n",
                     from: new Date(Date.UTC(2021,4,11,20,0,0,0,0)),
                     to: new Date(Date.UTC(2021,4,13,10,0,0,0,0))
                 },
                 {
-                    message: "🎉 Eid Mubarak! Wish you all a very happy and peaceful Eid \n please make a special dua that Allah protects the people of Palestine",
+                    message: "🎉 Eid Mubarak! Wish you all a very happy and peaceful Eid. \n Please make a special dua that Allah protects the people of Palestine.",
                     from: new Date(Date.UTC(2021,4,13,11,0,0,0,0)),
                     to: new Date(Date.UTC(2021,4,14))
                 }
