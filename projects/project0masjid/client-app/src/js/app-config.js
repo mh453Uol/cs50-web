@@ -37,7 +37,7 @@ let config = {
             id: '3',
             displayRamadanTimes: false,
             ramadanStart:new Date(Date.UTC(2021,3,14)),
-            ramadanEnd: new Date(Date.UTC(2021,4,13,23,0,0,0,0)),
+            ramadanEnd: new Date(Date.UTC(2021,4,12,23,0,0,0,0)),
             ramadanTimetable: 'https://drive.google.com/uc?export=view&id=1kS2mh-SoS-qkRvrt3G9dpzWTzpI9LvmC',
             announcements : [
                 {
