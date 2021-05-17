@@ -3,7 +3,8 @@ import { Tenant } from '../../models/Tenant';
 
 interface Props {
   children: ReactNode,
-  tenants: Tenant[]
+  tenants: Tenant[],
+  selectedTenant?: Tenant
 }
 
 const Navigation: React.FC<Props> = (props) => (
@@ -35,7 +36,7 @@ const Navigation: React.FC<Props> = (props) => (
         </ul>
       </div>
 
-      <a className="navbar-brand ellipsis establishment-name" href="#"></a>
+      <div className="navbar-brand ellipsis establishment-name">{props.selectedTenant?.name}</div>
       <div className="btn-group dropup">
         <button className="btn btn-primary btn-sm dropdown-toggle establishment-dropdown" type="button"
           id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -43,6 +44,7 @@ const Navigation: React.FC<Props> = (props) => (
         </button>
         <div className="dropdown-menu dropdown-menu-right" id="setting-dropdown" aria-labelledby="dropdownMenuButton">
           <div id="tenant-dropdown">
+            {props.tenants.map(tenant => <div className="dropdown-item">{tenant.name}</div>)}
           </div>
         </div>
       </div>

@@ -79,7 +79,9 @@ class App extends React.Component<Props, State> {
 
   render() {
     return (
-      <Navigation tenants={this.state.configuration.tenants}>
+      <Navigation 
+        tenants={this.state.configuration.tenants}
+        selectedTenant={this.state.tenant}>
         <div className="App">
           <span>{JSON.stringify(this.state.configuration)}</span>
           <div>date: {this.state.date.toString()}</div>
