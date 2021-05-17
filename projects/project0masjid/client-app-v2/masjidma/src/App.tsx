@@ -4,28 +4,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import configuration from './config/config.prod.json';
 import { getQueryString } from './util/util';
+import Navigation from './components/Navigation/Navigation';
+import { Tenant } from './models/Tenant';
 
 interface Props { }
-interface TenantConfiguration {
-  name: string,
-  id: number,
-  displayRamadanTimes: boolean,
-  ramadanStart: string,
-  ramadanEnd: string,
-  ramadanTimetable: string,
-  announcements: {
-    message: string,
-    from: string,
-    to: string
-  }[]
-}
 interface Configuration {
-  tenants: TenantConfiguration[]
+  tenants: Tenant[]
 }
 interface State {
   date: Date,
   configuration: Configuration,
-  tenant?: TenantConfiguration
+  tenant?: Tenant
 }
 
 class App extends React.Component<Props, State> {
@@ -41,7 +30,7 @@ class App extends React.Component<Props, State> {
     //console.log(configuration);
   }
 
-  getSelectedTenant(): TenantConfiguration {
+  getSelectedTenant(): Tenant {
     const tenantId = window.localStorage.getItem("tenant");
     const defaulTenant = this.state.configuration.tenants[0];
 
@@ -90,11 +79,13 @@ class App extends React.Component<Props, State> {
 
   render() {
     return (
-      <div className="App">
-        <span>{JSON.stringify(this.state.configuration)}</span>
-        <div>date: {this.state.date.toString()}</div>
-        <div>tenant: {JSON.stringify(this.state.tenant)}</div>
-      </div>
+      <Navigation tenants={this.state.configuration.tenants}>
+        <div className="App">
+          <span>{JSON.stringify(this.state.configuration)}</span>
+          <div>date: {this.state.date.toString()}</div>
+          <div>tenant: {JSON.stringify(this.state.tenant)}</div>
+        </div>
+      </Navigation>
     );
   }
 }
