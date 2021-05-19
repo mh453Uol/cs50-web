@@ -92,7 +92,7 @@ class App extends React.Component<Props, State> {
         selectedTenant={this.state.tenant}
         tenantSelected={this.tenantSelected}>
         <div className="App">
-          <span>{JSON.stringify(this.state.configuration)}</span>
+          <div>{JSON.stringify(this.state.configuration)}</div>
           <div>date: {this.state.date.toString()}</div>
           <div>tenant: {JSON.stringify(this.state.tenant)}</div>
         </div>

@@ -1,7 +1,9 @@
 import React, { ReactNode, SyntheticEvent } from 'react';
 import { Tenant } from '../../models/Tenant';
 
-import { Dropdown, DropdownButton } from 'react-bootstrap';
+import './Navigation.css';
+
+import { Dropdown, DropdownButton, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 
 interface Props {
   children: ReactNode,
@@ -12,7 +14,7 @@ interface Props {
 
 class Navigation extends React.Component<Props, any> {
 
-  constructor(props:Props) {
+  constructor(props: Props) {
     super(props)
     this.setTenant = this.setTenant.bind(this);
   }
@@ -29,7 +31,7 @@ class Navigation extends React.Component<Props, any> {
       }
     }
   }
-  
+
   render() {
     return (
       <div data-testid="Navigation">
@@ -37,32 +39,18 @@ class Navigation extends React.Component<Props, any> {
         {/* Enable parent component to project content */}
         {this.props.children}
 
-        <nav className="navbar fixed-bottom navbar-dark bg-dark">
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
-            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
-          <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-              <li className="nav-item">
-                <a className="nav-link active" href="./index.html">Home <span className="sr-only">(current)</span></a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="./ramadan.html">Ramadan 2021</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="./about.html">About</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="./contact-us.html">Contact Us</a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="navbar-brand ellipsis establishment-name">{this.props.selectedTenant?.name}</div>
-
-          <DropdownButton id="dropdown-basic-button" title="🕌">
+        <Navbar bg="dark" variant="dark" expand="lg" fixed="bottom">
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto"> 
+              <Nav.Link href="#home">Home</Nav.Link>
+              <Nav.Link href="#ramadan">Ramadan 2021</Nav.Link>
+              <Nav.Link href="#about">About</Nav.Link>
+              <Nav.Link href="#contactus">Contact Us</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+          <Navbar.Brand className="ellipsis establishment-name" href="#home">{this.props.selectedTenant?.name}</Navbar.Brand>
+          <DropdownButton menuAlign="right" className="establishment-dropdown" drop="up" title="🕌">
             {this.props.tenants.map(tenant =>
               <Dropdown.Item
                 data-tenant={tenant.id}
@@ -70,19 +58,7 @@ class Navigation extends React.Component<Props, any> {
                 onClick={this.setTenant}>{tenant.name}</Dropdown.Item>
             )}
           </DropdownButton>
-
-          {/* <div className="btn-group dropup">
-          <button className="btn btn-primary btn-sm dropdown-toggle establishment-dropdown" type="button"
-            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span>🕌</span>
-          </button>
-          <div className="dropdown-menu dropdown-menu-right" id="setting-dropdown" aria-labelledby="dropdownMenuButton">
-            <div id="tenant-dropdown">
-              {props.tenants.map(tenant => <div className="dropdown-item">{tenant.name}</div>)}
-            </div>
-          </div>
-        </div> */}
-        </nav>
+        </Navbar>
       </div>
     );
   }
