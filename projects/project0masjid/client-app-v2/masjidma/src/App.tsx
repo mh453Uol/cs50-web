@@ -27,7 +27,7 @@ class App extends React.Component<Props, State> {
       configuration: configuration,
     }
 
-    //console.log(configuration);
+    this.tenantSelected = this.tenantSelected.bind(this);
   }
 
   getSelectedTenant(): Tenant {
@@ -77,11 +77,20 @@ class App extends React.Component<Props, State> {
     })
   }
 
+  tenantSelected(newTenant: Tenant): void {     
+    this.setState({
+      tenant: newTenant,
+      configuration: this.state.configuration,
+      date: this.state.date
+    })
+  }
+
   render() {
     return (
       <Navigation 
         tenants={this.state.configuration.tenants}
-        selectedTenant={this.state.tenant}>
+        selectedTenant={this.state.tenant}
+        tenantSelected={this.tenantSelected}>
         <div className="App">
           <span>{JSON.stringify(this.state.configuration)}</span>
           <div>date: {this.state.date.toString()}</div>
