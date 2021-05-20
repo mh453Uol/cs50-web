@@ -39,7 +39,7 @@ class Navigation extends React.Component<Props, any> {
         {/* Enable parent component to project content */}
         {this.props.children}
 
-        <Navbar bg="dark" variant="dark" expand="lg" fixed="bottom">
+        <Navbar bg="dark" expand="xl" variant="dark" fixed="bottom">
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto"> 
@@ -55,7 +55,8 @@ class Navigation extends React.Component<Props, any> {
               <Dropdown.Item
                 data-tenant={tenant.id}
                 className="dropdown-item"
-                onClick={this.setTenant}>{tenant.name}</Dropdown.Item>
+                onClick={this.setTenant}>{tenant.name}
+              </Dropdown.Item>
             )}
           </DropdownButton>
         </Navbar>
