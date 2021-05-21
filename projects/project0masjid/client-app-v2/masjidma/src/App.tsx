@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react';
+
+import Header from './components/Header/Header';
+import Navigation from './components/Navigation/Navigation';
 
 import configuration from './config/config.prod.json';
-import { getQueryString } from './util/util';
-import Navigation from './components/Navigation/Navigation';
 import { Tenant } from './models/Tenant';
+import { getQueryString } from './util/util';
+import { getJamaatTimes, getPrayerStartTimes } from './services/prayertime/Prayertime.service';
+
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface Props { }
 interface Configuration {
@@ -14,7 +18,8 @@ interface Configuration {
 interface State {
   date: Date,
   configuration: Configuration,
-  tenant?: Tenant
+  tenant?: Tenant,
+  isLoading: boolean
 }
 
 class App extends React.Component<Props, State> {
@@ -23,6 +28,7 @@ class App extends React.Component<Props, State> {
     super(props);
     
     this.state = {
+      isLoading: true,
       date: new Date(),
       configuration: configuration,
     }
@@ -75,7 +81,15 @@ class App extends React.Component<Props, State> {
       configuration: this.state.configuration,
       date: this.state.date
     })
-  }
+
+    
+  Promise.all([
+    getJamaatTimes(this.state.date),
+    getPrayerStartTimes(this.state.date),
+  ]).then(([jamaat, startTime]) => {
+    console.log(jamaat, startTime);
+  });
+}
 
   tenantSelected(newTenant: Tenant): void {     
     this.setState({
@@ -91,6 +105,10 @@ class App extends React.Component<Props, State> {
         tenants={this.state.configuration.tenants}
         selectedTenant={this.state.tenant}
         tenantSelected={this.tenantSelected}>
+          <Header
+            date={this.state.date}
+            isLoading={this.state.isLoading}>
+          </Header>
         <div className="App">
           <div>{JSON.stringify(this.state.configuration)}</div>
           <div>date: {this.state.date.toString()}</div>
