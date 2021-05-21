@@ -1,0 +1,17 @@
+.next-salah {
+    display: flex;
+    align-items: center;
+}
+
+.next-salah #js-next-prayer {
+    padding-right: 5px;
+    font-weight: bold;
+}
+
+.next-salah .yesterday {
+    margin-right: auto;
+}
+
+.next-salah .tomorrow {
+    margin-left: auto;
+}

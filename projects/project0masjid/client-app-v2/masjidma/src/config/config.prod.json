@@ -1,4 +1,5 @@
 {
+    "baseUrl": "https://masjidma2.herokuapp.com",
     "tenants": [
         {
             "name": "Southcourt Masjid",
