@@ -48,7 +48,7 @@ function NextSalah(props: Props) {
   const label = `${days} ${hours} ${minutes}`
 
   return (
-    <div data-testid="NextSalah" className="container">
+    <div data-testid="NextSalah" className="next-salah-container">
       <div id="js-next-prayer">{nextSalah?.name} {time}</div>
       <span className="badge badge-pill badge-warning" id="js-next-prayer-from-now">{label}</span>
     </div>
