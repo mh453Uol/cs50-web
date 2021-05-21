@@ -1,16 +1,23 @@
 import React from 'react';
+import { JamaatTime } from '../../models/JamaatTime';
+import { PrayerTime } from '../../models/PrayerTime';
 import { isSameDate, toUTC } from '../../util/util';
+import NextSalah from '../NextSalah/NextSalah';
 import './Header.css';
 
 interface Props {
     date: Date,
-    isLoading: boolean
+    isLoading: boolean,
+    salah?: {
+        jamaat: JamaatTime,
+        start: PrayerTime
+    }
 }
 
-const LoadingComponent: React.FC<Props> = (props: Props) => <div>Loading...</div>;
+const LoadingComponent: React.FC<Props> = (props: Props) => <div id="js-next-prayer">Loading...</div>;
 
 const DateComponent: React.FC<Props> = (props: Props) => (
-    <div>
+    <div id="js-next-prayer">
         {props.date.toLocaleDateString(undefined, {
             weekday: 'short',
             year: 'numeric',
@@ -20,11 +27,6 @@ const DateComponent: React.FC<Props> = (props: Props) => (
     </div>
 );
 
-const NextSalahComponent: React.FC<Props> = (props: Props) => (
-    <h1>Hello</h1>
-);
-
-
 const header = (props: Props) => {
     const today = toUTC(new Date());
 
@@ -33,7 +35,7 @@ const header = (props: Props) => {
     }
 
     if (isSameDate(props.date, today)) {
-        return NextSalahComponent(props);
+        return NextSalah(props);
     } else {
         return DateComponent(props)
     }
@@ -49,12 +51,7 @@ const Header: React.FC<Props> = (props: Props) => (
                         <button className="btn btn-primary yesterday" type="button">
                             <i className="fa fa-caret-left">-1 days</i>
                         </button>
-
-                        <div id="js-next-prayer">
-                            {header(props)}
-                        </div>
-
-                        <span className="badge badge-pill badge-warning d-none" id="js-next-prayer-from-now">0h 00m</span>
+                        {header(props)}
                         <button className="btn btn-primary tomorrow" type="button">
                             <i className="fa fa-caret-right">+1 day</i>
                         </button>

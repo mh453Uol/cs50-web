@@ -1,0 +1,13 @@
+.container {
+    text-align: center;
+}
+
+#js-next-prayer {
+    padding-right: 5px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+#js-next-prayer-from-now {
+    display: inline-block;
+}

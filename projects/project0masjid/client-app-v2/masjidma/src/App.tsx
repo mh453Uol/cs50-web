@@ -10,6 +10,8 @@ import { getJamaatTimes, getPrayerStartTimes } from './services/prayertime/Praye
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { JamaatTime } from './models/JamaatTime';
+import { PrayerTime } from './models/PrayerTime';
 
 interface Props { }
 interface Configuration {
@@ -19,14 +21,18 @@ interface State {
   date: Date,
   configuration: Configuration,
   tenant?: Tenant,
-  isLoading: boolean
+  isLoading: boolean,
+  salah?: {
+    jamaat: JamaatTime,
+    start: PrayerTime
+  }
 }
 
 class App extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    
+
     this.state = {
       isLoading: true,
       date: new Date(),
@@ -56,7 +62,7 @@ class App extends React.Component<Props, State> {
   initalizeTenant(): void {
     // look at the url since we should have a tenant parameter e.g. xyz.com?tenant=1
     let tenantId = getQueryString('tenant', window.location.href);
-  
+
     // if tenant not specified look at localStorage else default back
     if (!tenantId) {
       const tenant = window.localStorage.getItem('tenant');
@@ -71,6 +77,21 @@ class App extends React.Component<Props, State> {
     window.localStorage.setItem('tenant', tenantId);
   }
 
+  getSalahTime(): Promise<[JamaatTime, PrayerTime]> {
+    
+    this.setState({
+      tenant: this.state.tenant,
+      configuration: this.state.configuration,
+      date: this.state.date,
+      isLoading: true //set isLoading to true
+    });
+
+    return Promise.all([
+      getJamaatTimes(this.state.date),
+      getPrayerStartTimes(this.state.date),
+    ]);
+  }
+
   componentDidMount() {
     this.initalizeTenant();
 
@@ -82,16 +103,23 @@ class App extends React.Component<Props, State> {
       date: this.state.date
     })
 
-    
-  Promise.all([
-    getJamaatTimes(this.state.date),
-    getPrayerStartTimes(this.state.date),
-  ]).then(([jamaat, startTime]) => {
-    console.log(jamaat, startTime);
-  });
-}
+    this.getSalahTime()
+      .then(([jamaat, startTime]) => {
+        
+        this.setState({
+          tenant: tenant,
+          configuration: this.state.configuration,
+          date: this.state.date,
+          isLoading: false,
+          salah: {
+            jamaat: jamaat,
+            start: startTime
+          }
+        })
+      });
+  }
 
-  tenantSelected(newTenant: Tenant): void {     
+  tenantSelected(newTenant: Tenant): void {
     this.setState({
       tenant: newTenant,
       configuration: this.state.configuration,
@@ -101,16 +129,17 @@ class App extends React.Component<Props, State> {
 
   render() {
     return (
-      <Navigation 
+      <Navigation
         tenants={this.state.configuration.tenants}
         selectedTenant={this.state.tenant}
         tenantSelected={this.tenantSelected}>
-          <Header
-            date={this.state.date}
-            isLoading={this.state.isLoading}>
-          </Header>
+        <Header
+          date={this.state.date}
+          isLoading={this.state.isLoading}
+          salah={this.state.salah}>
+        </Header>
         <div className="App">
-          <div>{JSON.stringify(this.state.configuration)}</div>
+          <div>{JSON.stringify(this.state.salah)}</div>
           <div>date: {this.state.date.toString()}</div>
           <div>tenant: {JSON.stringify(this.state.tenant)}</div>
         </div>
