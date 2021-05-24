@@ -1,3 +1,7 @@
 div {
     word-wrap: break-word;
 }
+
+#App {
+    margin-bottom: 75px;
+}

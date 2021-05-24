@@ -12,6 +12,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { JamaatTime } from './models/JamaatTime';
 import { PrayerTime } from './models/PrayerTime';
+import Table from './components/Table/Table';
 
 interface Props { }
 interface Configuration {
@@ -138,11 +139,43 @@ class App extends React.Component<Props, State> {
           isLoading={this.state.isLoading}
           salah={this.state.salah}>
         </Header>
-        <div className="App">
+        {/* <div className="App">
           <div>{JSON.stringify(this.state.salah)}</div>
           <div>date: {this.state.date.toString()}</div>
           <div>tenant: {JSON.stringify(this.state.tenant)}</div>
+        </div> */}
+
+      <div id="App">
+        <Table
+          salah={this.state.salah}>
+        </Table>
+
+        <div className="m-2">
+            <p className="text-center">
+                <b>Follow these instructions to add this page to your phones home screen</b>
+            </p>
+
+            <div className="text-center">
+                <b>iPhone</b>
+            </div>
+
+            <ol>
+                <li>Tap the Share icon</li>
+                <li>Tap add to Home Screen</li>
+                <li>Enter name for bookmark</li>
+            </ol>
+            
+            <div className="text-center">
+                <b>Android</b>
+            </div>
+
+            <ol>
+                <li>Tap the menu icon (3 dots in upper right-hand corner)</li>
+                <li>Tap add to homescreen</li>
+                <li>Enter name for bookmark</li>
+            </ol>
         </div>
+      </div>
       </Navigation>
     );
   }
