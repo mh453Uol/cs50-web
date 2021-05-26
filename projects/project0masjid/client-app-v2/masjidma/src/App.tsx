@@ -5,7 +5,7 @@ import Navigation from './components/Navigation/Navigation';
 
 import configuration from './config/config.prod.json';
 import { Tenant } from './models/Tenant';
-import { getQueryString } from './util/util';
+import { addDays, getQueryString } from './util/util';
 import { getJamaatTimes, getPrayerStartTimes } from './services/prayertime/Prayertime.service';
 
 import './App.css';
@@ -42,6 +42,8 @@ class App extends React.Component<Props, State> {
     }
 
     this.tenantSelected = this.tenantSelected.bind(this);
+    this.onYesterdayClick = this.onYesterdayClick.bind(this);
+    this.onTomorrowClick = this.onTomorrowClick.bind(this);
   }
 
   getSelectedTenant(): Tenant {
@@ -80,6 +82,7 @@ class App extends React.Component<Props, State> {
   }
 
   getSalahTime(): Promise<[JamaatTime, PrayerTime]> {
+    console.log(this.state);
 
     this.setState({
       isLoading: true
@@ -119,6 +122,29 @@ class App extends React.Component<Props, State> {
     })
   }
 
+  onYesterdayClick() {
+    const yesterday = addDays(-1, this.state.date);
+    console.log(yesterday);
+
+    this.setState({
+      date: yesterday,
+      salah: undefined
+    }, () => {
+      this.componentDidMount();
+    });
+  }
+
+  onTomorrowClick() {
+    const tomorrow = addDays(1, this.state.date);
+    console.log(tomorrow);
+    this.setState({
+      date: tomorrow,
+      salah: undefined
+    }, () => {
+      this.componentDidMount();
+    });
+  }
+
   render() {
     return (
       <Navigation
@@ -129,7 +155,9 @@ class App extends React.Component<Props, State> {
           <Header
             date={this.state.date}
             isLoading={this.state.isLoading}
-            salah={this.state.salah}>
+            salah={this.state.salah}
+            onYesterdayClick={this.onYesterdayClick}
+            onTomorrowClick={this.onTomorrowClick}>
           </Header>
 
           <Table
@@ -137,7 +165,6 @@ class App extends React.Component<Props, State> {
           </Table>
 
           <BookmarkInstruction></BookmarkInstruction>
-          
         </div>
       </Navigation>
     );

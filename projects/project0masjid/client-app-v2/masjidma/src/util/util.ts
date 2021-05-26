@@ -36,12 +36,11 @@ export function fromTextualTimeToDate(hhmm: string) {
     return new Date();
 }
 
-export function addDays(wholeDays: number, date: Date) {
-    if (!(date instanceof Date)) {
-        console.warn("Cannot addDays() to object which is not a date", date);
-        return;
-    }
-    date.setTime(date.getTime() + (wholeDays * (1000 * 60 * 60 * 24)));
+export function addDays(wholeDays: number, date: Date): Date {
+    const copy = new Date();
+    copy.setTime(date.getTime() + (wholeDays * (1000 * 60 * 60 * 24)));
+
+    return copy;
 }
 
 export function timeAgo(date: Date) {

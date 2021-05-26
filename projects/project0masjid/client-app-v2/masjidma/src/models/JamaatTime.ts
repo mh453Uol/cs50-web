@@ -55,8 +55,8 @@ export class JamaatTime implements IJamaatTime {
         } else {
             // Completed all salahs for today so value is tomorrow Fajr
             // Since its Fajr tomorow we add 1 day to the fajr time
-            salah = this.fajr;
-            addDays(1, salah);
+            const tomorrowFajr = addDays(1, this.fajr);
+            salah = tomorrowFajr;
             value.name = "Fajr";
         }
 

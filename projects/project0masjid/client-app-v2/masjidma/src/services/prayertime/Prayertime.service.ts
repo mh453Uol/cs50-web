@@ -1,6 +1,5 @@
 import { fromTextualTimeToDate } from './../../util/util';
 import { IPrayerTime } from './../../models/PrayerTime';
-import { IJamaatTime } from './../../models/JamaatTime';
 import configuration from '../../config/config.prod.json';
 import { JamaatTime } from '../../models/JamaatTime';
 import { PrayerTime } from '../../models/PrayerTime';
