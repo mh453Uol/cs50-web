@@ -15,10 +15,6 @@ export interface State {
 
 class Table extends React.Component<Props, State> {
 
-  constructor(props: Props) {
-    super(props);
-  }
-
   formatAsHoursMinutes(date?: Date): string {
 
     if (date === undefined) {

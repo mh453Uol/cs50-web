@@ -1,5 +1,3 @@
-import { IJamaatTime } from './JamaatTime';
-
 export interface IPrayerTime {
     fajr: Date;
     sunrise: Date;

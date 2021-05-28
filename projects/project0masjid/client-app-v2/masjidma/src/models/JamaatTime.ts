@@ -1,4 +1,4 @@
-import { addDays, timeAgo } from "../util/util";
+import { addDays } from "../util/util";
 
 export interface IJamaatTime {
     fajr: Date,
@@ -62,7 +62,7 @@ export class JamaatTime implements IJamaatTime {
 
         // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getDay
         // 0 = Sunday, 1 = Monday, ... , 5 = Friday = 5, Sunday = 6
-        const isFriday = new Date().getDay() == 5;
+        const isFriday = new Date().getDay() === 5;
 
         if (isFriday) {
             if (now <= this.jummah1.getTime()) {
@@ -75,11 +75,6 @@ export class JamaatTime implements IJamaatTime {
         }
 
         if (salah) {
-            // const duration = timeAgo(salah);
-            // const days = duration.days ? `${duration.days}d` : "";
-            // const hours = duration.hours ? `${duration.hours}h` : "";
-            // const minutes = `${duration.minutes}m`;
-            // value.duration = `${days} ${hours} ${minutes}`
             value.time = salah;
         }
 
