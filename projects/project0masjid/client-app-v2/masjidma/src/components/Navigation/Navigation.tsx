@@ -4,6 +4,8 @@ import { Tenant } from '../../models/Tenant';
 import './Navigation.css';
 
 import { Dropdown, DropdownButton, Nav, Navbar } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
 interface Props {
   children: ReactNode,
@@ -32,6 +34,9 @@ class Navigation extends React.Component<Props, any> {
     }
   }
 
+  collapse() {
+    console.log();
+  }
   render() {
     return (
       <div data-testid="Navigation">
@@ -39,22 +44,22 @@ class Navigation extends React.Component<Props, any> {
         {/* Enable parent component to project content */}
         {this.props.children}
 
-        <Navbar bg="dark" expand="xl" variant="dark" fixed="bottom">
+        <Navbar collapseOnSelect bg="dark" variant="dark" fixed="bottom" expand={false}>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto"> 
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#ramadan">Ramadan 2021</Nav.Link>
-              <Nav.Link href="#about">About</Nav.Link>
-              <Nav.Link href="#contactus">Contact Us</Nav.Link>
+            <Nav className="mr-auto">
+              <Nav.Link as={Link} to="/" className="nav-link" eventKey="1">Home</Nav.Link>
+              <Nav.Link as={Link} to="/ramadan" className="nav-link" eventKey="2">Ramadan {new Date().getFullYear()}</Nav.Link>
+              <Nav.Link as={Link} to="/about" className="nav-link" eventKey="3">About</Nav.Link>
+              <Nav.Link as={Link} to="/contact-us" className="nav-link" eventKey="4">Contact Us</Nav.Link>
             </Nav>
           </Navbar.Collapse>
           <Navbar.Brand className="ellipsis establishment-name">{this.props.selectedTenant?.name}</Navbar.Brand>
           <DropdownButton menuAlign="right" className="establishment-dropdown" drop="up" title="🕌">
             {this.props?.tenants?.map(tenant =>
               <Dropdown.Item
+                className={classNames({ "active": tenant.id === this.props?.selectedTenant?.id})}
                 data-tenant={tenant.id}
-                className="dropdown-item"
                 onClick={this.setTenant}>{tenant.name}
               </Dropdown.Item>
             )}

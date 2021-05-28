@@ -10,6 +10,9 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router-dom';
 import Home from './components/Home/Home';
+import Ramadan from './components/Ramadan/Ramadan';
+import About from './components/About/About';
+import ContactUs from './components/ContactUs/ContactUs';
 
 interface Props { }
 interface Configuration {
@@ -93,11 +96,18 @@ class App extends React.Component<Props, State> {
 
           <main>
             <Switch>
-              <Route path="/" render={(props) => 
+              <Route path="/" render={(props) =>
                 <Home
                   {...props}
                   tenant={this.state?.tenant}>
-                </Home>} exact />
+                </Home>} exact>
+              </Route>
+
+              <Route path="/ramadan" render={(props) => <Ramadan></Ramadan>}></Route>
+
+              <Route path="/about" render={(props) => <About></About>}></Route>
+
+              <Route path="/contact-us" render={(props) => <ContactUs></ContactUs>}></Route>
             </Switch>
           </main>
         </Navigation>
