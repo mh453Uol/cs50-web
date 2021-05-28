@@ -1,9 +1,9 @@
-import React, { ReactNode, SyntheticEvent } from 'react';
+import React, { ReactNode } from 'react';
 import { Tenant } from '../../models/Tenant';
 
 import './Navigation.css';
 
-import { Dropdown, DropdownButton, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Dropdown, DropdownButton, Nav, Navbar } from 'react-bootstrap';
 
 interface Props {
   children: ReactNode,
@@ -49,9 +49,9 @@ class Navigation extends React.Component<Props, any> {
               <Nav.Link href="#contactus">Contact Us</Nav.Link>
             </Nav>
           </Navbar.Collapse>
-          <Navbar.Brand className="ellipsis establishment-name" href="#home">{this.props.selectedTenant?.name}</Navbar.Brand>
+          <Navbar.Brand className="ellipsis establishment-name">{this.props.selectedTenant?.name}</Navbar.Brand>
           <DropdownButton menuAlign="right" className="establishment-dropdown" drop="up" title="🕌">
-            {this.props.tenants.map(tenant =>
+            {this.props?.tenants?.map(tenant =>
               <Dropdown.Item
                 data-tenant={tenant.id}
                 className="dropdown-item"
