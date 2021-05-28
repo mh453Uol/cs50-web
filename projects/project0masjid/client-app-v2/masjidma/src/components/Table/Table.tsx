@@ -77,12 +77,12 @@ class Table extends React.Component<Props, State> {
               <td id="js-isha-start" className="text-center">{this.formatAsHoursMinutes(this.props.salah?.start.isha)}</td>
               <td id="js-isha-jamaat" className="text-center">{this.formatAsHoursMinutes(this.props.salah?.jamaat.isha)}</td>
             </tr>
-            <tr className={classNames({ "table-active": nextSalah === "Jummah 1"})}>
-              <th scope="row">Jummah 1 <span className="float-right">جمعہ</span></th>
+            <tr className={classNames({ "table-active": nextSalah === "1st Jummah"})}>
+              <th scope="row">1st Jummah <span className="float-right">جمعہ</span></th>
               <td colSpan={2} className="text-center" id="js-jummah1-jamaat">{this.formatAsHoursMinutes(this.props.salah?.jamaat.jummah1)}</td>
             </tr>
-            <tr className={classNames({ "table-active": nextSalah === "Jummah 2"})}>
-              <th scope="row">Jummah 2 <span className="float-right">جمعہ</span></th>
+            <tr className={classNames({ "table-active": nextSalah === "2nd Jummah"})}>
+              <th scope="row">2nd Jummah <span className="float-right">جمعہ</span></th>
               <td colSpan={2} className="text-center" id="js-jummah2-jamaat">{this.formatAsHoursMinutes(this.props.salah?.jamaat.jummah2)}</td>
             </tr>
           </tbody>
