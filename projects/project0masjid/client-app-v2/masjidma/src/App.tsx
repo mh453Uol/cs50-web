@@ -94,7 +94,7 @@ class App extends React.Component<Props, State> {
           selectedTenant={this.state?.tenant}
           tenantSelected={this.tenantSelected}>
 
-          <main>
+          <main id="page-container">
             <Switch>
               <Route path="/" render={(props) =>
                 <Home
@@ -103,13 +103,18 @@ class App extends React.Component<Props, State> {
                 </Home>} exact>
               </Route>
 
-              <Route path="/ramadan" render={(props) => <Ramadan></Ramadan>}></Route>
+              <Route path="/ramadan" render={(props) =>
+                <Ramadan
+                  tenant={this.state?.tenant}>
+                </Ramadan>}>
+              </Route>
 
               <Route path="/about" render={(props) => <About></About>}></Route>
 
               <Route path="/contact-us" render={(props) => <ContactUs></ContactUs>}></Route>
             </Switch>
           </main>
+
         </Navigation>
       </div>
     );

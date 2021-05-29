@@ -33,10 +33,6 @@ class Navigation extends React.Component<Props, any> {
       }
     }
   }
-
-  collapse() {
-    console.log();
-  }
   render() {
     return (
       <div data-testid="Navigation">
@@ -49,7 +45,11 @@ class Navigation extends React.Component<Props, any> {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link as={Link} to="/" className="nav-link" eventKey="1">Home</Nav.Link>
-              <Nav.Link as={Link} to="/ramadan" className="nav-link" eventKey="2">Ramadan {new Date().getFullYear()}</Nav.Link>
+              
+              {this.props?.selectedTenant?.ramadanTimetable &&
+                <Nav.Link as={Link} to="/ramadan" className="nav-link" eventKey="2">Ramadan {new Date().getFullYear()}</Nav.Link>
+              }
+
               <Nav.Link as={Link} to="/about" className="nav-link" eventKey="3">About</Nav.Link>
               <Nav.Link as={Link} to="/contact-us" className="nav-link" eventKey="4">Contact Us</Nav.Link>
             </Nav>

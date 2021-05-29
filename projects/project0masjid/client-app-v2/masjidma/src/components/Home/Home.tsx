@@ -106,7 +106,7 @@ class Home extends React.Component<Props, State> {
 
   render() {
     return (
-      <div data-testid="Home" id="home">
+      <div data-testid="Home">
           <Header
             date={this.state.date}
             isLoading={this.state.isLoading}
