@@ -48,11 +48,13 @@ class Table extends React.Component<Props, State> {
             </tr>
             <tr>
               <th scope="row">Sunrise</th>
-              <td colSpan={2} className="text-center" id="js-sunrise-start">{this.formatAsHoursMinutes(this.props.salah?.start.sunrise)}</td>
+              <td className="text-center" id="js-sunrise-start">{this.formatAsHoursMinutes(this.props.salah?.start.sunrise)}</td>
+              <td className="text-center">-</td>
             </tr>
             <tr>
               <th scope="row">Dahawa Kubra</th>
-              <td id="js-dahawa-kubra-start" colSpan={2} className="text-center">{this.formatAsHoursMinutes(this.props.salah?.start.dahwakubra)}</td>
+              <td id="js-dahawa-kubra-start" className="text-center">{this.formatAsHoursMinutes(this.props.salah?.start.dahwakubra)}</td>
+              <td className="text-center">-</td>
             </tr>
             <tr className={classNames({ "table-active": nextSalah === "Dhuhr"})}>
               <th scope="row">Dhuhr <span className="float-right">ظہر</span></th>
@@ -66,7 +68,8 @@ class Table extends React.Component<Props, State> {
             </tr>
             <tr className={classNames({ "table-active": nextSalah === "Maghrib"})}>
               <th scope="row">Maghrib <span className="float-right">مغرب</span></th>
-              <td colSpan={2} id="js-magrib-start" className="text-center">{this.formatAsHoursMinutes(this.props.salah?.start.maghrib)}</td>
+              <td id="js-magrib-start" className="text-center">{this.formatAsHoursMinutes(this.props.salah?.start.maghrib)}</td>
+              <td className="text-center">-</td>
             </tr>
             <tr className={classNames({ "table-active": nextSalah === "Isha"})}>
               <th scope="row">Isha <span className="float-right">عشاء</span></th>
