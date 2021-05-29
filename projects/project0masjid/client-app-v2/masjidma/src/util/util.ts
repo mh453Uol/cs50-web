@@ -43,6 +43,11 @@ export function addDays(wholeDays: number, date: Date): Date {
     return copy;
 }
 
+export function inRange(date: Date, start: Date, end: Date) {
+    const predicate = (date >= start) && (date <= end);
+    return predicate;
+}
+
 export function timeAgo(date: Date) {
     const value = { days: 0, hours: 0, minutes: 0 };
 

@@ -11,6 +11,7 @@ import { JamaatTime } from '../../models/JamaatTime';
 import { PrayerTime } from '../../models/PrayerTime';
 import Table from '../../components/Table/Table';
 import BookmarkInstruction from '../../components/BookmarkInstruction/BookmarkInstruction';
+import Announcements from '../Announcement/Announcement';
 
 interface Props {
   tenant: Tenant
@@ -107,6 +108,11 @@ class Home extends React.Component<Props, State> {
   render() {
     return (
       <div data-testid="Home">
+          <Announcements
+            tenant={this.props.tenant}
+            date={this.state.date}>
+          </Announcements>
+
           <Header
             date={this.state.date}
             isLoading={this.state.isLoading}

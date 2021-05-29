@@ -11,13 +11,18 @@
             "announcements" : [
                 {
                     "message": "🎉 Eid ul Fitr 2021 will be on Thursday 13th Insha’Allah. \n Eid Salah - 6:30AM, 8:00AM and 9:30AM \n",
-                    "from": "2021-04-11T20:00:00.00Z",
-                    "to": "2021-04-13T12:00:00.00Z"
+                    "from": "2021-05-12T20:00:00.00Z",
+                    "to": "2021-05-14T12:00:00.00Z"
                 },
                 {
                     "message": "🎉 Eid Mubarak! Wish you all a very happy and peaceful Eid. \n Please make a special dua that Allah protects the people of Palestine.",
-                    "from": "2021-04-13T12:00:00.00Z",
-                    "to": "2021-04-14T00:00:00.00Z"
+                    "from": "2021-05-12T12:00:00.00Z",
+                    "to": "2021-04-13T00:00:00.00Z"
+                },
+                {
+                    "message": "🎉 Majid",
+                    "from": "2021-05-29T00:00:00.00Z",
+                    "to": "2021-05-29T23:59:59.00Z"
                 }
             ]
         },
