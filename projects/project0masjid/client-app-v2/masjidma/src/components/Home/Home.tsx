@@ -2,7 +2,6 @@ import React from 'react';
 
 import Header from '../../components/Header/Header';
 
-import configuration from '../../config/config.prod.json';
 import { Tenant } from '../../models/Tenant';
 import { addDays } from '../../util/util';
 import { getJamaatTimes, getPrayerStartTimes } from '../../services/prayertime/Prayertime.service';

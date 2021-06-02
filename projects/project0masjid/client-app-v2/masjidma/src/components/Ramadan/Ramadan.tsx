@@ -15,8 +15,8 @@ const Ramadan: React.FC<Props> = (props: Props) => (
       <p className="lead" style={{ fontWeight: "bold" }}>Ramadan Timetable</p>
       <div id="ramadan-timetable-container">
 
-        <a href={props.tenant?.ramadanTimetable} target="_blank">
-          <img src={props.tenant?.ramadanTimetable} id="ramadan-timetable" className="img-fluid"></img>
+        <a href={props.tenant?.ramadanTimetable} target="_blank" rel="noreferrer">
+          <img src={props.tenant?.ramadanTimetable} id="ramadan-timetable" className="img-fluid" alt={props.tenant?.name}></img>
         </a>
       </div>
     </div>

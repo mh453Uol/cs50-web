@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Navbar } from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
 import { Announcement } from '../../models/Annoucement';
 import { Tenant } from '../../models/Tenant';
 import { inRange } from '../../util/util';
