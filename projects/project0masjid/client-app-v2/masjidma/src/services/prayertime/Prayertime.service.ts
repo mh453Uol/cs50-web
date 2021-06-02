@@ -6,7 +6,11 @@ import { PrayerTime } from '../../models/PrayerTime';
 const getApiUrl = () => {
     let template = `${configuration.baseUrl}/api/v1/{{tenant}}/prayers`
 
-    const tenant = window.localStorage.getItem('tenant') || "";
+    let tenant = window.localStorage.getItem('tenant');
+
+    if (tenant === null) {
+        tenant = configuration.tenants[0].id.toString();
+    }
 
     return template.replace(/{{tenant}}/g, tenant)
 }
