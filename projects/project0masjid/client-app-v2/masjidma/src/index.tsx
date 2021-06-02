@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 
 import 'react-app-polyfill/ie9';
+import 'react-app-polyfill/stable';
 
 ReactDOM.render(
   <React.StrictMode>
