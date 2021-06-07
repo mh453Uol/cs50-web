@@ -44,14 +44,14 @@ class Navigation extends React.Component<Props, any> {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link as={Link} to="/" className="nav-link" eventKey="1">Home</Nav.Link>
+              <Nav.Link as={Link} to="/" className="nav-link" eventKey="1" key={1}>Home</Nav.Link>
               
               {this.props?.selectedTenant?.ramadanTimetable &&
-                <Nav.Link as={Link} to="/ramadan" className="nav-link" eventKey="2">Ramadan {new Date().getFullYear()}</Nav.Link>
+                <Nav.Link as={Link} to="/ramadan" className="nav-link" eventKey="2" key={2}>Ramadan {new Date().getFullYear()}</Nav.Link>
               }
 
-              <Nav.Link as={Link} to="/about" className="nav-link" eventKey="3">About</Nav.Link>
-              <Nav.Link as={Link} to="/contact-us" className="nav-link" eventKey="4">Contact Us</Nav.Link>
+              <Nav.Link as={Link} to="/about" className="nav-link" eventKey="3" key={3}>About</Nav.Link>
+              <Nav.Link as={Link} to="/contact-us" className="nav-link" eventKey="4" key={4}>Contact Us</Nav.Link>
             </Nav>
           </Navbar.Collapse>
           <Navbar.Brand className="ellipsis establishment-name">{this.props.selectedTenant?.name}</Navbar.Brand>
@@ -60,7 +60,8 @@ class Navigation extends React.Component<Props, any> {
               <Dropdown.Item
                 className={classNames({ "active": tenant.id === this.props?.selectedTenant?.id})}
                 data-tenant={tenant.id}
-                onClick={this.setTenant}>{tenant.name}
+                onClick={this.setTenant}
+                key={tenant.name}>{tenant.name}
               </Dropdown.Item>
             )}
           </DropdownButton>
