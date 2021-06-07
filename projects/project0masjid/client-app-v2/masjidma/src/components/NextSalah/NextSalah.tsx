@@ -30,10 +30,6 @@ function getDurationTillNextSalah(nextSalah: Date) {
 
 class NextSalah extends React.Component<Props, State> {
 
-  constructor(props: Props) {
-    super(props); 
-  }
-
   componentDidMount() {    
     this.setState({
       salah: this.props?.salah
