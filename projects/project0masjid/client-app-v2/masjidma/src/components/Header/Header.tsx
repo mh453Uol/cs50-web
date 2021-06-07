@@ -37,7 +37,7 @@ const header = (props: Props) => {
     }
 
     if (isSameDate(props.date, today)) {
-        return NextSalah(props);
+        return <NextSalah salah={props.salah}></NextSalah>
     } else {
         return DateComponent(props)
     }
