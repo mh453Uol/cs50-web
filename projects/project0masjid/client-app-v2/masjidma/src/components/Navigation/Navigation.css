@@ -1,0 +1,17 @@
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+  
+.establishment-name {
+    flex: 1;
+    text-align: center;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+  
+.establishment-dropdown button {
+    font-size: 18px;
+}
+  

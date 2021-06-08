@@ -1,0 +1,50 @@
+{
+    "baseUrl": "https://masjidma2.herokuapp.com",
+    "tenants": [
+        {
+            "name": "Southcourt Masjid",
+            "id": 4,
+            "displayRamadanTimes": false,
+            "ramadanStart": "2021-03-13T00:00:00.000Z",
+            "ramadanEnd": "2021-04-12T23:00:00.000Z",
+            "ramadanTimetable": "https://drive.google.com/uc?export=view&id=1MtxZTlSaGghoXsuFkrPlfCutTlBAAbEC",
+            "announcements" : [
+                {
+                    "message": "🎉 Eid ul Fitr 2021 will be on Thursday 13th Insha’Allah. \n Eid Salah - 6:30AM, 8:00AM and 9:30AM \n",
+                    "from": "2021-05-12T20:00:00.00Z",
+                    "to": "2021-05-14T12:00:00.00Z"
+                },
+                {
+                    "message": "🎉 Eid Mubarak! Wish you all a very happy and peaceful Eid. \n Please make a special dua that Allah protects the people of Palestine.",
+                    "from": "2021-05-12T12:00:00.00Z",
+                    "to": "2021-04-13T00:00:00.00Z"
+                },
+                {
+                    "message": "🎉 Majid",
+                    "from": "2021-06-02T00:00:00.00Z",
+                    "to": "2021-06-03T23:59:59.00Z"
+                }
+            ]
+        },
+        {
+            "name": "Aylesbury Masjid",
+            "id": 3,
+            "displayRamadanTimes": false,
+            "ramadanStart": "2021-03-13T00:00:00.000Z",
+            "ramadanEnd": "2021-04-12T23:00:00.000Z",
+            "ramadanTimetable": "https://drive.google.com/uc?export=view&id=1kS2mh-SoS-qkRvrt3G9dpzWTzpI9LvmC",
+            "announcements" : [
+                {
+                    "message": "🎉 Eid ul Fitr 2021 will be on Thursday 13th Insha’Allah \n Eid Salah - 8:00AM, 9:00AM and 10:00AM",
+                    "from": "2021-04-11T20:00:00.00Z",
+                    "to": "2021-04-13T12:00:00.00Z"
+                },
+                {
+                    "message": "🎉 Eid Mubarak! Wish you all a very happy and peaceful Eid.",
+                    "from": "2021-04-13T12:00:00.00Z",
+                    "to": "2021-04-14T00:00:00.00Z"
+                }
+            ]
+        }
+    ]
+}
