@@ -1,5 +1,6 @@
 #js-prayer-time-table td, #js-prayer-time-table th {
     padding: 0.4rem;
+    vertical-align: middle;
 }
 #js-prayer-time-table th span {
     font-family: Arial, Helvetica, sans-serif;
