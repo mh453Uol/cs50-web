@@ -1,5 +1,6 @@
 export interface Announcement {
     message: string,
     from: string,
-    to: string
+    to: string,
+    link?: string
 }
