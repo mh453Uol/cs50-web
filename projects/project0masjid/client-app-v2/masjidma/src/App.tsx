@@ -96,13 +96,6 @@ class App extends React.Component<Props, State> {
 
           <main id="page-container">
             <Switch>
-              <Route path="/" render={(props) =>
-                <Home
-                  {...props}
-                  tenant={this.state?.tenant}>
-                </Home>} exact>
-              </Route>
-
               <Route path="/ramadan" render={(props) =>
                 <Ramadan
                   tenant={this.state?.tenant}>
@@ -112,6 +105,13 @@ class App extends React.Component<Props, State> {
               <Route path="/about" render={(props) => <About></About>}></Route>
 
               <Route path="/contact-us" render={(props) => <ContactUs></ContactUs>}></Route>
+
+              <Route path="*" render={(props) =>
+                <Home
+                  {...props}
+                  tenant={this.state?.tenant}>
+                </Home>} exact>
+              </Route>
             </Switch>
           </main>
 

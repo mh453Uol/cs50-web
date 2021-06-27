@@ -26,9 +26,13 @@ const Announcements: React.FC<Props> = (props: Props) => {
     <div data-testid="Announcement">
       { announcements.length > 0 &&
           <Alert key={1} variant="success" className="text-center">
-            {announcements.map((announcement: Announcement) => <div key={announcement.message}>{announcement.message}</div>)}
+            {announcements.map((announcement: Announcement) => 
+              <div key={announcement.message}>{announcement.message} <a href={announcement.link}>{announcement.link}</a></div>)
+            }
           </Alert>
+          
       }
+      
     </div>
   )
 };
