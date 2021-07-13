@@ -22,7 +22,13 @@
                 {
                     "message": "💰 Donation for Southcourt Masjid Extension Appeal",
                     "from": "2021-06-27T00:00:00.00Z",
-                    "to": "2021-07-27T23:59:59.00Z",
+                    "to": "2021-07-12T23:59:59.00Z",
+                    "link": "https://gofund.me/2c3573ac"
+                },
+                {
+                    "message": "🎉 Eid ul Fitr 2021 will be on Tuesday 20th Insha’Allah. \n Eid Salah - 6:30AM, 8:00AM and 9:30AM \n will be on Thursday 13th Insha’Allah. \n Eid Salah - 6:30AM, 8:00AM and 9:30AM \n",
+                    "from": "2021-06-27T00:00:00.00Z",
+                    "to": "2021-07-20T23:59:59.00Z",
                     "link": "https://gofund.me/2c3573ac"
                 }
             ]
@@ -44,6 +50,12 @@
                     "message": "🎉 Eid Mubarak! Wish you all a very happy and peaceful Eid.",
                     "from": "2021-04-13T12:00:00.00Z",
                     "to": "2021-04-14T00:00:00.00Z"
+                },
+                {
+                    "message": "🎉 Eid ul Fitr 2021 will be on Wenesday 21th Insha’Allah. \n Eid Salah - 8:30AM, 9:30AM and 10:30AM \n will be on Thursday 13th Insha’Allah. \n Eid Salah - 6:30AM, 8:00AM and 9:30AM \n",
+                    "from": "2021-06-27T00:00:00.00Z",
+                    "to": "2021-07-21T23:59:59.00Z",
+                    "link": "https://gofund.me/2c3573ac"
                 }
             ]
         }
