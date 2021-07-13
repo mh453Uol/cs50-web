@@ -159,6 +159,12 @@ class Home extends React.Component<Props, State> {
           salah={this.state.salah}>
         </Table>
 
+        <div className="masjid-facilties mt-2">
+          <div className="home-badges badge badge-pill badge-secondary">💰 Donate</div>
+          <div className="home-badges badge badge-pill badge-secondary">👩 Women</div>
+          <div className="home-badges badge badge-pill badge-secondary">🔗 Share</div>
+        </div>
+
         <BookmarkInstruction></BookmarkInstruction>
       </div>
     );
