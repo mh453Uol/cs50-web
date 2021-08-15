@@ -101,7 +101,7 @@ class AudioStream extends React.Component<Props, State> {
 
               { this.state.isLive && 
                 <div className="text-center">
-                  <audio src={this.state.stream?.audioStreamUrl} controls autoPlay>
+                  <audio src={this.state.stream?.audioStreamUrl} controls autoPlay={true}>
                     Your browser does not support the audio element.
                   </audio>
                 </div>

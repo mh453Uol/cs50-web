@@ -33,8 +33,7 @@ class LiveBanner extends React.Component<Props, State> {
     isStreaming().then((data: Stream) => {
       this.setState({
         stream: data,
-        //isLive: data.isLive,
-        isLive: true
+        isLive: data.isLive,
       });
     })
   }
