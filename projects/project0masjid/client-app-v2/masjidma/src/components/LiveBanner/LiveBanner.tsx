@@ -29,6 +29,22 @@ class LiveBanner extends React.Component<Props, State> {
     this.getStream();
   }
 
+  componentDidUpdate(prevProps: Props, prevState: State) {
+
+    if (this.props?.tenant && prevProps?.tenant) {
+      if (prevProps.tenant.id !== this.props.tenant.id) {
+
+        this.setState({
+          stream: null,
+          isLive: false,
+        }, () => {
+          this.getStream();
+        })
+      }
+    }
+  }
+
+
   getStream() {
     isStreaming().then((data: Stream) => {
       this.setState({
