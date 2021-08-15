@@ -3,8 +3,8 @@ import configuration from '../../config/config.prod.json';
 import { JamaatTime } from '../../models/JamaatTime';
 import { PrayerTime } from '../../models/PrayerTime';
 
-const getApiUrl = () => {
-    let template = `${configuration.baseUrl}/api/v1/{{tenant}}/prayers`
+export const getApiUrl = () => {
+    let template = `${configuration.baseUrl}/api/v1/{{tenant}}`
 
     let tenant = window.localStorage.getItem('tenant');
 
@@ -16,7 +16,7 @@ const getApiUrl = () => {
 }
 
 export function getPrayerStartTimes(date: Date): Promise<PrayerTime> {
-    const url = `${getApiUrl()}/daily?date=${date.toISOString()}`;
+    const url = `${getApiUrl()}/prayers/daily?date=${date.toISOString()}`;
 
     const headers = {
         'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ export function getPrayerStartTimes(date: Date): Promise<PrayerTime> {
 }
 
 export function getJamaatTimes(date: Date): Promise<JamaatTime> {
-    const url = `${getApiUrl()}/jamaat`;
+    const url = `${getApiUrl()}/prayers/jamaat`;
     const headers = {
         'Content-Type': 'application/json'
     };
@@ -58,3 +58,4 @@ export function getJamaatTimes(date: Date): Promise<JamaatTime> {
         })
 
 }
+

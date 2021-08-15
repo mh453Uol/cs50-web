@@ -49,6 +49,22 @@ def jamaat(tenant):
 
     return response.json()
 
+# /api/v1/stream/<tenant>
+# Make a HEAD Request to https://audio.airmyprayer.co.uk/ayl-<tenant>
+# if we get 404 that means the stream is ended
+@app.route("/api/v1/<tenant>/stream", methods=["GET"])
+def stream(tenant):
+    url = f"https://audio.airmyprayer.co.uk/ayl-{tenant}"
+
+    response = requests.head(url = url)
+
+    data = {
+        "isLive": response.ok,
+        "audioStreamUrl": url
+    }
+
+    return data
+    
 
 # Make backend api request to 
 # https://prayertimes.airmyprayer.co.uk/<tenant>/prayer<tenant>?handler=getprayertimesdaily
