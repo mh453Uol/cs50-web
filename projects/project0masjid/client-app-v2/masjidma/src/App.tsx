@@ -13,6 +13,7 @@ import Home from './components/Home/Home';
 import Ramadan from './components/Ramadan/Ramadan';
 import About from './components/About/About';
 import ContactUs from './components/ContactUs/ContactUs';
+import AudioStream from './components/AudioStream/AudioStream';
 
 interface Props { }
 interface Configuration {
@@ -105,6 +106,12 @@ class App extends React.Component<Props, State> {
               <Route path="/about" render={(props) => <About></About>}></Route>
 
               <Route path="/contact-us" render={(props) => <ContactUs></ContactUs>}></Route>
+
+              <Route path="/radio" render={(props) => 
+                <AudioStream
+                  tenant={this.state?.tenant}>  
+                </AudioStream>}>
+              </Route>
 
               <Route path="*" render={(props) =>
                 <Home
