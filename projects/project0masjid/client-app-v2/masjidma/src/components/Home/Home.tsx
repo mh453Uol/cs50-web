@@ -11,6 +11,7 @@ import { PrayerTime } from '../../models/PrayerTime';
 import Table from '../../components/Table/Table';
 import BookmarkInstruction from '../../components/BookmarkInstruction/BookmarkInstruction';
 import Announcements from '../Announcement/Announcement';
+import LiveBanner from '../LiveBanner/LiveBanner';
 
 interface Props {
   tenant: Tenant
@@ -142,6 +143,10 @@ class Home extends React.Component<Props, State> {
   render() {
     return (
       <div data-testid="Home">
+        <LiveBanner
+          tenant={this.props.tenant}>
+        </LiveBanner>
+        
         <Announcements
           tenant={this.props.tenant}
           date={this.state.date}>
