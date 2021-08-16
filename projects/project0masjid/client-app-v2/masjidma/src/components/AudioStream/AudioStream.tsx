@@ -72,10 +72,11 @@ class AudioStream extends React.Component<Props, State> {
   async share() {
     if (navigator.share) {
       const url = window.location.href;
+      const trackingUrl = `${url}?utm_source=southcourtmosquedotlive&utm_medium=share-radio-page`
       // Web Share API is supported
 
       try {
-        await navigator.share({ title: 'Southcourt Masjid Radio', url: url});
+        await navigator.share({ title: 'Southcourt Masjid Radio', url: trackingUrl});
       } catch (e) {
 
       }
@@ -113,7 +114,7 @@ class AudioStream extends React.Component<Props, State> {
                     Share
                   </button>
 
-                  <Link type="button" className="btn btn-sm btn-primary ml-2" to="/">
+                  <Link type="button" className="btn btn-sm btn-primary ml-2" to="/?utm_source=southcourtmosquedotlive&utm_medium=see-salah-radio-page">
                     See Salah Times
                   </Link>
                 </div>
