@@ -45,13 +45,14 @@ class Navigation extends React.Component<Props, any> {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link as={Link} to="/" className="nav-link" eventKey="1" key={1}>Home</Nav.Link>
+              <Nav.Link as={Link} to={`/radio/${this.props?.selectedTenant?.id}?utm_source=southcourtmosquedotlive&utm_medium=navbar-home-page`} className="nav-link" eventKey="2" key={2}>Radio</Nav.Link>
               
               {this.props?.selectedTenant?.ramadanTimetable &&
-                <Nav.Link as={Link} to="/ramadan" className="nav-link" eventKey="2" key={2}>Ramadan {new Date().getFullYear()}</Nav.Link>
+                <Nav.Link as={Link} to="/ramadan" className="nav-link" eventKey="3" key={3}>Ramadan {new Date().getFullYear()}</Nav.Link>
               }
 
-              <Nav.Link as={Link} to="/about" className="nav-link" eventKey="3" key={3}>About</Nav.Link>
-              <Nav.Link as={Link} to="/contact-us" className="nav-link" eventKey="4" key={4}>Contact Us</Nav.Link>
+              <Nav.Link as={Link} to="/about" className="nav-link" eventKey="4" key={4}>About</Nav.Link>
+              <Nav.Link as={Link} to="/contact-us" className="nav-link" eventKey="5" key={5}>Contact Us</Nav.Link>
             </Nav>
           </Navbar.Collapse>
           <Navbar.Brand className="ellipsis establishment-name">{this.props.selectedTenant?.name}</Navbar.Brand>
