@@ -64,9 +64,11 @@ class LiveBanner extends React.Component<Props, State> {
             <div className="live-dot-container">
               <div className="live-dot"></div>
             </div>
-            <div className="live-label">
-                <Link to={`/radio/${this.props.tenant?.id}`}>Live</Link>
-            </div>
+              <div className="live-label">
+                <Link to={`/radio/${this.props.tenant?.id}?utm_source=southcourtmosquedotlive&utm_medium=live-banner-home-page`}>
+                  {this.props.tenant?.name} is live now
+                </Link>
+              </div>
           </div>
         </div>
       )
