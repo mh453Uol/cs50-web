@@ -9,6 +9,8 @@ import { BrowserRouter } from 'react-router-dom';
 import 'react-app-polyfill/ie9';
 import 'react-app-polyfill/stable';
 
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -17,6 +19,8 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+
+serviceWorkerRegistration.register();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
