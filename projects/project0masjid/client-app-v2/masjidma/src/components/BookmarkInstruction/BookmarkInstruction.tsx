@@ -24,8 +24,7 @@ const BookmarkInstruction: React.FC = () => (
 
       <ol>
         <li>Tap the menu icon (3 dots in upper right-hand corner)</li>
-        <li>Tap add to homescreen</li>
-        <li>Enter name for bookmark</li>
+        <li>Tap install app</li>
       </ol>
     </div>
   </div>

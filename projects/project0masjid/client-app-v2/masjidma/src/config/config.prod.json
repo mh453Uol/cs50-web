@@ -29,6 +29,21 @@
                     "message": "🎉 Eid ul-Adha 2021 will be on Tuesday 20th Insha’Allah. \n Eid Salah - 6:00AM, 8:00AM and 9:30AM",
                     "from": "2021-06-27T00:00:00.00Z",
                     "to": "2021-07-20T23:59:59.00Z"
+                },
+                {
+                    "message": "Weekend Only: Isha at 6:30",
+                    "from": "2021-11-13T00:00:00.00Z",
+                    "to": "2021-11-14T23:59:59.00Z"
+                },
+                {
+                    "message": "Weekend Only: Isha at 6:30",
+                    "from": "2021-11-20T00:00:00.00Z",
+                    "to": "2021-11-21T23:59:59.00Z"
+                },
+                {
+                    "message": "Weekend Only: Isha at 6:30",
+                    "from": "2021-11-27T00:00:00.00Z",
+                    "to": "2021-11-28T23:59:59.00Z"
                 }
             ]
         },
