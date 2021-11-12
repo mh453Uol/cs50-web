@@ -1,13 +1,8 @@
 .live-container {
-    display: flex;
-    padding: 5px;
-    padding-top: 0px;
-    padding-bottom: 0px;
     vertical-align: middle;
-    cursor: pointer;
-    background-color: red;
     align-items: center;
     justify-content: center;
+    display: flex;
 }
 
 .live-dot-container {
@@ -20,7 +15,7 @@
     display: flex;
    width:10px;
    height:  10px;
-   background-color: white;
+   background-color: red;
    border-radius: 50%;
    margin-right: 5px;
    animation: blink 2s infinite;
