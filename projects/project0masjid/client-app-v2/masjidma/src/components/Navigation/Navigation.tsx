@@ -36,11 +36,7 @@ class Navigation extends React.Component<Props, any> {
   render() {
     return (
       <div data-testid="Navigation">
-
-        {/* Enable parent component to project content */}
-        {this.props.children}
-
-        <Navbar collapseOnSelect bg="dark" variant="dark" fixed="bottom" expand={false}>
+        <Navbar collapseOnSelect bg="light" variant="light" expand={false}>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
@@ -55,8 +51,8 @@ class Navigation extends React.Component<Props, any> {
               <Nav.Link as={Link} to="/contact-us" className="nav-link" eventKey="5" key={5}>Contact Us</Nav.Link>
             </Nav>
           </Navbar.Collapse>
-          <Navbar.Brand className="ellipsis establishment-name">{this.props.selectedTenant?.name}</Navbar.Brand>
-          <DropdownButton menuAlign="right" className="establishment-dropdown" drop="up" title="🕌">
+
+          <DropdownButton menuAlign="right" className="establishment-dropdown" drop="down" title={this.props.selectedTenant?.name}>
             {this.props?.tenants?.map(tenant =>
               <Dropdown.Item
                 className={classNames({ "active": tenant.id === this.props?.selectedTenant?.id})}
@@ -67,6 +63,10 @@ class Navigation extends React.Component<Props, any> {
             )}
           </DropdownButton>
         </Navbar>
+
+        {/* Enable parent component to project content */}
+        {this.props.children}
+        
       </div>
     );
   }

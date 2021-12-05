@@ -7,11 +7,16 @@
 .establishment-name {
     flex: 1;
     text-align: center;
-    margin-left: 0.1rem !important;
-    margin-right: 0.1rem !important;
+
 }
   
+.establishment-dropdown {
+    margin-left: 1rem;
+    flex-grow: 1;
+}
+
 .establishment-dropdown button {
+    width: 100%;
     font-size: 18px;
 }
   
