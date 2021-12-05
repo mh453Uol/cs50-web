@@ -2,7 +2,6 @@ import React from 'react';
 import { Stream } from '../../models/Stream';
 import { Tenant } from '../../models/Tenant';
 import { isStreaming } from '../../services/prayertime/AudioStream.service';
-import { Link } from "react-router-dom";
 
 interface Props {
   tenant: Tenant
