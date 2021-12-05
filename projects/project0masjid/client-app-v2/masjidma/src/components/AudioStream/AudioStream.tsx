@@ -2,7 +2,6 @@ import React from 'react';
 import { Stream } from '../../models/Stream';
 import { Tenant } from '../../models/Tenant';
 import { isStreaming } from '../../services/prayertime/AudioStream.service';
-import { Link } from "react-router-dom";
 
 interface Props {
   tenant: Tenant
@@ -83,6 +82,10 @@ class AudioStream extends React.Component<Props, State> {
     }
   }
 
+  navigateToHome() {
+    window.location.href = "/?utm_source=southcourtmosquedotlive&utm_medium=see-salah-radio-page"
+  }
+
   render() {
       return (
         <div data-testid="AudioStream">
@@ -110,13 +113,13 @@ class AudioStream extends React.Component<Props, State> {
 
               <div className="text-center">
                 <div className="mt-3">
-                  <button type="button" className="btn btn-sm btn-primary" onClick={this.share}>
+                  <button type="button" className="btn btn-sm btn-info" onClick={this.share}>
                     Share
                   </button>
 
-                  <Link type="button" className="btn btn-sm btn-primary ml-2" to="/?utm_source=southcourtmosquedotlive&utm_medium=see-salah-radio-page">
+                  <button type="button" className="btn btn-sm btn-info ml-2" onClick={this.navigateToHome}>
                     See Salah Times
-                  </Link>
+                  </button>
                 </div>
               </div>
 

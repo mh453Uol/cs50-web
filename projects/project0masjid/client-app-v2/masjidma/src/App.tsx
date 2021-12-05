@@ -95,7 +95,7 @@ class App extends React.Component<Props, State> {
           selectedTenant={this.state?.tenant}
           tenantSelected={this.tenantSelected}>
 
-          <main id="page-container">
+          <main>
             <Switch>
               <Route path="/ramadan" render={(props) =>
                 <Ramadan
