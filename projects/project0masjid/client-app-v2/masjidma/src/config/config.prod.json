@@ -45,7 +45,7 @@
                     "to": "2021-12-05T23:59:59.00Z"
                 },
                 {
-                    "message": "Weekend Only: Isha at 6:30 PM",
+                    "message": "Event on 12th December after Isha salah 6:30 PM",
                     "from": "2021-12-11T00:00:00.00Z",
                     "to": "2021-12-12T23:59:59.00Z"
                 },
@@ -55,9 +55,13 @@
                     "to": "2021-12-19T23:59:59.00Z"
                 },
                 {
-                    "message": "Weekend Only: Isha at 6:30 PM",
-                    "from": "2021-12-25T00:00:00.00Z",
-                    "to": "2021-12-26T23:59:59.00Z"
+                    "message": "Event on 25th December after Isha salah (6:30 PM), speakers are Shaykh Zahir Mahmood and Qari Sahi -",
+                    "from": "2021-12-23T00:00:00.00Z",
+                    "to": "2021-12-25T23:59:59.00Z",
+                    "link": {
+                        "url": "https://www.facebook.com/Southcourt.Islamic.Centre/photos/a.3631843410243580/4764807126947197/",
+                        "name": "click link for more details"
+                    }
                 }
             ]
         },
