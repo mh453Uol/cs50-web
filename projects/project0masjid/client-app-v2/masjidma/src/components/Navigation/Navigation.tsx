@@ -58,6 +58,7 @@ class Navigation extends React.Component<Props, any> {
                 className={classNames({ "active": tenant.id === this.props?.selectedTenant?.id})}
                 data-tenant={tenant.id}
                 onClick={this.setTenant}
+                href={`?tenant=${tenant?.id}`}
                 key={tenant.name}>{tenant.name}
               </Dropdown.Item>
             )}
