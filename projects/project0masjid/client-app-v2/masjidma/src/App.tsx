@@ -4,7 +4,7 @@ import Navigation from './components/Navigation/Navigation';
 
 import configuration from './config/config.prod.json';
 import { Tenant } from './models/Tenant';
-import { getQueryString } from './util/util';
+import { getQueryString, toUTC } from './util/util';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,6 +14,7 @@ import Ramadan from './components/Ramadan/Ramadan';
 import About from './components/About/About';
 import ContactUs from './components/ContactUs/ContactUs';
 import AudioStream from './components/AudioStream/AudioStream';
+import { Announcement } from './models/Annoucement';
 
 interface Props { }
 interface Configuration {
@@ -24,6 +25,27 @@ interface State {
   tenant: Tenant
 }
 
+class MasjidTenant implements Tenant {
+  constructor({ name, id, displayRamadanTimes = false, ramadanStart, ramadanEnd, ramadanTimetable, announcements = [] }: { name: string; id: number; displayRamadanTimes: boolean; ramadanStart: string; ramadanEnd: string; ramadanTimetable: string; announcements?: Announcement[]; }) 
+  {
+    this.name = name;
+    this.id = id;
+    this.displayRamadanTimes = displayRamadanTimes;
+    this.ramadanStart = toUTC(new Date(ramadanStart));
+    this.ramadanEnd = toUTC(new Date(ramadanEnd));
+    this.ramadanTimetable = ramadanTimetable;
+    this.announcements = announcements;
+  }
+
+  name: string;
+  id: number;
+  displayRamadanTimes: boolean;
+  ramadanStart: Date;
+  ramadanEnd: Date;
+  ramadanTimetable: string;
+  announcements: Announcement[];
+}
+
 class App extends React.Component<Props, State> {
 
   constructor(props: Props) {
@@ -32,21 +54,23 @@ class App extends React.Component<Props, State> {
     this.tenantSelected = this.tenantSelected.bind(this);
   }
 
+
   getSelectedTenant(): Tenant {
     const tenantId = window.localStorage.getItem("tenant");
-    const defaulTenant = configuration.tenants[0];
+
+    const defaultTenant = new MasjidTenant(configuration.tenants[0]);
 
     if (tenantId === null) {
-      return defaulTenant;
+      return defaultTenant;
     }
 
     const tenant = configuration.tenants.find(t => t.id === Number(tenantId));
 
     if (!tenant) {
-      return defaulTenant;
+      return defaultTenant;
     }
 
-    return tenant;
+    return new MasjidTenant(tenant);
   }
 
   initalizeTenant(): void {
@@ -73,7 +97,7 @@ class App extends React.Component<Props, State> {
     const tenant = this.getSelectedTenant();
 
     this.setState({
-      configuration: configuration,
+      configuration: configuration as any,
       tenant: tenant,
     })
   }
@@ -83,7 +107,7 @@ class App extends React.Component<Props, State> {
     window.localStorage.setItem('tenant', newTenant.id.toString());
 
     this.setState({
-      tenant: newTenant
+      tenant: new MasjidTenant(newTenant as any),
     })
   }
 
@@ -107,9 +131,9 @@ class App extends React.Component<Props, State> {
 
               <Route path="/contact-us" render={(props) => <ContactUs></ContactUs>}></Route>
 
-              <Route path="/radio" render={(props) => 
+              <Route path="/radio" render={(props) =>
                 <AudioStream
-                  tenant={this.state?.tenant}>  
+                  tenant={this.state?.tenant}>
                 </AudioStream>}>
               </Route>
 

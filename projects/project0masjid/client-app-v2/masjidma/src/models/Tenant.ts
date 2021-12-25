@@ -3,8 +3,8 @@ export interface Tenant {
   name: string;
   id: number;
   displayRamadanTimes: boolean;
-  ramadanStart: string;
-  ramadanEnd: string;
+  ramadanStart: Date;
+  ramadanEnd: Date;
   ramadanTimetable: string;
   announcements: Announcement[];
 }

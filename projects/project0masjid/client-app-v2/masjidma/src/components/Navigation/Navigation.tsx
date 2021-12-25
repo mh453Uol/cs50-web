@@ -52,12 +52,13 @@ class Navigation extends React.Component<Props, any> {
             </Nav>
           </Navbar.Collapse>
 
-          <DropdownButton menuAlign="right" className="establishment-dropdown" drop="down" title={this.props.selectedTenant?.name}>
+          <DropdownButton menuAlign="right" className="establishment-dropdown" drop="down" title={this.props.selectedTenant?.name || 'Loading'}>
             {this.props?.tenants?.map(tenant =>
               <Dropdown.Item
                 className={classNames({ "active": tenant.id === this.props?.selectedTenant?.id})}
                 data-tenant={tenant.id}
                 onClick={this.setTenant}
+                href={`?tenant=${tenant?.id}`}
                 key={tenant.name}>{tenant.name}
               </Dropdown.Item>
             )}

@@ -12,6 +12,7 @@ import Table from '../../components/Table/Table';
 import BookmarkInstruction from '../../components/BookmarkInstruction/BookmarkInstruction';
 import Announcements from '../Announcement/Announcement';
 import LiveBanner from '../LiveBanner/LiveBanner';
+import RamadanIftar from '../RamadanIftar/RamadanIftar';
 
 interface Props {
   tenant: Tenant
@@ -140,6 +141,10 @@ class Home extends React.Component<Props, State> {
     });
   }
 
+  isRamadan() {
+    return this.props?.tenant?.displayRamadanTimes;
+  }
+
   render() {
     return (
       <div data-testid="Home">
@@ -159,6 +164,14 @@ class Home extends React.Component<Props, State> {
           onYesterdayClick={this.onYesterdayClick}
           onTomorrowClick={this.onTomorrowClick}>
         </Header>
+
+        { this.isRamadan() && 
+          <RamadanIftar 
+            tenant={this.props.tenant}
+            date={this.state.date}
+            suhoor={this.state.salah?.start?.fajr}
+            iftar={this.state.salah?.start?.maghrib}>
+          </RamadanIftar>}
 
         <Table
           salah={this.state.salah}>
