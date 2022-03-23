@@ -62,6 +62,15 @@
                         "url": "https://www.facebook.com/Southcourt.Islamic.Centre/photos/a.3631843410243580/4764807126947197/",
                         "name": "click link for more details"
                     }
+                }, 
+                {
+                    "message": "Ramadan start date subject to change - ",
+                    "from": "2022-03-23T00:00:00.00Z",
+                    "to": "2022-03-24T23:59:59.00Z",
+                    "link": {
+                        "url": "https://www.facebook.com/Southcourt.Islamic.Centre/photos/a.1125100164251263/5124554527639120/",
+                        "name": "see timetable"
+                    }
                 }
             ]
         },
