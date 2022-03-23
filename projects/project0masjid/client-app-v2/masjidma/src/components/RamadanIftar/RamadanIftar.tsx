@@ -55,7 +55,7 @@ const RamadanIftar: React.FC<Props> = (props: Props) => {
             </div>
           </div>
         </div>
-        <a href="./ramadan" className="btn btn-primary btn-block mt-2" role="button">Ramadan Timetable <span className="urdu-text">رمضان ٹائم ٹیبل</span></a>
+        <a href={props.tenant.ramadanTimetable} className="btn btn-primary btn-block mt-2" role="button">Ramadan Timetable <span className="urdu-text">رمضان ٹائم ٹیبل</span></a>
       </div>
     </div>
   )

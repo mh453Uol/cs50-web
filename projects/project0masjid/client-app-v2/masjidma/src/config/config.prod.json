@@ -4,10 +4,10 @@
         {
             "name": "Southcourt Masjid",
             "id": 4,
-            "displayRamadanTimes": false,
-            "ramadanStart": "2021-03-13T00:00:00.000Z",
-            "ramadanEnd": "2021-04-12T23:00:00.000Z",
-            "ramadanTimetable": "https://drive.google.com/uc?export=view&id=1MtxZTlSaGghoXsuFkrPlfCutTlBAAbEC",
+            "displayRamadanTimes": true,
+            "ramadanStart": "2022-04-02T00:00:00.000Z",
+            "ramadanEnd": "2022-05-021T23:00:00.000Z",
+            "ramadanTimetable":"https://drive.google.com/uc?export=view&id=1h7K1YAKxyfzQi76pI8J5RNQrsLb91OhG",
             "announcements" : [
                 {
                     "message": "🎉 Eid ul Fitr 2021 will be on Thursday 13th Insha’Allah. \n Eid Salah - 6:30AM, 8:00AM and 9:30AM \n",
@@ -69,9 +69,9 @@
             "name": "Aylesbury Masjid",
             "id": 3,
             "displayRamadanTimes": false,
-            "ramadanStart": "2021-03-13T00:00:00.000Z",
-            "ramadanEnd": "2021-04-12T23:00:00.000Z",
-            "ramadanTimetable": "https://drive.google.com/uc?export=view&id=1kS2mh-SoS-qkRvrt3G9dpzWTzpI9LvmC",
+            "ramadanStart": "2022-04-12T00:00:00.000Z",
+            "ramadanEnd": "2022-05-31T23:00:00.000Z",
+            "ramadanTimetable":"https://drive.google.com/uc?export=view&id=1h7K1YAKxyfzQi76pI8J5RNQrsLb91OhG",
             "announcements" : [
                 {
                     "message": "🎉 Eid ul Fitr 2021 will be on Thursday 13th Insha’Allah \n Eid Salah - 8:00AM, 9:00AM and 10:00AM",
