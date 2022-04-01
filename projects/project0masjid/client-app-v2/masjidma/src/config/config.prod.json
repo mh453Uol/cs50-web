@@ -6,7 +6,7 @@
             "id": 4,
             "displayRamadanTimes": true,
             "ramadanStart": "2022-04-02T00:00:00.000Z",
-            "ramadanEnd": "2022-05-021T23:00:00.000Z",
+            "ramadanEnd": "2022-05-21T23:00:00.000Z",
             "ramadanTimetable":"https://drive.google.com/uc?export=view&id=1h7K1YAKxyfzQi76pI8J5RNQrsLb91OhG",
             "announcements" : [
                 {
@@ -66,7 +66,7 @@
                 {
                     "message": "Ramadan start date subject to change - ",
                     "from": "2022-03-23T00:00:00.00Z",
-                    "to": "2022-04-21T23:59:59.00Z",
+                    "to": "2022-04-02T23:59:59.00Z",
                     "link": {
                         "url": "https://www.facebook.com/Southcourt.Islamic.Centre/photos/a.1125100164251263/5124554527639120/",
                         "name": "see timetable"
@@ -100,7 +100,7 @@
                 {
                     "message": "Ramadan start date subject to change - ",
                     "from": "2022-03-23T00:00:00.00Z",
-                    "to": "2022-04-22T23:59:59.00Z",
+                    "to": "2022-04-03T23:59:59.00Z",
                     "link": {
                         "url": "https://www.facebook.com/701052483318607/photos/a.863179583772562/5238858492871294/",
                         "name": "see timetable"
