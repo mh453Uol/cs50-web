@@ -6,13 +6,13 @@
             "id": 4,
             "displayRamadanTimes": true,
             "ramadanStart": "2022-04-02T00:00:00.000Z",
-            "ramadanEnd": "2022-05-21T23:00:00.000Z",
+            "ramadanEnd": "2022-05-02T23:00:00.000Z",
             "ramadanTimetable":"https://drive.google.com/uc?export=view&id=1h7K1YAKxyfzQi76pI8J5RNQrsLb91OhG",
             "announcements" : [
                 {
-                    "message": "🎉 Eid ul Fitr 2021 will be on Thursday 13th Insha’Allah. \n Eid Salah - 6:30AM, 8:00AM and 9:30AM \n",
-                    "from": "2021-05-12T20:00:00.00Z",
-                    "to": "2021-05-14T12:00:00.00Z"
+                    "message": "🎉 Eid ul Fitr 2022 will be on Monday 2nd Insha’Allah. \n Eid Salah - 6:30AM, 8:00AM and 9:30AM \n",
+                    "from": "2022-05-01T20:00:00.00Z",
+                    "to": "2022-05-02T20:00:00.00Z" 
                 },
                 {
                     "message": "🎉 Eid Mubarak! Wish you all a very happy and peaceful Eid. \n Please make a special dua that Allah protects the people of Palestine.",
@@ -24,45 +24,6 @@
                     "from": "2021-06-27T00:00:00.00Z",
                     "to": "2021-07-20T23:59:59.00Z"
                 },
-                {
-                    "message": "Weekend Only: Isha at 6:30",
-                    "from": "2021-11-13T00:00:00.00Z",
-                    "to": "2021-11-14T23:59:59.00Z"
-                },
-                {
-                    "message": "Weekend Only: Isha at 6:30",
-                    "from": "2021-11-20T00:00:00.00Z",
-                    "to": "2021-11-21T23:59:59.00Z"
-                },
-                {
-                    "message": "Weekend Only: Isha at 6:30 PM",
-                    "from": "2021-11-27T00:00:00.00Z",
-                    "to": "2021-11-28T23:59:59.00Z"
-                },
-                {
-                    "message": "Weekend Only: Isha at 6:30 PM",
-                    "from": "2021-12-04T00:00:00.00Z",
-                    "to": "2021-12-05T23:59:59.00Z"
-                },
-                {
-                    "message": "Event on 12th December after Isha salah 6:30 PM",
-                    "from": "2021-12-11T00:00:00.00Z",
-                    "to": "2021-12-12T23:59:59.00Z"
-                },
-                {
-                    "message": "Weekend Only: Isha at 6:30 PM",
-                    "from": "2021-12-18T00:00:00.00Z",
-                    "to": "2021-12-19T23:59:59.00Z"
-                },
-                {
-                    "message": "Event on 25th December after Isha salah (6:30 PM), speakers are Shaykh Zahir Mahmood and Qari Sahi -",
-                    "from": "2021-12-23T00:00:00.00Z",
-                    "to": "2021-12-25T23:59:59.00Z",
-                    "link": {
-                        "url": "https://www.facebook.com/Southcourt.Islamic.Centre/photos/a.3631843410243580/4764807126947197/",
-                        "name": "click link for more details"
-                    }
-                }, 
                 {
                     "message": "Ramadan start date subject to change - ",
                     "from": "2022-03-23T00:00:00.00Z",
@@ -79,13 +40,13 @@
             "id": 3,
             "displayRamadanTimes": true,
             "ramadanStart": "2022-04-03T00:00:00.000Z",
-            "ramadanEnd": "2022-05-022T23:00:00.000Z",
+            "ramadanEnd": "2022-05-02T23:00:00.000Z",
             "ramadanTimetable":"https://drive.google.com/uc?export=view&id=1NI1UF0zCoAkD3JZ4T1UCWIgSTqy7ADKM",
             "announcements" : [
                 {
-                    "message": "🎉 Eid ul Fitr 2021 will be on Thursday 13th Insha’Allah \n Eid Salah - 8:00AM, 9:00AM and 10:00AM",
-                    "from": "2021-04-11T20:00:00.00Z",
-                    "to": "2021-04-13T12:00:00.00Z"
+                    "message": "🎉 Eid ul Fitr 2022 will be on Monday 2nd Insha’Allah \n Eid Salah - 8:30AM, 9:30AM and 10:30AM",
+                    "from": "2022-05-01T20:00:00.00Z",
+                    "to": "2022-05-02T20:00:00.00Z"
                 },
                 {
                     "message": "🎉 Eid Mubarak! Wish you all a very happy and peaceful Eid.",
