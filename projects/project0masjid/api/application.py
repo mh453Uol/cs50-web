@@ -5,8 +5,19 @@ import dateutil.parser
 from flask import Flask, request
 from datetime import datetime
 from flask_cors import CORS
+from flask_caching import Cache
 
 app = Flask(__name__)
+
+config = {
+    "DEBUG": True,
+    "CACHE_TYPE": "SimpleCache",
+    "CACHE_DEFAULT_TIMEOUT": 300
+}
+
+app.config.from_mapping(config)
+
+cache = Cache(app)
 
 # enable any origin to access the api https://flask-cors.readthedocs.io/en/3.0.7/
 cors = CORS(app)
@@ -26,7 +37,7 @@ def daily(tenant):
     else:
         date = dateutil.parser.parse(date)
 
-    response = get_daily_prayers(tenant, date)
+    response = get_daily_prayers(tenant, date.day, date.strftime('%B'))
 
     if not response.ok:
         return {
@@ -69,7 +80,9 @@ def stream(tenant):
 # Make backend api request to 
 # https://prayertimes.airmyprayer.co.uk/<tenant>/prayer<tenant>?handler=getprayertimesdaily
 # Body: { date: str, month: str, establishid: str }
-def get_daily_prayers(tenant, date):
+# cache the response for 20 mins 60*20
+@cache.memoize(1200)
+def get_daily_prayers(tenant, day, month):
     url = api_url(tenant, "getprayertimesdaily")
 
     headers = {
@@ -80,8 +93,8 @@ def get_daily_prayers(tenant, date):
     #https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior
 
     body = {
-        "date": f"{date.day}",
-        "month": f"{date.strftime('%B')}",
+        "date": f"{day}",
+        "month": f"{month}",
         "establishid": tenant
     }
 
@@ -89,8 +102,11 @@ def get_daily_prayers(tenant, date):
 
     return response
 
+
 # https://prayertimes.airmyprayer.co.uk/<tenant>/prayer<tenant>?handler=getprayertimesjamaat
 # Body: { establishid : str }
+# cache the response for 20 mins 60*20
+@cache.memoize(1200)
 def get_jamaat_times(tenant):
     url = api_url(tenant, "getprayertimesjamaat")
 
