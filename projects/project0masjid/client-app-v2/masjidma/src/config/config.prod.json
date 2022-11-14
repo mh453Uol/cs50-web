@@ -1,5 +1,5 @@
 {
-    "baseUrl": "https://masjidma2.herokuapp.com",
+    "baseUrl": "https://masjidma-api.vercel.app",
     "tenants": [
         {
             "name": "Southcourt Masjid",
