@@ -4,9 +4,13 @@ A simple client which displays salah times. Created a  api which proxies request
 
 Click the link to see the application - https://www.southcourtmosque.live/
 
-UI deployed to netlify, and api uses a heroku free tier dyno.
+UI deployed to netlify, and api uses a vercel free tier account to deploy the api on a machine.
 
-## Browser compatibility
-1. IE 10 - Using babel-polyfill
-2. Latest Chrome & Firefox
+
+
+## Deploy api
+1. Make sure you are in the `/api` folder
+2. Run vercel --prod
+3. This will update the deploy the flask api to vercel
+   
 

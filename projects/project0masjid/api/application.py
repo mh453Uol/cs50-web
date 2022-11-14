@@ -5,19 +5,8 @@ import dateutil.parser
 from flask import Flask, request
 from datetime import datetime
 from flask_cors import CORS
-from flask_caching import Cache
 
 app = Flask(__name__)
-
-config = {
-    "DEBUG": True,
-    "CACHE_TYPE": "SimpleCache",
-    "CACHE_DEFAULT_TIMEOUT": 300
-}
-
-app.config.from_mapping(config)
-
-cache = Cache(app)
 
 # enable any origin to access the api https://flask-cors.readthedocs.io/en/3.0.7/
 cors = CORS(app)
@@ -41,8 +30,8 @@ def daily(tenant):
 
     if not response.ok:
         return {
-            "code": f"{response}.status_code",
-            "message": f"{response}.text"
+            "code": f"{response.status_code}",
+            "message": f"{response.text}"
         }
 
     return response.json()
@@ -54,8 +43,8 @@ def jamaat(tenant):
 
     if not response.ok:
         return {
-            "code": f"{response}.status_code",
-            "message": f"{response}.text"
+            "code": f"{response.status_code}",
+            "message": f"{response.text}"
         }
 
     return response.json()
@@ -67,7 +56,7 @@ def jamaat(tenant):
 def stream(tenant):
     url = f"https://audio.airmyprayer.co.uk/ayl-{tenant}"
 
-    response = requests.head(url = url)
+    response = requests.head(url=url)
 
     data = {
         "isLive": response.ok,
@@ -75,13 +64,10 @@ def stream(tenant):
     }
 
     return data
-    
 
-# Make backend api request to 
-# https://prayertimes.airmyprayer.co.uk/<tenant>/prayer<tenant>?handler=getprayertimesdaily
+
+# Make backend api request to <api>/<tenant>/prayer<tenant>?handler=getprayertimesdaily
 # Body: { date: str, month: str, establishid: str }
-# cache the response for 20 mins 60*20
-@cache.memoize(1200)
 def get_daily_prayers(tenant, day, month):
     url = api_url(tenant, "getprayertimesdaily")
 
@@ -90,7 +76,7 @@ def get_daily_prayers(tenant, day, month):
         "Accept": "application/json"
     }
 
-    #https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior
+    # https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior
 
     body = {
         "date": f"{day}",
@@ -103,10 +89,8 @@ def get_daily_prayers(tenant, day, month):
     return response
 
 
-# https://prayertimes.airmyprayer.co.uk/<tenant>/prayer<tenant>?handler=getprayertimesjamaat
+# <api>/<tenant>/prayer<tenant>?handler=getprayertimesjamaat
 # Body: { establishid : str }
-# cache the response for 20 mins 60*20
-@cache.memoize(1200)
 def get_jamaat_times(tenant):
     url = api_url(tenant, "getprayertimesjamaat")
 
@@ -123,5 +107,9 @@ def get_jamaat_times(tenant):
 
 
 def api_url(tenant, handler):
-    print(f"{base_api_url}/{tenant}/prayer{tenant}?handler={handler}")
-    return f"{base_api_url}/{tenant}/prayer{tenant}?handler={handler}"
+    url = f"{base_api_url}/{tenant}/prayer{tenant}?handler={handler}"
+
+    now = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+
+    print(f"{now} - {url}")
+    return url
