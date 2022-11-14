@@ -2,7 +2,7 @@ import React from 'react';
 
 import Navigation from './components/Navigation/Navigation';
 
-import configuration from './config/config.prod.json';
+import configuration from './config/config.prod-v2.json';
 import { Tenant } from './models/Tenant';
 import { getQueryString, toUTC } from './util/util';
 
@@ -92,6 +92,7 @@ class App extends React.Component<Props, State> {
   }
 
   componentDidMount() {
+
     this.initalizeTenant();
 
     const tenant = this.getSelectedTenant();

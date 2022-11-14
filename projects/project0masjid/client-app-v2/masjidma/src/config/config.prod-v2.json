@@ -1,0 +1,73 @@
+{
+    "baseUrl": "https://masjidma-api.vercel.app",
+    "tenants": [
+        {
+            "name": "Southcourt Masjid",
+            "id": 4,
+            "displayRamadanTimes": false,
+            "ramadanStart": "2022-04-02T00:00:00.000Z",
+            "ramadanEnd": "2022-05-02T23:00:00.000Z",
+            "ramadanTimetable":"",
+            "announcements" : [
+                {
+                    "message": "🎉 Eid ul Fitr 2022 will be on Monday 2nd Insha’Allah. \n Eid Salah - 6:30AM, 8:00AM and 9:30AM \n",
+                    "from": "2022-05-01T20:00:00.00Z",
+                    "to": "2022-05-02T20:00:00.00Z" 
+                },
+                {
+                    "message": "🎉 Eid Mubarak! Wish you all a very happy and peaceful Eid. \n Please make a special dua that Allah protects the people of Palestine.",
+                    "from": "2021-05-12T12:00:00.00Z",
+                    "to": "2021-04-13T00:00:00.00Z"
+                },
+                {
+                    "message": "🎉 Eid ul-Adha 2021 will be on Tuesday 20th Insha’Allah. \n Eid Salah - 6:00AM, 8:00AM and 9:30AM",
+                    "from": "2021-06-27T00:00:00.00Z",
+                    "to": "2021-07-20T23:59:59.00Z"
+                },
+                {
+                    "message": "Ramadan start date subject to change - ",
+                    "from": "2022-03-23T00:00:00.00Z",
+                    "to": "2022-04-02T23:59:59.00Z",
+                    "link": {
+                        "url": "https://www.facebook.com/Southcourt.Islamic.Centre/photos/a.1125100164251263/5124554527639120/",
+                        "name": "see timetable"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Aylesbury Masjid", 
+            "id": 3,
+            "displayRamadanTimes": false,
+            "ramadanStart": "2022-04-03T00:00:00.000Z",
+            "ramadanEnd": "2022-05-02T23:00:00.000Z",
+            "ramadanTimetable":"",
+            "announcements" : [
+                {
+                    "message": "🎉 Eid ul Fitr 2022 will be on Monday 2nd Insha’Allah \n Eid Salah - 8:30AM, 9:30AM and 10:30AM",
+                    "from": "2022-05-01T20:00:00.00Z",
+                    "to": "2022-05-02T20:00:00.00Z"
+                },
+                {
+                    "message": "🎉 Eid Mubarak! Wish you all a very happy and peaceful Eid.",
+                    "from": "2021-04-13T12:00:00.00Z",
+                    "to": "2021-04-14T00:00:00.00Z"
+                },
+                {
+                    "message": "🎉 Eid ul-Adha 2021 will be on Wenesday 21th Insha’Allah. Eid Salah - 8:30AM, 9:30AM and 10:30AM \n",
+                    "from": "2021-06-27T00:00:00.00Z",
+                    "to": "2021-07-21T23:59:59.00Z"
+                },
+                {
+                    "message": "Ramadan start date subject to change - ",
+                    "from": "2022-03-23T00:00:00.00Z",
+                    "to": "2022-04-03T23:59:59.00Z",
+                    "link": {
+                        "url": "https://www.facebook.com/701052483318607/photos/a.863179583772562/5238858492871294/",
+                        "name": "see timetable"
+                    }
+                }
+            ]
+        }
+    ]
+}
