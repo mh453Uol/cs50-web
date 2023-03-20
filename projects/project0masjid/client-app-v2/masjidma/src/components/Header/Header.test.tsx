@@ -5,7 +5,13 @@ import Header from './Header';
 
 describe('<Header />', () => {
   test('it should mount', () => {
-    render(<Header />);
+    const noop = () => {};
+
+    render(<Header 
+      date={new Date()} 
+      isLoading={false} 
+      onYesterdayClick={noop} 
+      onTomorrowClick={noop }/>);
     
     const header = screen.getByTestId('Header');
 

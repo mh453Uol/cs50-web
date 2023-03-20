@@ -52,7 +52,7 @@ class Table extends React.Component<Props, State> {
               <td id="js-dhuhr-jamaat" className="text-center">{formatAsHoursMinutes(this.props.salah?.jamaat.dhuhr)}</td>
             </tr>
             <tr className={classNames({ "table-active": nextSalah === "Asr"})}>
-              <th scope="row">Asr <span className="float-right">اثر</span></th>
+              <th scope="row">Asr <span className="float-right">عصر</span></th>
               <td id="js-asr-start" className="text-center">{formatAsHoursMinutes(this.props.salah?.start.asr)}</td>
               <td id="js-asr-jamaat" className="text-center">{formatAsHoursMinutes(this.props?.salah?.jamaat.asr)}</td>
             </tr>
