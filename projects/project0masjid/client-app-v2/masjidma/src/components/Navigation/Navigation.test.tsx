@@ -2,10 +2,14 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Navigation from './Navigation';
+import { FakeTenant } from '../../models/tests/FakeTenant';
 
 describe('<Navigation />', () => {
   test('it should mount', () => {
-    render(<Navigation />);
+    render(<Navigation 
+      children={null}
+      tenantSelected={() => {}}
+      tenants={[new FakeTenant()]}/>);
     
     const navigation = screen.getByTestId('Navigation');
 

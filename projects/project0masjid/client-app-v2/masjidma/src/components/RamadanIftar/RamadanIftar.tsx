@@ -37,7 +37,7 @@ const RamadanIftar: React.FC<Props> = (props: Props) => {
           <div className="suhoor col">
             <div className="card">
               <div className="card-body p-1">
-                <div className="text-center bold"><b>Suhoor Ends</b></div>
+                <div className="text-center bold"><b>Sehri</b></div>
                 <div className="text-center">
                   <span className="js-suhoor-end">{formatAsHoursMinutes(props.suhoor)}</span>
                 </div>
