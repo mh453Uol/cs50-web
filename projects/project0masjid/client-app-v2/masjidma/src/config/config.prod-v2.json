@@ -4,7 +4,7 @@
         {
             "name": "Southcourt Masjid",
             "id": 4,
-            "displayRamadanTimes": true,
+            "displayRamadanTimes": false,
             "ramadanStart": "2023-03-23T00:00:00.000Z",
             "ramadanEnd": "2023-04-22T23:00:00.000Z",
             "ramadanTimetable":"https://drive.google.com/uc?export=view&id=15oJHYr8G7lJQccRsabLuOyfGaL79SrXR",
@@ -32,6 +32,16 @@
                         "url": "https://www.facebook.com/photo/?fbid=530669012583225&set=a.415567780760016",
                         "name": "see timetable"
                     }
+                },
+                {
+                    "message": "🎉 Eid ul Fitr will be on Friday 21st \n Eid Salah - 6:30AM, 8:00AM and 9:30AM \n",
+                    "from": "2023-04-20T20:00:00.00Z",
+                    "to": "2023-04-21T10:00:00.00Z"
+                },
+                {
+                    "message": "🎉 Eid Mubarak! Wish you all a very happy and peaceful Eid. \n Please make a special dua that Allah protects the people of Palestine.",
+                    "from": "2023-04-21T11:00:00.00Z",
+                    "to": "2023-04-21T23:00:00.00Z"
                 }
             ]
         },
