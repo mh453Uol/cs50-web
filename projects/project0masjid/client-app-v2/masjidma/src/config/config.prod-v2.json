@@ -76,7 +76,17 @@
                         "url": "https://www.facebook.com/photo?fbid=193503690094202&set=a.136190749158830",
                         "name": "see timetable"
                     }
-                }
+                },
+                {
+                    "message": "🎉 Eid ul Fitr will be on Saturday 22nd \n Eid Salah - 8:00AM, 9:00AM and 10:00AM \n",
+                    "from": "2023-04-21T20:00:00.00Z",
+                    "to": "2023-04-22T10:00:00.00Z"
+                },
+                {
+                    "message": "🎉 Eid Mubarak! Wish you all a very happy and peaceful Eid. \n Please make a special dua that Allah protects the people of Palestine.",
+                    "from": "2023-04-22T11:00:00.00Z",
+                    "to": "2023-04-22T23:00:00.00Z"
+                },
             ]
         }
     ]
