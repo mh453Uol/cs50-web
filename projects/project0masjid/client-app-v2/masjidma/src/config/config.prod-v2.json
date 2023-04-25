@@ -48,7 +48,7 @@
         {
             "name": "Aylesbury Masjid", 
             "id": 3,
-            "displayRamadanTimes": true,
+            "displayRamadanTimes": false,
             "ramadanStart": "2023-03-23T00:00:00.000Z",
             "ramadanEnd": "2023-04-30T23:00:00.000Z",
             "ramadanTimetable":"https://drive.google.com/uc?export=view&id=19wYbwX_cD7xoxnft02jf8t-BD1rpG00W",
