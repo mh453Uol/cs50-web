@@ -4,7 +4,7 @@ import { JamaatTime } from '../../models/JamaatTime';
 import { PrayerTime } from '../../models/PrayerTime';
 
 export const getApiUrl = () => {
-    let template = `${configuration.baseUrl}/api/v1/{{tenant}}`
+    let template = `${configuration.baseUrl}/api/v2/{{tenant}}`
 
     let tenant = window.localStorage.getItem('tenant');
 
