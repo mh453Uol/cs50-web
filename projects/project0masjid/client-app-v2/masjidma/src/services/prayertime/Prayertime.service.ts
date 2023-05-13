@@ -28,7 +28,7 @@ export function getPrayerStartTimes(date: Date): Promise<PrayerTime> {
             return new PrayerTime(
                 fromTextualTimeToDate(data.fajr),
                 fromTextualTimeToDate(data.sunrise),
-                fromTextualTimeToDate(data.dahwakubra),
+                fromTextualTimeToDate(data.dhawakubra),
                 fromTextualTimeToDate(data.dhuhr),
                 fromTextualTimeToDate(data.asr),
                 fromTextualTimeToDate(data.maghrib),
