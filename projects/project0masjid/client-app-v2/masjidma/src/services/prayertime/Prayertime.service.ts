@@ -4,7 +4,7 @@ import { JamaatTime } from '../../models/JamaatTime';
 import { PrayerTime } from '../../models/PrayerTime';
 
 export const getApiUrl = () => {
-    let template = `${configuration.baseUrl}/api/v1/{{tenant}}`
+    let template = `${configuration.baseUrl}/api/v2/{{tenant}}`
 
     let tenant = window.localStorage.getItem('tenant');
 
@@ -28,7 +28,7 @@ export function getPrayerStartTimes(date: Date): Promise<PrayerTime> {
             return new PrayerTime(
                 fromTextualTimeToDate(data.fajr),
                 fromTextualTimeToDate(data.sunrise),
-                fromTextualTimeToDate(data.dahwakubra),
+                fromTextualTimeToDate(data.dhawakubra),
                 fromTextualTimeToDate(data.dhuhr),
                 fromTextualTimeToDate(data.asr),
                 fromTextualTimeToDate(data.maghrib),
