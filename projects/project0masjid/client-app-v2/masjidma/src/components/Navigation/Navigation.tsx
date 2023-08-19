@@ -36,7 +36,7 @@ const Navigation = (props: Props) => {
       <Navbar fixed="bottom" bg="light" variant="light" expand={false} style={{ flexWrap: 'nowrap'}}>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
+            <Nav className="mr-auto ml-2">
               <Nav.Link as={Link} to="/" className="nav-link" eventKey="1" key={1}>Home</Nav.Link>
               <Nav.Link as={Link} to={`/radio/${props?.selectedTenant?.id}?utm_source=southcourtmosquedotlive&utm_medium=navbar-home-page`} className="nav-link" eventKey="2" key={2}>Radio</Nav.Link>
 
