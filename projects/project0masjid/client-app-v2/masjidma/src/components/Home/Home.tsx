@@ -148,10 +148,16 @@ class Home extends React.Component<Props, State> {
   render() {
     return (
       <div data-testid="Home">
+        <p className="lead text-center mb-0">{this.props?.tenant?.description}</p>
+
         <LiveBanner
           tenant={this.props.tenant}>
         </LiveBanner>
-        
+
+        <Table
+          salah={this.state.salah}>
+        </Table>
+
         <Announcements
           tenant={this.props.tenant}
           date={this.state.date}>
@@ -172,10 +178,6 @@ class Home extends React.Component<Props, State> {
             suhoor={this.state.salah?.start?.fajr}
             iftar={this.state.salah?.start?.maghrib}>
           </RamadanIftar>}
-
-        <Table
-          salah={this.state.salah}>
-        </Table>
 
         <BookmarkInstruction></BookmarkInstruction>
       </div>

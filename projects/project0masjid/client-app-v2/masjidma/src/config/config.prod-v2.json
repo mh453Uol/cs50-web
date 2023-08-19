@@ -3,6 +3,7 @@
     "tenants": [
         {
             "name": "Southcourt Masjid",
+            "description": "Aylesbury Islamic Cultural & Community Centre (Churchill Avenue)",
             "id": 4,
             "displayRamadanTimes": false,
             "ramadanStart": "2023-03-23T00:00:00.000Z",
@@ -46,7 +47,8 @@
             ]
         },
         {
-            "name": "Aylesbury Masjid", 
+            "name": "Aylesbury Masjid",
+            "description": "Aylesbury Jamia Masjid Ghausia (Havelock Street, HP20 2NX)",
             "id": 3,
             "displayRamadanTimes": false,
             "ramadanStart": "2023-03-23T00:00:00.000Z",
@@ -78,6 +80,16 @@
                     }
                 }
             ]
+        },
+        {
+            "name": "Aylesbury Faizan-e-Siddeeq-e-Akbar",
+            "description": "Aylesbury Faizan-e-Siddeeq-e-Akbar (Chamberlain Rd, HP19 8DY)",
+            "id": 5,
+            "displayRamadanTimes": false,
+            "ramadanStart": "2023-03-23T00:00:00.000Z",
+            "ramadanEnd": "2023-04-30T23:00:00.000Z",
+            "ramadanTimetable":"",
+            "announcements" : []
         }
     ]
 }

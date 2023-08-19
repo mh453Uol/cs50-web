@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useCallback } from 'react';
 import { Tenant } from '../../models/Tenant';
 
 import './Navigation.css';
@@ -11,39 +11,36 @@ interface Props {
   children: ReactNode,
   tenants: Tenant[],
   selectedTenant?: Tenant,
-  tenantSelected: (tenant: Tenant) => void
+  tenantSelected: (tenantId: number) => void
 }
 
-class Navigation extends React.Component<Props, any> {
 
-  constructor(props: Props) {
-    super(props)
-    this.setTenant = this.setTenant.bind(this);
-  }
+const Navigation = (props: Props) => {
 
-  setTenant(e: any) {
+  const onSetTenant = useCallback((e: any) => {
     const tenantId = e?.target?.dataset?.tenant;
 
     if (tenantId) {
       const parsedId = parseInt(tenantId);
-      const tenant = this.props.tenants.find(t => t.id === parsedId);
-
-      if (tenant) {
-        this.props.tenantSelected(tenant);
-      }
+      props.tenantSelected(parsedId);
     }
-  }
-  render() {
-    return (
-      <div data-testid="Navigation">
-        <Navbar collapseOnSelect bg="light" variant="light" expand={false}>
+  }, [props.tenantSelected]);
+
+  return (
+    <div data-testid="Navigation">
+
+      {/* Enable parent component to project content */}
+      {props.children}
+
+  
+      <Navbar fixed="bottom" bg="light" variant="light" expand={false} style={{ flexWrap: 'nowrap'}}>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link as={Link} to="/" className="nav-link" eventKey="1" key={1}>Home</Nav.Link>
-              <Nav.Link as={Link} to={`/radio/${this.props?.selectedTenant?.id}?utm_source=southcourtmosquedotlive&utm_medium=navbar-home-page`} className="nav-link" eventKey="2" key={2}>Radio</Nav.Link>
-              
-              {this.props?.selectedTenant?.ramadanTimetable &&
+              <Nav.Link as={Link} to={`/radio/${props?.selectedTenant?.id}?utm_source=southcourtmosquedotlive&utm_medium=navbar-home-page`} className="nav-link" eventKey="2" key={2}>Radio</Nav.Link>
+
+              {props?.selectedTenant?.ramadanTimetable &&
                 <Nav.Link as={Link} to="/ramadan" className="nav-link" eventKey="3" key={3}>Ramadan {new Date().getFullYear()}</Nav.Link>
               }
 
@@ -52,26 +49,20 @@ class Navigation extends React.Component<Props, any> {
             </Nav>
           </Navbar.Collapse>
 
-          <DropdownButton menuAlign="right" className="establishment-dropdown" drop="down" title={this.props.selectedTenant?.name || 'Loading'}>
-            {this.props?.tenants?.map(tenant =>
+          <DropdownButton menuAlign="right" className="establishment-dropdown" drop="up" title={props.selectedTenant?.name || 'Loading'}>
+            {props?.tenants?.map(tenant =>
               <Dropdown.Item
-                className={classNames({ "active": tenant.id === this.props?.selectedTenant?.id})}
+                className={classNames({ "active": tenant.id === props?.selectedTenant?.id, "ellipsis": true })}
                 data-tenant={tenant.id}
-                onClick={this.setTenant}
+                onClick={(e) => onSetTenant(e)}
                 href={`?tenant=${tenant?.id}`}
                 key={tenant.name}>{tenant.name}
               </Dropdown.Item>
             )}
           </DropdownButton>
-        </Navbar>
-
-        {/* Enable parent component to project content */}
-        {this.props.children}
-        
-      </div>
-    );
-  }
-
+      </Navbar>
+    </div>
+  );
 }
 
 export default Navigation;

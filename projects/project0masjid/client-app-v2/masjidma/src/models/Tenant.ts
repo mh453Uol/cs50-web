@@ -6,5 +6,6 @@ export interface Tenant {
   ramadanStart: Date;
   ramadanEnd: Date;
   ramadanTimetable: string;
-  announcements: Announcement[];
+  announcements: Announcement[]
+  description?: string;
 }
