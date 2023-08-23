@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback } from 'react';
+import React, { ReactNode } from 'react';
 import { Tenant } from '../../models/Tenant';
 
 import './Navigation.css';
@@ -14,33 +14,34 @@ interface Props {
   tenantSelected: (tenantId: number) => void
 }
 
+const onSetTenant = (e: any, tenantSelectedFn: (tenantId:number) => void) => {
+  const tenantId = e?.target?.dataset?.tenant;
+
+  if (tenantId) {
+    const parsedId = parseInt(tenantId);
+    tenantSelectedFn(parsedId);
+  }
+};
 
 const Navigation = (props: Props) => {
-
-  const onSetTenant = useCallback((e: any) => {
-    const tenantId = e?.target?.dataset?.tenant;
-
-    if (tenantId) {
-      const parsedId = parseInt(tenantId);
-      props.tenantSelected(parsedId);
-    }
-  }, [props.tenantSelected]);
 
   return (
     <div data-testid="Navigation">
 
       {/* Enable parent component to project content */}
-      {props.children}
+      <div className="app-container">
+        {props.children}
+      </div>
 
   
       <Navbar fixed="bottom" bg="light" variant="light" expand={false} style={{ flexWrap: 'nowrap'}}>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto ml-2">
+            <Nav className="mr-auto ml-2 text-center">
               <Nav.Link as={Link} to="/" className="nav-link" eventKey="1" key={1}>Home</Nav.Link>
               <Nav.Link as={Link} to={`/radio/${props?.selectedTenant?.id}?utm_source=southcourtmosquedotlive&utm_medium=navbar-home-page`} className="nav-link" eventKey="2" key={2}>Radio</Nav.Link>
 
-              {props?.selectedTenant?.ramadanTimetable &&
+              {props?.selectedTenant?.displayRamadanTimes &&
                 <Nav.Link as={Link} to="/ramadan" className="nav-link" eventKey="3" key={3}>Ramadan {new Date().getFullYear()}</Nav.Link>
               }
 
@@ -54,7 +55,7 @@ const Navigation = (props: Props) => {
               <Dropdown.Item
                 className={classNames({ "active": tenant.id === props?.selectedTenant?.id, "ellipsis": true })}
                 data-tenant={tenant.id}
-                onClick={(e) => onSetTenant(e)}
+                onClick={(e) => onSetTenant(e, props.tenantSelected)}
                 href={`?tenant=${tenant?.id}`}
                 key={tenant.name}>{tenant.name}
               </Dropdown.Item>

@@ -148,7 +148,7 @@ class Home extends React.Component<Props, State> {
   render() {
     return (
       <div data-testid="Home">
-        <p className="lead text-center mb-0">{this.props?.tenant?.description}</p>
+        <p className="lead text-center m-2">{this.props?.tenant?.description}</p>
 
         <LiveBanner
           tenant={this.props.tenant}>

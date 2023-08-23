@@ -5,11 +5,11 @@ const BookmarkInstruction: React.FC = () => (
   <div data-testid="BookmarkInstruction">
     <div className="m-2">
       <p className="text-center">
-        <b>Follow these instructions to add this page to your phones home screen</b>
+       Follow these instructions to add this page to your phones home screen
       </p>
 
       <div className="text-center">
-        <b>iPhone</b>
+        iPhone
       </div>
 
       <ol>
@@ -19,7 +19,7 @@ const BookmarkInstruction: React.FC = () => (
       </ol>
 
       <div className="text-center">
-        <b>Android</b>
+        Android
       </div>
 
       <ol>
