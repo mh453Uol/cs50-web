@@ -4,7 +4,7 @@ import Navigation from './components/Navigation/Navigation';
 
 import configuration from './config/config.prod-v2.json';
 import { Tenant } from './models/Tenant';
-import { getQueryString, toUTC } from './util/util';
+import { getQueryString } from './util/util';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,7 +14,7 @@ import Ramadan from './components/Ramadan/Ramadan';
 import About from './components/About/About';
 import ContactUs from './components/ContactUs/ContactUs';
 import AudioStream from './components/AudioStream/AudioStream';
-import { Announcement } from './models/Annoucement';
+import { MasjidTenant } from './models/MasjidTenant';
 
 interface Props { }
 interface Configuration {
@@ -25,26 +25,7 @@ interface State {
   tenant: Tenant
 }
 
-class MasjidTenant implements Tenant {
-  constructor({ name, id, displayRamadanTimes = false, ramadanStart, ramadanEnd, ramadanTimetable, announcements = [] }: { name: string; id: number; displayRamadanTimes: boolean; ramadanStart: string; ramadanEnd: string; ramadanTimetable: string; announcements?: Announcement[]; }) 
-  {
-    this.name = name;
-    this.id = id;
-    this.displayRamadanTimes = displayRamadanTimes;
-    this.ramadanStart = toUTC(new Date(ramadanStart));
-    this.ramadanEnd = toUTC(new Date(ramadanEnd));
-    this.ramadanTimetable = ramadanTimetable;
-    this.announcements = announcements;
-  }
-
-  name: string;
-  id: number;
-  displayRamadanTimes: boolean;
-  ramadanStart: Date;
-  ramadanEnd: Date;
-  ramadanTimetable: string;
-  announcements: Announcement[];
-}
+const defaultTenant = 4;
 
 class App extends React.Component<Props, State> {
 
@@ -103,12 +84,17 @@ class App extends React.Component<Props, State> {
     })
   }
 
-  tenantSelected(newTenant: Tenant): void {
+  tenantSelected(tenantId: number): void {
+    const tenant = configuration.tenants.find(t => t.id === tenantId);
 
-    window.localStorage.setItem('tenant', newTenant.id.toString());
+    if (!tenant) {
+      tenantId = defaultTenant;
+    }
+
+    window.localStorage.setItem('tenant', tenantId.toString());
 
     this.setState({
-      tenant: new MasjidTenant(newTenant as any),
+      tenant: new MasjidTenant(tenant as any),
     })
   }
 

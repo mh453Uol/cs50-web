@@ -45,7 +45,7 @@ class NextSalah extends React.Component<Props, State> {
 
     return (
       <div data-testid="NextSalah" className="next-salah-container" key={salah?.name}>
-        <div id="js-next-prayer">{salah?.name} {time}</div>
+        <div id="js-next-prayer">Next Jamaat: {salah?.name} {time}</div>
         <span className="badge badge-pill badge-warning" id="js-next-prayer-from-now">{label}</span>
       </div>
     )
