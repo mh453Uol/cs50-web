@@ -18,11 +18,6 @@ const AudioStream = (props: Props) => {
   const [message, setMessage] = useState(`Hang on, getting the audio stream for the ${props.tenant?.name}`);
 
   useEffect(() => {
-    getStream();
-  }, []);
-
-  
-  const getStream = () => {
     isStreaming().then((data: Stream) => {
       setStream({
         data,
@@ -38,7 +33,8 @@ const AudioStream = (props: Props) => {
         setMessage(`Sorry, ${props.tenant?.name} has switched off the mic so the audio stream has ended`);
       }
     })
-  }
+  }, [props.tenant.name]);
+
 
   async function share() {
     if (navigator.share) {

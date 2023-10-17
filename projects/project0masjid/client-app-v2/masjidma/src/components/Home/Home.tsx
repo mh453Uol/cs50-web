@@ -27,30 +27,6 @@ const Home = ({ tenant }: { tenant: Tenant }) => {
 
   const [config, setConfig] = useState<State>({ isLoading: true, date: new Date(), salah: undefined });
 
-  const getSalahTime = () => {
-    setConfig(prevState => { return { ...prevState, isLoading: true } });
-
-    const { date } = config;
-
-    return Promise.all([
-      getJamaatTimes(date),
-      getPrayerStartTimes(date),
-    ]);
-  }
-
-  const initialize = () => {
-    getSalahTime()
-      .then(([jamaat, startTime]) => {
-        setConfig(prevState => {
-          return {
-            ...prevState,
-            isLoading: false,
-            salah: { jamaat: jamaat, start: startTime }
-          }
-        });
-      });
-  }
-
   const onVisibilityChange = () => {
     if (document.visibilityState === 'visible') {
       // When the browser tab is visible set the salah state causing a rerender of the header and table
@@ -66,7 +42,25 @@ const Home = ({ tenant }: { tenant: Tenant }) => {
 
 
   useEffect(() => {
-    initialize();
+    const getSalahTime = () => {
+      setConfig(prevState => { return { ...prevState, isLoading: true } });
+
+      return Promise.all([
+        getJamaatTimes(config.date),
+        getPrayerStartTimes(config.date),
+      ]);
+    }
+
+    getSalahTime()
+      .then(([jamaat, startTime]) => {
+        setConfig(prevState => {
+          return {
+            ...prevState,
+            isLoading: false,
+            salah: { jamaat: jamaat, start: startTime }
+          }
+        });
+      });
   }, [config.date]);
 
   useLayoutEffect(() => {
