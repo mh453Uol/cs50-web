@@ -43,7 +43,7 @@ const Home = ({ tenant }: { tenant: Tenant }) => {
 
   useEffect(() => {
     const getSalahTime = () => {
-      setConfig(prevState => { return { ...prevState, isLoading: true } });
+      setConfig(prevState => { return { ...prevState, isLoading: true, salah: undefined } });
 
       return Promise.all([
         getJamaatTimes(config.date),

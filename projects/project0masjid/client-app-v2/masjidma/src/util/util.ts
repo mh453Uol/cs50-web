@@ -125,6 +125,6 @@ export function formatAsHoursMinutes(date?: Date): string {
         hourCycle: "h12"
     });
 
-    return textualDate.replace("am","").replace("pm","");
+    return textualDate;
 }
 

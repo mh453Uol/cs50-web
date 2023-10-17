@@ -2,7 +2,6 @@
 #js-prayer-time-table th {
     padding: 0.3rem;
     vertical-align: middle;
-    font-weight: bold;
 }
 
 #js-prayer-time-table th span {
@@ -14,12 +13,6 @@
     font-weight: 400!important;
 }
 
-#js-prayer-time-table td {
-    padding: 0px;
-    font-size: 24px;
-}
-
-.table {
+#js-prayer-time-table {
     margin-bottom: 0rem;
-    font-size: 19px;
 }
