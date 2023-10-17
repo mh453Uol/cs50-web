@@ -10,8 +10,8 @@ import classNames from 'classnames';
 interface Props {
   children: ReactNode,
   tenants: Tenant[],
-  selectedTenant?: Tenant,
-  tenantSelected: (tenantId: number) => void
+  tenant?: Tenant,
+  onTenantSelected: (tenantId: number) => void
 }
 
 const onSetTenant = (e: any, tenantSelectedFn: (tenantId:number) => void) => {
@@ -39,9 +39,9 @@ const Navigation = (props: Props) => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto ml-2 text-center">
               <Nav.Link as={Link} to="/" className="nav-link" eventKey="1" key={1}>Home</Nav.Link>
-              <Nav.Link as={Link} to={`/radio/${props?.selectedTenant?.id}?utm_source=southcourtmosquedotlive&utm_medium=navbar-home-page`} className="nav-link" eventKey="2" key={2}>Radio</Nav.Link>
+              <Nav.Link as={Link} to={`/radio/${props?.tenant?.id}?utm_source=southcourtmosquedotlive&utm_medium=navbar-home-page`} className="nav-link" eventKey="2" key={2}>Radio</Nav.Link>
 
-              {props?.selectedTenant?.displayRamadanTimes &&
+              {props?.tenant?.displayRamadanTimes &&
                 <Nav.Link as={Link} to="/ramadan" className="nav-link" eventKey="3" key={3}>Ramadan {new Date().getFullYear()}</Nav.Link>
               }
 
@@ -50,12 +50,12 @@ const Navigation = (props: Props) => {
             </Nav>
           </Navbar.Collapse>
 
-          <DropdownButton menuAlign="right" className="establishment-dropdown" drop="up" title={props.selectedTenant?.name || 'Loading'}>
+          <DropdownButton menuAlign="right" className="establishment-dropdown" drop="up" title={props.tenant?.name || 'Loading'}>
             {props?.tenants?.map(tenant =>
               <Dropdown.Item
-                className={classNames({ "active": tenant.id === props?.selectedTenant?.id, "ellipsis": true })}
+                className={classNames({ "active": tenant.id === props?.tenant?.id, "ellipsis": true })}
                 data-tenant={tenant.id}
-                onClick={(e) => onSetTenant(e, props.tenantSelected)}
+                onClick={(e) => onSetTenant(e, props.onTenantSelected)}
                 href={`?tenant=${tenant?.id}`}
                 key={tenant.name}>{tenant.name}
               </Dropdown.Item>

@@ -8,7 +8,7 @@ describe('<Navigation />', () => {
   test('it should mount', () => {
     render(<Navigation 
       children={null}
-      tenantSelected={() => {}}
+      onTenantSelected={() => {}}
       tenants={[new FakeTenant()]}/>);
     
     const navigation = screen.getByTestId('Navigation');

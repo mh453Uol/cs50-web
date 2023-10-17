@@ -1,4 +1,5 @@
 import { Announcement } from './Annoucement';
+
 export interface Tenant {
   name: string;
   id: number;

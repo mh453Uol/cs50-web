@@ -43,8 +43,8 @@ export function addDays(wholeDays: number, date: Date): Date {
     return copy;
 }
 
-export function inRange(date: Date, start: Date, end: Date) {
-    const predicate = (date >= start) && (date <= end);
+export function inRange(now: Date, start: Date, end: Date) {
+    const predicate = (now >= start) && (now <= end);
     return predicate;
 }
 
@@ -64,7 +64,7 @@ export function timeAgo(date: Date) {
     seconds -= hours * (60 * 60);
 
     // whole minutes
-    const minutes = Math.round(seconds / 60) % 60;
+    const minutes = Math.ceil(seconds / 60) % 60;
     seconds -= minutes * 60;
 
     value.days = days;
@@ -119,10 +119,12 @@ export function formatAsHoursMinutes(date?: Date): string {
         return '-';
     }
 
-    return date.toLocaleString("en-GB", {
+    const textualDate = date.toLocaleString("en-GB", {
         hour: 'numeric',
         minute: 'numeric',
         hourCycle: "h12"
-    })
+    });
+
+    return textualDate.replace("am","").replace("pm","");
 }
 

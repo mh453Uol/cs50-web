@@ -1,16 +1,25 @@
-#js-prayer-time-table td, #js-prayer-time-table th {
-    padding: 0.4rem;
+#js-prayer-time-table td,
+#js-prayer-time-table th {
+    padding: 0.3rem;
     vertical-align: middle;
+    font-weight: bold;
 }
+
 #js-prayer-time-table th span {
     font-family: Arial, Helvetica, sans-serif;
     font-weight: normal !important;
-    font-size: 22px;
     margin-top: -5px;
     margin-bottom: -5px;
-    color:darkgray;
+    color: darkgray;
+    font-weight: 400!important;
+}
+
+#js-prayer-time-table td {
+    padding: 0px;
+    font-size: 24px;
 }
 
 .table {
     margin-bottom: 0rem;
+    font-size: 19px;
 }

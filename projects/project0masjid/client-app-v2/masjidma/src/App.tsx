@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 
 import Navigation from './components/Navigation/Navigation';
 
@@ -16,127 +16,91 @@ import ContactUs from './components/ContactUs/ContactUs';
 import AudioStream from './components/AudioStream/AudioStream';
 import { MasjidTenant } from './models/MasjidTenant';
 
-interface Props { }
-interface Configuration {
-  tenants: Tenant[]
+const getSelectedTenant = (): Tenant => {
+  const tenantId = window.localStorage.getItem("tenant");
+
+  const defaultTenant = new MasjidTenant(configuration.tenants[0]);
+
+  if (tenantId === null) {
+    return defaultTenant;
+  }
+
+  const tenant = configuration.tenants.find(t => t.id === Number(tenantId));
+
+  if (!tenant) {
+    return defaultTenant;
+  }
+
+  return new MasjidTenant(tenant);
 }
-interface State {
-  configuration: Configuration,
-  tenant: Tenant
+
+const initalizeTenant = () => {
+  // look at the url since we should have a tenant parameter e.g. xyz.com?tenant=1
+  let tenantId = getQueryString('tenant', window.location.href);
+
+  // if tenant not specified look at localStorage else default back
+  if (!tenantId) {
+    const tenant = window.localStorage.getItem('tenant');
+
+    if (tenant) {
+      tenantId = tenant;
+    } else {
+      tenantId = configuration.tenants[0].id.toString();
+    }
+  }
+
+  window.localStorage.setItem('tenant', tenantId);
 }
 
-const defaultTenant = 4;
 
-class App extends React.Component<Props, State> {
+const tenantSelected = (tenantId: number) => {
+  const tenant = configuration.tenants.find(t => t.id === tenantId);
+  const defaultTenant = 4;
 
-  constructor(props: Props) {
-    super(props);
-
-    this.tenantSelected = this.tenantSelected.bind(this);
+  if (!tenant) {
+    tenantId = defaultTenant;
   }
 
+  window.localStorage.setItem('tenant', tenantId.toString());
+}
 
-  getSelectedTenant(): Tenant {
-    const tenantId = window.localStorage.getItem("tenant");
+const App = () => {
+    const [tenant, setTenant] = useState(() => {
+      initalizeTenant();
+      return getSelectedTenant();
+    });
 
-    const defaultTenant = new MasjidTenant(configuration.tenants[0]);
+    const tenants = configuration.tenants.map((tenant) => new MasjidTenant(tenant));
 
-    if (tenantId === null) {
-      return defaultTenant;
-    }
+    const onTenantSelected = (tenantId: number) => {
+      tenantSelected(tenantId);
+      const tenant = getSelectedTenant();
+      setTenant(tenant);
+   };
 
-    const tenant = configuration.tenants.find(t => t.id === Number(tenantId));
-
-    if (!tenant) {
-      return defaultTenant;
-    }
-
-    return new MasjidTenant(tenant);
-  }
-
-  initalizeTenant(): void {
-    // look at the url since we should have a tenant parameter e.g. xyz.com?tenant=1
-    let tenantId = getQueryString('tenant', window.location.href);
-
-    // if tenant not specified look at localStorage else default back
-    if (!tenantId) {
-      const tenant = window.localStorage.getItem('tenant');
-
-      if (tenant) {
-        tenantId = tenant;
-      } else {
-        tenantId = configuration.tenants[0].id.toString();
-      }
-    }
-
-    window.localStorage.setItem('tenant', tenantId);
-  }
-
-  componentDidMount() {
-
-    this.initalizeTenant();
-
-    const tenant = this.getSelectedTenant();
-
-    this.setState({
-      configuration: configuration as any,
-      tenant: tenant,
-    })
-  }
-
-  tenantSelected(tenantId: number): void {
-    const tenant = configuration.tenants.find(t => t.id === tenantId);
-
-    if (!tenant) {
-      tenantId = defaultTenant;
-    }
-
-    window.localStorage.setItem('tenant', tenantId.toString());
-
-    this.setState({
-      tenant: new MasjidTenant(tenant as any),
-    })
-  }
-
-  render() {
     return (
       <div data-testid="App">
         <Navigation
-          tenants={this.state?.configuration.tenants}
-          selectedTenant={this.state?.tenant}
-          tenantSelected={this.tenantSelected}>
-
+          tenants={tenants}
+          tenant={tenant}
+          onTenantSelected={onTenantSelected}>
           <main>
             <Switch>
-              <Route path="/ramadan" render={(props) =>
-                <Ramadan
-                  tenant={this.state?.tenant}>
-                </Ramadan>}>
-              </Route>
+              <Route path="/ramadan" render={() => <Ramadan tenant={tenant}></Ramadan>}></Route>
 
-              <Route path="/about" render={(props) => <About></About>}></Route>
+              <Route path="/about" render={() => <About></About>}></Route>
 
-              <Route path="/contact-us" render={(props) => <ContactUs></ContactUs>}></Route>
+              <Route path="/contact-us" render={() => <ContactUs></ContactUs>}></Route>
 
-              <Route path="/radio" render={(props) =>
-                <AudioStream
-                  tenant={this.state?.tenant}>
-                </AudioStream>}>
-              </Route>
+              <Route path="/radio" render={() =><AudioStream tenant={tenant}></AudioStream>}></Route>
 
-              <Route path="*" render={(props) =>
-                <Home
-                  {...props}
-                  tenant={this.state?.tenant}>
-                </Home>} exact>
-              </Route>
+              <Route path="*" render={() => <Home tenant={tenant}></Home>} exact></Route>
             </Switch>
           </main>
 
         </Navigation>
       </div>
     );
-  }
 }
 
 export default App;
