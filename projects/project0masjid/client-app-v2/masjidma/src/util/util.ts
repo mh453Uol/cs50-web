@@ -128,3 +128,7 @@ export function formatAsHoursMinutes(date?: Date): string {
     return textualDate;
 }
 
+export function isPwaInstalled() {
+    return window.matchMedia('(display-mode: standalone)').matches;
+}
+

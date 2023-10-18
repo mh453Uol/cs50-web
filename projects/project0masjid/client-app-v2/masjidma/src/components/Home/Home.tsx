@@ -3,7 +3,7 @@ import { useEffect, useLayoutEffect, useState } from 'react';
 import Header from '../../components/Header/Header';
 
 import { Tenant } from '../../models/Tenant';
-import { addDays, getBrowserVisibilityProp } from '../../util/util';
+import { addDays, getBrowserVisibilityProp, isPwaInstalled } from '../../util/util';
 import { getJamaatTimes, getPrayerStartTimes } from '../../services/prayertime/Prayertime.service';
 
 import { JamaatTime } from '../../models/JamaatTime';
@@ -126,7 +126,7 @@ const Home = ({ tenant }: { tenant: Tenant }) => {
         onYesterdayClick={() => onYesterdayClick()}
         onTomorrowClick={() => onTomorrowClick()} />
 
-      <BookmarkInstruction />
+      {!isPwaInstalled() && <BookmarkInstruction /> }
     </div>
   );
 }

@@ -34,7 +34,7 @@ const Navigation = (props: Props) => {
       </div>
 
   
-      <Navbar fixed="bottom" bg="light" variant="light" expand={false} style={{ flexWrap: 'nowrap'}}>
+      <Navbar collapseOnSelect={true} fixed="bottom" bg="light" variant="light" expand={false} style={{ flexWrap: 'nowrap'}}>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto ml-2 text-center">

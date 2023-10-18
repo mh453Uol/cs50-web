@@ -1,4 +1,3 @@
-import React from 'react';
 import { JamaatTime } from '../../models/JamaatTime';
 import { PrayerTime } from '../../models/PrayerTime';
 import './Table.css';
@@ -18,7 +17,7 @@ const Table = (props: Props) => {
 
   return (
     <div data-testid="Table">
-      <BootstrapTable responsive={true} id="js-prayer-time-table">
+      <BootstrapTable responsive={true} bordered={true} id="js-prayer-time-table">
         <thead>
           <tr>
             <th scope="col">Salah <span className="pl-1">نماز</span></th>
