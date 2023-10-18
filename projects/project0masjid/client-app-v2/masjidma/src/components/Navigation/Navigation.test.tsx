@@ -6,9 +6,9 @@ import { FakeTenant } from '../../models/tests/FakeTenant';
 
 describe('<Navigation />', () => {
   test('it should mount', () => {
-    render(<Navigation 
+    render(<Navigation
       children={null}
-      tenantSelected={() => {}}
+      onTenantSelected={() => {}}
       tenants={[new FakeTenant()]}/>);
     
     const navigation = screen.getByTestId('Navigation');

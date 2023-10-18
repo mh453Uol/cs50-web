@@ -10,16 +10,14 @@ interface Props {
   date: Date
 }
 
-const Announcements: React.FC<Props> = (props: Props) => {
+const Announcements = (props: Props) => {
 
   let announcements: Announcement[] = [];
   
   if (props.tenant?.announcements) {
-
     announcements = props.tenant.announcements.filter((announcement) => 
       inRange(props.date, new Date(announcement.from), new Date(announcement.to))
     );
-  
   }
 
   return (
@@ -30,11 +28,8 @@ const Announcements: React.FC<Props> = (props: Props) => {
               <div key={announcement.message}>{announcement.message} { announcement.link && <a href={announcement.link.url} target="_blank" rel="noreferrer">{announcement.link.name}</a> }</div>)
             }
           </Alert>
-          
       }
-      
     </div>
   )
 };
-
 export default Announcements;

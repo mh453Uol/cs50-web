@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { Stream } from '../../models/Stream';
 import { Link } from "react-router-dom";
 import { Tenant } from '../../models/Tenant';
@@ -10,74 +10,49 @@ interface Props {
   tenant: Tenant
 }
 
-interface State {
+interface StreamState {
   stream: Stream | null,
   isLive: boolean
 }
 
-class LiveBanner extends React.Component<Props, State> {
+const LiveBanner = ({ tenant }: Props) => {
 
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      stream: null,
-      isLive: false
-    }
-  }
+  const [stream, setStream] = useState<StreamState>({ stream: null, isLive: false });
 
-  componentDidMount() {
-    this.getStream();
-  }
-
-  componentDidUpdate(prevProps: Props, prevState: State) {
-
-    if (this.props?.tenant && prevProps?.tenant) {
-      if (prevProps.tenant.id !== this.props.tenant.id) {
-
-        this.setState({
-          stream: null,
-          isLive: false,
-        }, () => {
-          this.getStream();
-        })
-      }
-    }
-  }
-
-
-  getStream() {
+  const getStream = () => {
     isStreaming().then((data: Stream) => {
-      this.setState({
+      setStream({
         stream: data,
         isLive: data.isLive,
       });
     })
   }
 
+  useEffect(() => {
+    getStream();
+  }, []);
 
-  render() {
-
-    if (this.state.isLive) {
-      return (
-        <div data-testid="LiveBanner">
-          <div className="alert alert-danger" role="alert">
-            <div className="live-container">
-              <div className="live-dot-container">
-                <div className="live-dot"></div>
-              </div>
-              <div className="live-label">
-                <Link to={`/radio/${this.props.tenant?.id}?utm_source=southcourtmosquedotlive&utm_medium=live-banner-home-page`}>
-                  {this.props.tenant?.name} is live now 🔊
-                </Link>
-              </div>
+  if (stream.isLive) {
+    return (
+      <div data-testid="LiveBanner">
+        <div className="alert alert-danger" role="alert">
+          <div className="live-container">
+            <div className="live-dot-container">
+              <div className="live-dot"></div>
             </div>
-
+            <div className="live-label">
+              <Link to={`/radio/${tenant?.id}?utm_source=southcourtmosquedotlive&utm_medium=live-banner-home-page`}>
+                {tenant?.name} is live now 🔊
+              </Link>
+            </div>
           </div>
+
         </div>
-      )
-    } else {
-      return ''
-    }
+      </div>
+    )
+  } else {
+    return <div data-testid="LiveBanner" />
+
   }
 }
 export default LiveBanner;

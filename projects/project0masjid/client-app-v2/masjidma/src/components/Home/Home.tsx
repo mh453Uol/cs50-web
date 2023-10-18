@@ -1,9 +1,9 @@
-import React from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 
 import Header from '../../components/Header/Header';
 
 import { Tenant } from '../../models/Tenant';
-import { addDays, getBrowserVisibilityProp } from '../../util/util';
+import { addDays, getBrowserVisibilityProp, isPwaInstalled } from '../../util/util';
 import { getJamaatTimes, getPrayerStartTimes } from '../../services/prayertime/Prayertime.service';
 
 import { JamaatTime } from '../../models/JamaatTime';
@@ -14,13 +14,8 @@ import Announcements from '../Announcement/Announcement';
 import LiveBanner from '../LiveBanner/LiveBanner';
 import RamadanIftar from '../RamadanIftar/RamadanIftar';
 
-interface Props {
-  tenant: Tenant
-}
-
 interface State {
   date: Date,
-  tenant: Tenant,
   isLoading: boolean,
   salah?: {
     jamaat: JamaatTime,
@@ -28,161 +23,111 @@ interface State {
   }
 }
 
-class Home extends React.Component<Props, State> {
+const Home = ({ tenant }: { tenant: Tenant }) => {
 
-  constructor(props: Props) {
-    super(props);
+  const [config, setConfig] = useState<State>({ isLoading: true, date: new Date(), salah: undefined });
 
-    this.state = {
-      isLoading: true,
-      date: new Date(),
-      tenant: props.tenant,
+  const onVisibilityChange = () => {
+    if (document.visibilityState === 'visible') {
+      // When the browser tab is visible set the salah state causing a rerender of the header and table
+      // which will update the next salah.
+      setConfig(prevState => {
+        return {
+          ...prevState,
+          salah: prevState.salah,
+        };
+      });
+    }
+  }
+
+
+  useEffect(() => {
+    const getSalahTime = () => {
+      setConfig(prevState => { return { ...prevState, isLoading: true, salah: undefined } });
+
+      return Promise.all([
+        getJamaatTimes(config.date),
+        getPrayerStartTimes(config.date),
+      ]);
     }
 
-    this.onYesterdayClick = this.onYesterdayClick.bind(this);
-    this.onTomorrowClick = this.onTomorrowClick.bind(this);
-
-    this.onVisibilityChange = this.onVisibilityChange.bind(this);
-
-  }
-
-  getSalahTime(): Promise<[JamaatTime, PrayerTime]> {
-    this.setState({
-      isLoading: true
-    });
-
-    return Promise.all([
-      getJamaatTimes(this.state.date),
-      getPrayerStartTimes(this.state.date),
-    ]);
-  }
-
-  setSalahTime() {
-    this.getSalahTime()
+    getSalahTime()
       .then(([jamaat, startTime]) => {
-
-        this.setState({
-          isLoading: false,
-          salah: {
-            jamaat: jamaat,
-            start: startTime
-          }
-        })
-      });
-  }
-
-  onVisibilityChange() {
-    if (document.visibilityState === 'visible') {
-
-      if (this.state.salah) {
-
-        // When the browser tab is visible set the salah state causing a rerender of the header and table
-        // which will update the next salah.
-        this.setState({
-          salah: {
-            jamaat: this.state.salah.jamaat,
-            start: this.state.salah.start
+        setConfig(prevState => {
+          return {
+            ...prevState,
+            isLoading: false,
+            salah: { jamaat: jamaat, start: startTime }
           }
         });
+      });
+  }, [config.date]);
+
+  useLayoutEffect(() => {
+    document.addEventListener(getBrowserVisibilityProp(), onVisibilityChange);
+
+    return () => document.removeEventListener(getBrowserVisibilityProp(), onVisibilityChange);
+  }, []);
+
+
+  const onYesterdayClick = () => {
+    const yesterday = addDays(-1, config.date);
+
+    setConfig(prevState => {
+      return {
+        ...prevState,
+        date: yesterday,
+        isLoading: true
       }
-    }
-  }
-
-
-  componentDidMount() {
-
-    this.setSalahTime();
-
-    const visibilityChange = getBrowserVisibilityProp();
-
-    document.addEventListener(visibilityChange, this.onVisibilityChange);
-  }
-
-  componentWillUnmount() {
-    const visibilityChange = getBrowserVisibilityProp();
-
-    document.removeEventListener(visibilityChange, this.onVisibilityChange)
-  }
-
-  componentDidUpdate(prevProps: Props, prevState: State) {
-
-    if (this.props?.tenant && prevProps?.tenant) {
-      if (prevProps.tenant.id !== this.props.tenant.id) {
-
-        this.setState({
-          isLoading: true,
-          salah: undefined
-        }, () => {
-          this.setSalahTime();
-        })
-      }
-    }
-  }
-
-  onYesterdayClick() {
-    const yesterday = addDays(-1, this.state.date);
-
-    this.setState({
-      date: yesterday,
-      salah: undefined
-    }, () => {
-      this.componentDidMount();
     });
   }
 
-  onTomorrowClick() {
-    const tomorrow = addDays(1, this.state.date);
+  const onTomorrowClick = () => {
+    const tomorrow = addDays(1, config.date);
 
-    this.setState({
-      date: tomorrow,
-      salah: undefined
-    }, () => {
-      this.componentDidMount();
+    setConfig(prevState => {
+      return {
+        ...prevState,
+        date: tomorrow,
+        isLoading: true
+      }
     });
   }
 
-  isRamadan() {
-    return this.props?.tenant?.displayRamadanTimes;
+  const isRamadan = () => {
+    return tenant?.displayRamadanTimes;
   }
 
-  render() {
-    return (
-      <div data-testid="Home">
-        <p className="lead text-center m-2">{this.props?.tenant?.description}</p>
 
-        <LiveBanner
-          tenant={this.props.tenant}>
-        </LiveBanner>
+  return (
+    <div data-testid="Home">
+      <p className="lead text-center m-2">{tenant?.description}</p>
 
-        <Table
-          salah={this.state.salah}>
-        </Table>
+      <LiveBanner tenant={tenant} />
 
-        <Announcements
-          tenant={this.props.tenant}
-          date={this.state.date}>
-        </Announcements>
+      <Announcements
+        tenant={tenant}
+        date={config.date} />
 
-        <Header
-          date={this.state.date}
-          isLoading={this.state.isLoading}
-          salah={this.state.salah}
-          onYesterdayClick={this.onYesterdayClick}
-          onTomorrowClick={this.onTomorrowClick}>
-        </Header>
+      {isRamadan() &&
+        <RamadanIftar
+          tenant={tenant}
+          date={config.date}
+          suhoor={config.salah?.start?.fajr}
+          iftar={config.salah?.start?.maghrib} />
+      }
 
-        { this.isRamadan() && 
-          <RamadanIftar 
-            tenant={this.props.tenant}
-            date={this.state.date}
-            suhoor={this.state.salah?.start?.fajr}
-            iftar={this.state.salah?.start?.maghrib}>
-          </RamadanIftar>}
+      <Table salah={config.salah} />
 
-        <BookmarkInstruction></BookmarkInstruction>
-      </div>
-    );
-  }
+      <Header
+        date={config.date}
+        isLoading={config.isLoading}
+        salah={config.salah}
+        onYesterdayClick={() => onYesterdayClick()}
+        onTomorrowClick={() => onTomorrowClick()} />
+
+      {!isPwaInstalled() && <BookmarkInstruction /> }
+    </div>
+  );
 }
-
 export default Home;
