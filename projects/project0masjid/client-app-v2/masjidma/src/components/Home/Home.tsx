@@ -98,6 +98,12 @@ const Home = ({ tenant }: { tenant: Tenant }) => {
     return tenant?.displayRamadanTimes;
   }
 
+  const isJummah = () => {
+    const salah = config.salah?.jamaat.getNextSalah().name || '';
+
+    return salah === "1st Jummah" || salah === "2nd Jummah";
+  }
+
 
   return (
     <div data-testid="Home">
@@ -125,6 +131,12 @@ const Home = ({ tenant }: { tenant: Tenant }) => {
         salah={config.salah}
         onYesterdayClick={() => onYesterdayClick()}
         onTomorrowClick={() => onTomorrowClick()} />
+
+      { isJummah() &&
+        <div className="text-center">
+          <img className="img-fluid" src="./jummah-checklist-4.png" alt="jummah sunnah checklist"></img>
+        </div>
+      }
 
       {!isPwaInstalled() && <BookmarkInstruction /> }
     </div>
