@@ -104,6 +104,10 @@ const Home = ({ tenant }: { tenant: Tenant }) => {
     return salah === "1st Jummah" || salah === "2nd Jummah";
   }
 
+  const redirectTo = () => {
+    window.location.href = 'https://southcourt-mosque-143776062.hubspotpagebuilder.eu/home-page-aylesbury-muslim-business-group';
+  }
+
 
   return (
     <div data-testid="Home">
@@ -134,7 +138,13 @@ const Home = ({ tenant }: { tenant: Tenant }) => {
 
       { isJummah() &&
         <div className="text-center">
-          <img className="img-fluid" src="./jummah-checklist-4.png" alt="jummah sunnah checklist"></img>
+          <img className="img-fluid" src="./jummah-checklist-4.png" loading="lazy" alt="jummah sunnah checklist"></img>
+        </div>
+      }
+
+      {
+        <div className="text-center animated-image">
+          <img className="img-fluid" src="./banner-2.png" loading="lazy" alt="aylesbury muslim business group banner" onClick={redirectTo}></img>
         </div>
       }
 
