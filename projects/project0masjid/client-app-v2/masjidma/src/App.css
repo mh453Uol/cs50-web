@@ -1,3 +1,12 @@
 div {
     word-wrap: break-word;
 }
+
+.animated-image {
+    transition: transform .2s;
+    cursor: pointer;
+}
+
+.animated-image:hover {
+    transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
