@@ -48,6 +48,7 @@
         },
         {
             "name": "Aylesbury Masjid",
+            "donationLink": "https://hibabox.com/ghausia-committee-aylesbury",
             "description": "Aylesbury Jamia Masjid Ghausia (Havelock Street, HP20 2NX)",
             "id": 3,
             "displayRamadanTimes": false,

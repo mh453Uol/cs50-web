@@ -30,7 +30,7 @@ const LiveBanner = ({ tenant }: Props) => {
 
   useEffect(() => {
     getStream();
-  }, []);
+  }, [tenant.id]);
 
   if (stream.isLive) {
     return (
@@ -52,7 +52,6 @@ const LiveBanner = ({ tenant }: Props) => {
     )
   } else {
     return <div data-testid="LiveBanner" />
-
   }
 }
 export default LiveBanner;

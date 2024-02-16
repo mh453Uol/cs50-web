@@ -21,6 +21,10 @@
    animation: blink 2s infinite;
 }
 
+.live-label {
+    text-align: center;
+}
+
 @keyframes blink {
     0%, 100% { opacity: 0; }
     50% { opacity: 1; }

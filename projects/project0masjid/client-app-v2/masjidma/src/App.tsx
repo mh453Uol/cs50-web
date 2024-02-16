@@ -15,6 +15,7 @@ import About from './components/About/About';
 import ContactUs from './components/ContactUs/ContactUs';
 import AudioStream from './components/AudioStream/AudioStream';
 import { MasjidTenant } from './models/MasjidTenant';
+import Donations from './components/Donations/Donations';
 
 const getSelectedTenant = (): Tenant => {
   const tenantId = window.localStorage.getItem("tenant");
@@ -93,6 +94,8 @@ const App = () => {
               <Route path="/contact-us" render={() => <ContactUs></ContactUs>}></Route>
 
               <Route path="/radio" render={() =><AudioStream tenant={tenant}></AudioStream>}></Route>
+
+              <Route path="/donations" render={() =><Donations tenant={tenant}></Donations>}></Route>
 
               <Route path="*" render={() => <Home tenant={tenant}></Home>} exact></Route>
             </Switch>
