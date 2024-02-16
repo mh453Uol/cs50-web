@@ -3,7 +3,7 @@ import { toUTC } from '../util/util';
 import { Announcement } from './Annoucement';
 
 export class MasjidTenant implements Tenant {
-  constructor({ name, id, displayRamadanTimes = false, ramadanStart, ramadanEnd, ramadanTimetable, announcements = [], description }: { name: string; id: number; displayRamadanTimes: boolean; ramadanStart: string; ramadanEnd: string; ramadanTimetable: string; announcements?: Announcement[]; description?:string }) {
+  constructor({ name, id, displayRamadanTimes = false, ramadanStart, ramadanEnd, ramadanTimetable, announcements = [], description, donationLink }: { name: string; id: number; displayRamadanTimes: boolean; ramadanStart: string; ramadanEnd: string; ramadanTimetable: string; announcements?: Announcement[]; description?:string, donationLink?:string }) {
     this.name = name;
     this.id = id;
     this.displayRamadanTimes = displayRamadanTimes;
@@ -12,6 +12,7 @@ export class MasjidTenant implements Tenant {
     this.ramadanTimetable = ramadanTimetable;
     this.announcements = announcements;
     this.description = description;
+    this.donationLink = donationLink
   }
 
   name: string;
@@ -22,4 +23,5 @@ export class MasjidTenant implements Tenant {
   ramadanTimetable: string;
   announcements: Announcement[];
   description?:string;
+  donationLink?: string;
 }

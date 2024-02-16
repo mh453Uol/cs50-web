@@ -45,6 +45,10 @@ const Navigation = (props: Props) => {
                 <Nav.Link as={Link} to="/ramadan" className="nav-link" eventKey="3" key={3}>Ramadan {new Date().getFullYear()}</Nav.Link>
               }
 
+              {props?.tenant?.donationLink &&
+                <Nav.Link as={Link} to="/donations" className="nav-link" eventKey={6} key={6}>Donate</Nav.Link>
+              }
+
               <Nav.Link as={Link} to="/about" className="nav-link" eventKey="4" key={4}>About</Nav.Link>
               <Nav.Link as={Link} to="/contact-us" className="nav-link" eventKey="5" key={5}>Contact Us</Nav.Link>
             </Nav>

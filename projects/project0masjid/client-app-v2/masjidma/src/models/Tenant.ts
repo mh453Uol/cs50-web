@@ -9,4 +9,5 @@ export interface Tenant {
   ramadanTimetable: string;
   announcements: Announcement[]
   description?: string;
+  donationLink?: string;
 }
