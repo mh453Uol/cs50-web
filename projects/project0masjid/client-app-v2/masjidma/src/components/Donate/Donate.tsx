@@ -1,6 +1,5 @@
 import { Button, Card } from "react-bootstrap";
 import { Tenant } from "../../models/Tenant";
-import { useHistory } from 'react-router-dom';
 
 const Donate = ({ tenant }: { tenant: Tenant }) => {
     const onClickHandler = (url: string) => {
