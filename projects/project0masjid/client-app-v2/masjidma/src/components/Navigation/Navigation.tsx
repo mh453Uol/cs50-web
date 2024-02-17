@@ -46,7 +46,7 @@ const Navigation = (props: Props) => {
               }
 
               {props?.tenant?.donationLink &&
-                <Nav.Link as={Link} to="/donations" className="nav-link" eventKey={6} key={6}>Donate</Nav.Link>
+                <Nav.Link href={props?.tenant?.donationLink} className="nav-link" eventKey={6} key={6}>Donate</Nav.Link>
               }
 
               <Nav.Link as={Link} to="/about" className="nav-link" eventKey="4" key={4}>About</Nav.Link>

@@ -5,10 +5,10 @@
             "name": "Southcourt Masjid",
             "description": "Aylesbury Islamic Cultural & Community Centre (Churchill Avenue)",
             "id": 4,
-            "displayRamadanTimes": false,
-            "ramadanStart": "2023-03-23T00:00:00.000Z",
-            "ramadanEnd": "2023-04-22T23:00:00.000Z",
-            "ramadanTimetable":"https://drive.google.com/uc?export=view&id=15oJHYr8G7lJQccRsabLuOyfGaL79SrXR",
+            "displayRamadanTimes": true,
+            "ramadanStart": "2024-03-10T00:00:00.000Z",
+            "ramadanEnd": "2024-04-0T23:00:00.000Z",
+            "ramadanTimetable":"https://drive.google.com/thumbnail?id=17XsBTg-FiDExpDg5q0MR_iD5AqWfWess&sz=w1000",
             "announcements" : [
                 {
                     "message": "🎉 Eid ul Fitr 2023 will be on Wenesday 28th. \n Eid Salah - 6:30AM, 8:00AM and 9:30AM \n",
@@ -26,12 +26,12 @@
                     "to": "2021-07-20T23:59:59.00Z"
                 },
                 {
-                    "message": "Ramadan start date subject to change - ",
-                    "from": "2023-03-19T00:00:00.00Z",
-                    "to": "2023-03-24T23:59:59.00Z",
+                    "message": "",
+                    "from": "2024-02-10T00:00:00.00Z",
+                    "to": "2024-03-10T23:59:59.00Z",
                     "link": {
-                        "url": "https://www.facebook.com/photo/?fbid=530669012583225&set=a.415567780760016",
-                        "name": "see timetable"
+                        "url": "/ramadan",
+                        "name": "Ramadan 2024 calender, start date subject to change"
                     }
                 },
                 {

@@ -52,7 +52,7 @@ const RamadanIftar = ({ tenant, date, suhoor, iftar }: Props) => {
             </div>
           </div>
         </div>
-        <a href={tenant.ramadanTimetable} className="btn btn-secondary btn-block mt-2" role="button">Ramadan Timetable <span className="urdu-text">رمضان ٹائم ٹیبل</span></a>
+        <a href="/ramadan" className="btn btn-secondary btn-block mt-2" role="button">Ramadan Timetable <span className="urdu-text">رمضان ٹائم ٹیبل</span></a>
       </div>
     </div>
   );
