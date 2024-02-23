@@ -23,11 +23,6 @@ const AudioStream = (props: Props) => {
   const getStream = async () => {
     let data = await isStreaming();
 
-    if (Math.random() > 0.4) {
-      data.audioStreamUrl = 'https://demo.azuracast.com/listen/azuratest_radio/radio.mp3';
-      data.isLive = true;
-    }
-
     setStream({
       data,
       isLive: data.isLive,
