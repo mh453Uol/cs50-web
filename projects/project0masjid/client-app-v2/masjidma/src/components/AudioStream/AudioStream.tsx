@@ -1,81 +1,141 @@
-import React, { useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Stream } from '../../models/Stream';
 import { Tenant } from '../../models/Tenant';
 import { isStreaming } from '../../services/prayertime/AudioStream.service';
-
+import styles from './AudioStream.module.css';
+import PlayButton from './PlayButton/PlayButton';
+import PauseButton from './PauseButton/PauseButton';
+import LiveBanner from '../LiveBanner/LiveBanner';
 interface Props {
   tenant: Tenant
 }
-
 interface StreamState {
   data: Stream | null,
   isLive: boolean,
   isLoading: boolean
 }
-
 const AudioStream = (props: Props) => {
   const [stream, setStream] = useState<StreamState>({ data: null, isLive: false, isLoading: true });
-  const [message, setMessage] = useState(`Hang on, getting the audio stream for the ${props.tenant?.name}`);
+  const [message, setMessage] = useState('');
+  const [playing, setPlaying] = useState(false);
+  const audio = useRef<HTMLAudioElement>(null);
 
-  useEffect(() => {
-    isStreaming().then((data: Stream) => {
-      setStream({
-        data,
-        isLive: data.isLive,
-        isLoading: false,
+  const getStream = async () => {
+    let data = await isStreaming();
+
+    if (Math.random() > 0.4) {
+      data.audioStreamUrl = 'https://demo.azuracast.com/listen/azuratest_radio/radio.mp3';
+      data.isLive = true;
+    }
+
+    setStream({
+      data,
+      isLive: data.isLive,
+      isLoading: true,
+    });
+
+    if (data.isLive) {
+      setMessage('');
+    }
+
+    if (!data.isLive) {
+      setMessage(`Waiting for ${props.tenant?.name} to turn the mic on...`);
+    }
+
+    return data;
+  }
+
+  const onPlayAudio = (stream: Stream) => {
+    if (audio.current) {
+      audio.current.src = stream.audioStreamUrl;
+      audio.current.play().catch((e) => {
+        onPause();
       });
+    }
+  }
 
-      if (data.isLive) {
-        setMessage(`Click play, to hear the audio stream for the ${props.tenant?.name}`);
-      }
-  
-      if (!data.isLive) {
-        setMessage(`Sorry, ${props.tenant?.name} has switched off the mic so the audio stream has ended`);
-      }
-    })
-  }, [props.tenant.name]);
-
+  const poll = async () => {
+    const stream = await getStream();
+    if (stream.isLive) {
+      onPlayAudio(stream);
+    }
+    if (!stream.isLive) {
+      const interval = setInterval(async () => {
+        const stream = await getStream();
+        if (stream.isLive) {
+          onPlayAudio(stream);
+          clearInterval(interval);
+        }
+      }, 1000 * 3);
+    }
+  }
 
   async function share() {
     if (navigator.share) {
       const url = window.location.href;
       const trackingUrl = `${url}?utm_source=southcourtmosquedotlive&utm_medium=share-radio-page`
       // Web Share API is supported
-
       try {
         await navigator.share({ title: 'Southcourt Masjid Radio', url: trackingUrl });
-      } catch (e) {
-
-      }
+      } catch (e) { }
     }
   }
 
   const navigateToHome = () => {
-    window.location.href = "/?utm_source=southcourtmosquedotlive&utm_medium=see-salah-radio-page"
+    window.location.href = '/?utm_source=southcourtmosquedotlive&utm_medium=see-salah-radio-page';
+  }
+
+  const onPlay = () => {
+    setPlaying(() => true);
+    setMessage(`Hang on, getting the audio stream for the ${props.tenant?.name}`);
+    poll();
+  }
+
+  const onPause = () => {
+    setPlaying(() => false);
+    setStream(() => { return { data: null, isLive: false, isLoading: true } });
+    setMessage(() => '');
+    if (audio.current) {
+      audio.current.pause();
+    }
   }
 
   return (
-    <div data-testid="AudioStream">
+    <div data-testid='AudioStream'>
+      <LiveBanner tenant={props.tenant} />
+
       <div className="container mt-2">
         <div className="align-self-center mb-3">
-          <p className="text-center">
+          <p className="text-center mb-0">
             <b>{message}</b>
           </p>
 
-          {stream.isLoading &&
-            <div className="d-flex justify-content-center">
-              <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
+          <audio preload="auto" ref={audio}></audio>
+
+          {/* Render play button */}
+
+          {
+            !playing && <div className=" d-flex justify-content-center">
+              <div className={styles['button-container']} onClick={onPlay}>
+                <PlayButton />
               </div>
             </div>
           }
 
-          {stream.isLive &&
-            <div className="text-center">
-              <audio src={stream?.data?.audioStreamUrl} controls autoPlay={true}>
-                Your browser does not support the audio element.
-              </audio>
-            </div>
+          {
+            playing && <div className=" d-flex justify-content-center">
+              {!stream.isLive &&
+                <div className="spinner-border mt-2" role="status">
+                  <span className="sr-only">Loading...</span>
+                </div >
+              }
+              {
+                stream.isLive &&
+                <div className={styles['button-container']} onClick={onPause}>
+                  <PauseButton />
+                </div>
+              }
+            </div >
           }
 
           <div className="text-center">
@@ -83,17 +143,14 @@ const AudioStream = (props: Props) => {
               <button type="button" className="btn btn-sm btn-info" onClick={share}>
                 Share
               </button>
-
               <button type="button" className="btn btn-sm btn-info ml-2" onClick={navigateToHome}>
                 See Salah Times
               </button>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
+            </div >
+          </div >
+        </div >
+      </div >
+    </div >
   );
 };
 export default AudioStream;
-
