@@ -4,6 +4,7 @@
         {
             "name": "Southcourt Masjid",
             "description": "Aylesbury Islamic Cultural & Community Centre (Churchill Avenue)",
+            "donationLink": "https://hibabox.com/toheed-ul-islam-association",
             "id": 4,
             "displayRamadanTimes": true,
             "ramadanStart": "2024-03-10T00:00:00.000Z",
