@@ -52,10 +52,10 @@
             "donationLink": "https://hibabox.com/ghausia-committee-aylesbury",
             "description": "Aylesbury Jamia Masjid Ghausia (Havelock Street, HP20 2NX)",
             "id": 3,
-            "displayRamadanTimes": false,
-            "ramadanStart": "2023-03-23T00:00:00.000Z",
-            "ramadanEnd": "2023-04-30T23:00:00.000Z",
-            "ramadanTimetable":"https://drive.google.com/uc?export=view&id=19wYbwX_cD7xoxnft02jf8t-BD1rpG00W",
+            "displayRamadanTimes": true,
+            "ramadanStart": "2024-03-12T00:00:00.000Z",
+            "ramadanEnd": "2024-04-30T23:00:00.000Z",
+            "ramadanTimetable":"https://drive.google.com/thumbnail?id=1ne_PR46DivbEnnH7jnopYRgZKc3dLx-h&sz=w1000",
             "announcements" : [
                 {
                     "message": "🎉 Eid ul Fitr 2023 will be on Thursday 29th \n Eid Salah - 8:30AM, 9:30AM and 10:30AM",
@@ -73,12 +73,12 @@
                     "to": "2021-07-21T23:59:59.00Z"
                 },
                 {
-                    "message": "Ramadan start date subject to change - ",
-                    "from": "2023-03-19T00:00:00.00Z",
-                    "to": "2023-04-24T23:59:59.00Z",
+                    "message": "",
+                    "from": "2024-02-10T00:00:00.00Z",
+                    "to": "2024-03-12T23:59:59.00Z",
                     "link": {
-                        "url": "https://www.facebook.com/photo?fbid=193503690094202&set=a.136190749158830",
-                        "name": "see timetable"
+                        "url": "/ramadan",
+                        "name": "Ramadan 2024 calender, start date subject to moon sighting"
                     }
                 }
             ]
