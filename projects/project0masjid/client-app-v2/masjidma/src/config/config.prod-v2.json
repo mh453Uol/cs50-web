@@ -7,9 +7,9 @@
             "donationLink": "https://hibabox.com/toheed-ul-islam-association",
             "id": 4,
             "displayRamadanTimes": true,
-            "ramadanStart": "2024-03-10T00:00:00.000Z",
+            "ramadanStart": "2024-03-11T00:00:00.000Z",
             "ramadanEnd": "2024-04-0T23:00:00.000Z",
-            "ramadanTimetable":"https://drive.google.com/thumbnail?id=17XsBTg-FiDExpDg5q0MR_iD5AqWfWess&sz=w1000",
+            "ramadanTimetable":"https://drive.google.com/thumbnail?id=1_XAMvEGJ573SVYay0_-BEVqrqm_8Pwugs&sz=w1000",
             "announcements" : [
                 {
                     "message": "🎉 Eid ul Fitr 2023 will be on Wenesday 28th. \n Eid Salah - 6:30AM, 8:00AM and 9:30AM \n",
@@ -29,7 +29,7 @@
                 {
                     "message": "",
                     "from": "2024-02-10T00:00:00.00Z",
-                    "to": "2024-03-10T23:59:59.00Z",
+                    "to": "2024-03-11T23:59:59.00Z",
                     "link": {
                         "url": "/ramadan",
                         "name": "Ramadan 2024 calender, start date subject to change"
