@@ -36,14 +36,14 @@
                     }
                 },
                 {
-                    "message": "🎉 Eid ul Fitr will be on Friday 21st \n Eid Salah - 6:30AM, 8:00AM and 9:30AM \n",
-                    "from": "2023-04-20T20:00:00.00Z",
-                    "to": "2023-04-21T10:00:00.00Z"
+                    "message": "🎉 Eid Ul Adha will be on Sunday 16th June 2024 \n Eid Salah - 7:00AM (Facilities for sisters at this congregation), 8:00AM and 9:30AM \n",
+                    "from": "2024-06-13T20:00:00.00Z",
+                    "to": "2024-06-16T10:00:00.00Z"
                 },
                 {
-                    "message": "🎉 Eid Mubarak! Wish you all a very happy and peaceful Eid. \n Please make a special dua that Allah protects the people of Palestine.",
-                    "from": "2023-04-21T11:00:00.00Z",
-                    "to": "2023-04-21T23:00:00.00Z"
+                    "message": "🎉 Eid Mubarak عِيد مُبَارَك‎",
+                    "from": "2024-06-16T11:00:00.00Z",
+                    "to": "2023-06-16T23:00:00.00Z"
                 }
             ]
         },
@@ -68,9 +68,9 @@
                     "to": "2024-04-10T20:00:00.00Z"
                 },
                 {
-                    "message": "🎉 Eid ul-Adha 2021 will be on Wenesday 21th Insha’Allah. Eid Salah - 8:30AM, 9:30AM and 10:30AM \n",
-                    "from": "2021-06-27T00:00:00.00Z",
-                    "to": "2021-07-21T23:59:59.00Z"
+                    "message": "🎉 Eid ul-Adha will be on Monday 17th June 2024 Eid Salah - 7:00AM (Facilities for sisters at this congregation), 9:00AM and 10:30AM",
+                    "from": "2024-06-13T00:00:00.00Z",
+                    "to": "2024-06-17T23:59:59.00Z"
                 },
                 {
                     "message": "",
