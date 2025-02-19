@@ -6,7 +6,7 @@
             "description": "Aylesbury Islamic Cultural & Community Centre (Churchill Avenue)",
             "donationLink": "https://hibabox.com/toheed-ul-islam-association",
             "id": 4,
-            "displayRamadanTimes": true,
+            "displayRamadanTimes": false,
             "ramadanStart": "2025-03-01T00:00:00.000Z",
             "ramadanEnd": "2025-03-31T23:00:00.000Z",
             "ramadanTimetable":"https://drive.google.com/thumbnail?id=1SW1ShXTX0lTs-Dr0GzNa9FcZX-VcHml2&sz=w1000",
@@ -32,7 +32,7 @@
                     "to": "2025-03-01T23:59:59.00Z",
                     "link": {
                         "url": "/ramadan",
-                        "name": "Ramadan 2025 calendar ✨"
+                        "name": "Ramadan 2025 calendar published (start date subject to change)"
                     }
                 },
                 {
