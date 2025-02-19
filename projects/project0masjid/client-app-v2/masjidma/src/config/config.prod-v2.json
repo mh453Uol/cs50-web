@@ -52,7 +52,7 @@
             "donationLink": "https://hibabox.com/ghausia-committee-aylesbury",
             "description": "Aylesbury Jamia Masjid Ghausia (Havelock Street, HP20 2NX)",
             "id": 3,
-            "displayRamadanTimes": true,
+            "displayRamadanTimes": false,
             "ramadanStart": "2025-03-01T00:00:00.000Z",
             "ramadanEnd": "2025-03-31T23:00:00.000Z",
             "ramadanTimetable":"https://drive.google.com/thumbnail?id=1ne_PR46DivbEnnH7jnopYRgZKc3dLx-h&sz=w1000",
