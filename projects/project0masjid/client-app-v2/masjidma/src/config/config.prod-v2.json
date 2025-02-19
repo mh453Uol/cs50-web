@@ -6,10 +6,10 @@
             "description": "Aylesbury Islamic Cultural & Community Centre (Churchill Avenue)",
             "donationLink": "https://hibabox.com/toheed-ul-islam-association",
             "id": 4,
-            "displayRamadanTimes": false,
-            "ramadanStart": "2024-03-11T00:00:00.000Z",
-            "ramadanEnd": "2024-04-0T23:00:00.000Z",
-            "ramadanTimetable":"https://drive.google.com/thumbnail?id=1h6riiiKNRZwnIEhEA_iZPDO1RrzMrbOO&sz=w1000",
+            "displayRamadanTimes": true,
+            "ramadanStart": "2025-03-01T00:00:00.000Z",
+            "ramadanEnd": "2025-03-31T23:00:00.000Z",
+            "ramadanTimetable":"https://drive.google.com/thumbnail?id=1SW1ShXTX0lTs-Dr0GzNa9FcZX-VcHml2&sz=w1000",
             "announcements" : [
                 {
                     "message": "🎉 Eid ul Fitr 2024 will be on Wenesday 10th. \n Eid Salah - 7:00AM, 8:00AM and 9:30AM \n Pebble Brook School car park is available",
@@ -28,11 +28,11 @@
                 },
                 {
                     "message": "",
-                    "from": "2024-02-10T00:00:00.00Z",
-                    "to": "2024-03-11T23:59:59.00Z",
+                    "from": "2025-02-18T00:00:00.00Z",
+                    "to": "2025-03-01T23:59:59.00Z",
                     "link": {
                         "url": "/ramadan",
-                        "name": "Ramadan 2024 calender, start date subject to change"
+                        "name": "Ramadan 2025 calender published, start date subject to change ✨"
                     }
                 },
                 {
@@ -52,9 +52,9 @@
             "donationLink": "https://hibabox.com/ghausia-committee-aylesbury",
             "description": "Aylesbury Jamia Masjid Ghausia (Havelock Street, HP20 2NX)",
             "id": 3,
-            "displayRamadanTimes": false,
-            "ramadanStart": "2024-03-12T00:00:00.000Z",
-            "ramadanEnd": "2024-04-30T23:00:00.000Z",
+            "displayRamadanTimes": true,
+            "ramadanStart": "2025-03-01T00:00:00.000Z",
+            "ramadanEnd": "2025-03-31T23:00:00.000Z",
             "ramadanTimetable":"https://drive.google.com/thumbnail?id=1ne_PR46DivbEnnH7jnopYRgZKc3dLx-h&sz=w1000",
             "announcements" : [
                 {
@@ -74,11 +74,11 @@
                 },
                 {
                     "message": "",
-                    "from": "2024-02-10T00:00:00.00Z",
-                    "to": "2024-03-12T23:59:59.00Z",
+                    "from": "2025-02-18T00:00:00.00Z",
+                    "to": "2025-03-21T23:59:59.00Z",
                     "link": {
                         "url": "/ramadan",
-                        "name": "Ramadan 2024 calender, start date subject to moon sighting"
+                        "name": "Ramadan 2025 calender, start date subject to moon sighting ✨"
                     }
                 }
             ]
