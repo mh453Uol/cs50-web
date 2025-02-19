@@ -35,7 +35,7 @@ const RamadanIftar = ({ tenant, date, suhoor, iftar }: Props) => {
                 <div className="card-body p-1">
                   <div className="text-center bold"><b>Sehri</b></div>
                   <div className="text-center">
-                    <span className="js-suhoor-end">{formatAsHoursMinutes(suhoor)}</span>
+                    <span className="js-suhoor-end">{date <= tenant.ramadanStart ? tenant?.sehri : formatAsHoursMinutes(suhoor)}</span>
                   </div>
                 </div>
               </div>
@@ -45,7 +45,7 @@ const RamadanIftar = ({ tenant, date, suhoor, iftar }: Props) => {
                 <div className="card-body p-1">
                   <div className="text-center"><b>Iftar</b></div>
                   <div className="text-center ">
-                    <span className="js-iftar-start">{formatAsHoursMinutes(iftar)}</span>
+                    <span className="js-iftar-start">{date <= tenant.ramadanStart ? tenant?.iftar : formatAsHoursMinutes(iftar)}</span>
                   </div>
                 </div>
               </div>
