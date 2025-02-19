@@ -6,9 +6,11 @@
             "description": "Aylesbury Islamic Cultural & Community Centre (Churchill Avenue)",
             "donationLink": "https://hibabox.com/toheed-ul-islam-association",
             "id": 4,
-            "displayRamadanTimes": false,
+            "displayRamadanTimes": true,
             "ramadanStart": "2025-03-01T00:00:00.000Z",
             "ramadanEnd": "2025-03-31T23:00:00.000Z",
+            "sehri": "5:14 am",
+            "iftar": "5:46 pm",
             "ramadanTimetable":"https://drive.google.com/thumbnail?id=1SW1ShXTX0lTs-Dr0GzNa9FcZX-VcHml2&sz=w1000",
             "announcements" : [
                 {
@@ -32,7 +34,7 @@
                     "to": "2025-03-01T23:59:59.00Z",
                     "link": {
                         "url": "/ramadan",
-                        "name": "Ramadan 2025 calendar published (start date subject to change)"
+                        "name": "✨ Ramadan 2025 calendar published!"
                     }
                 },
                 {
@@ -52,10 +54,12 @@
             "donationLink": "https://hibabox.com/ghausia-committee-aylesbury",
             "description": "Aylesbury Jamia Masjid Ghausia (Havelock Street, HP20 2NX)",
             "id": 3,
-            "displayRamadanTimes": false,
+            "displayRamadanTimes": true,
             "ramadanStart": "2025-03-01T00:00:00.000Z",
             "ramadanEnd": "2025-03-31T23:00:00.000Z",
-            "ramadanTimetable":"https://drive.google.com/thumbnail?id=1ne_PR46DivbEnnH7jnopYRgZKc3dLx-h&sz=w1000",
+            "sehri": "5:13 am",
+            "iftar": "5:46 pm",
+            "ramadanTimetable":"https://drive.google.com/thumbnail?id=1qw28FSKAeaOTXq2RPdDuX6xETKLUnqAa&sz=w1000",
             "announcements" : [
                 {
                     "message": "🎉 Eid ul Fitr 2024 will be on Wenesday 10th \n Eid Salah - 8:00AM, 9:00AM and 10:30AM",
@@ -78,7 +82,7 @@
                     "to": "2025-03-21T23:59:59.00Z",
                     "link": {
                         "url": "/ramadan",
-                        "name": "Ramadan 2025 calender, start date subject to moon sighting ✨"
+                        "name": "✨ Ramadan 2025 calender published!"
                     }
                 }
             ]
