@@ -14,9 +14,9 @@
             "ramadanTimetable":"https://drive.google.com/thumbnail?id=1SW1ShXTX0lTs-Dr0GzNa9FcZX-VcHml2&sz=w1000",
             "announcements" : [
                 {
-                    "message": "🎉 Eid ul Fitr 2024 will be on Wenesday 10th. \n Eid Salah - 7:00AM, 8:00AM and 9:30AM \n Pebble Brook School car park is available",
-                    "from": "2024-04-09T00:00:00.00Z",
-                    "to": "2024-04-10T12:00:00.00Z" 
+                    "message": "🎉 Eid al-Fitr will be on Mon, 31 Mar. \n Eid Salah - 7:00AM, 8:00AM and 9:30AM",
+                    "from": "2025-03-31T21:00:00.00Z",
+                    "to": "2025-05-01T12:00:00.00Z" 
                 },
                 {
                     "message": "🎉 Eid Mubarak! Wish you all a very happy and peaceful Eid",
@@ -62,9 +62,9 @@
             "ramadanTimetable":"https://drive.google.com/thumbnail?id=1qw28FSKAeaOTXq2RPdDuX6xETKLUnqAa&sz=w1000",
             "announcements" : [
                 {
-                    "message": "🎉 Eid ul Fitr 2024 will be on Wenesday 10th \n Eid Salah - 8:00AM, 9:00AM and 10:30AM",
-                    "from": "2024-04-09T20:00:00.00Z",
-                    "to": "2024-04-10T12:00:00.00Z"
+                    "message": "🎉 Eid al-Fitr will be on Tues, 1 Apr. \n Eid Salah - 7:00AM, 8:30AM and 10:30AM",
+                    "from": "2025-04-01T21:00:00.00Z",
+                    "to": "2025-04-02T12:00:00.00Z" 
                 },
                 {
                     "message": "🎉 Eid Mubarak! Wish you all a very happy and peaceful Eid.",
