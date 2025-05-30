@@ -25,7 +25,7 @@ const Announcements = (props: Props) => {
       { announcements.length > 0 &&
           <Alert key={1} variant="success" className="text-center">
             {announcements.map((announcement: Announcement) => 
-              <div key={announcement.message}>{announcement.message} { announcement.link && <a href={announcement.link.url} target="_blank" rel="noreferrer">{announcement.link.name}</a> }</div>)
+              <div key={announcement.message} className="announcement-container">{announcement.message} { announcement.link && <a href={announcement.link.url} target="_blank" rel="noreferrer">{announcement.link.name}</a> }</div>)
             }
           </Alert>
       }
