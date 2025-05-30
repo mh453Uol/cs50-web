@@ -105,9 +105,7 @@ const Home = ({ tenant }: { tenant: Tenant; }) => {
 
   return (
     <div data-testid="Home">
-      <p className="lead text-center m-2">{tenant?.description}</p>
-
-      <LiveBanner tenant={tenant} />
+      <h4 className="text-center m-2">{tenant?.description}</h4>
 
       <Announcements
         tenant={tenant}
@@ -128,6 +126,8 @@ const Home = ({ tenant }: { tenant: Tenant; }) => {
         salah={config.salah}
         onYesterdayClick={() => onYesterdayClick(config.date, setConfig)}
         onTomorrowClick={() => onTomorrowClick(config.date, setConfig)} />
+
+      <LiveBanner tenant={tenant} />
 
       {tenant.donationLink && <Donate tenant={tenant}></Donate>}
 
