@@ -9,6 +9,9 @@ import { BrowserRouter } from 'react-router-dom';
 import 'react-app-polyfill/ie9';
 import 'react-app-polyfill/stable';
 
+// Import and register the enhanced service worker
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+
 let root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
@@ -18,6 +21,19 @@ root.render(
     </BrowserRouter>
   </React.StrictMode>,
 );
+
+// Register service worker for enhanced caching
+if (process.env.NODE_ENV === 'production') {
+  serviceWorkerRegistration.register({
+    onSuccess: () => {
+      console.log('✅ Service worker registered successfully');
+    },
+    onUpdate: (registration) => {
+      console.log('🔄 New service worker available. Ready to update.');
+      // You can show a notification to user here
+    },
+  });
+}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
