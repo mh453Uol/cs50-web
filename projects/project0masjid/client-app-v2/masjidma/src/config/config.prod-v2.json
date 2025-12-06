@@ -63,7 +63,7 @@
             "donationLink": "https://hibabox.com/ghausia-committee-aylesbury",
             "description": "Aylesbury Jamia Masjid Ghausia",
             "id": 3,
-            "displayRamadanTimes": false,
+            "displayRamadanTimes": true,
             "ramadanStart": "2025-03-02T00:00:00.000Z",
             "ramadanEnd": "2025-03-31T23:00:00.000Z",
             "sehri": "5:13 am",
