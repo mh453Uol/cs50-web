@@ -30,7 +30,10 @@ if (process.env.NODE_ENV === 'production') {
     },
     onUpdate: (registration) => {
       console.log('🔄 New service worker available. Ready to update.');
-      // You can show a notification to user here
+      // Show the update notification to the user
+      if ((window as any).showUpdateNotification) {
+        (window as any).showUpdateNotification();
+      }
     },
   });
 }
