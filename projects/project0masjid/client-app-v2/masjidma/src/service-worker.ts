@@ -189,8 +189,10 @@ self.addEventListener('activate', (event) => {
 
 // Message handling for cache management
 self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
+  if (event.data && event.data.type === 'c') {
+    debugger;
     self.skipWaiting();
+    console.log('self.skipWaiting();');
   }
   
   if (event.data && event.data.type === 'CACHE_INFO') {
