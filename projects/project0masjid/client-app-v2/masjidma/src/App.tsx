@@ -85,7 +85,7 @@ const App = () => {
           tenant={tenant}
           onTenantSelected={onTenantSelected}>
           <main>
-            <h1>Majid</h1>
+            <h1>Majid Hussain</h1>
             <Switch>
               <Route path="/ramadan" render={() => <Ramadan tenant={tenant}></Ramadan>}></Route>
 
