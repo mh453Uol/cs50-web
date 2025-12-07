@@ -4,6 +4,7 @@
         {
             "name": "Southcourt Masjid",
             "description": "Southcourt Islamic Centre",
+            "address": "Churchill Avenue, Aylesbury HP21 8LZ",
             "donationLink": "https://hibabox.com/toheed-ul-islam-association",
             "id": 4,
             "displayRamadanTimes": false,
@@ -30,8 +31,8 @@
                 },
                 {
                     "message": "",
-                    "from": "2025-02-18T00:00:00.00Z",
-                    "to": "2025-03-01T23:59:59.00Z",
+                    "from": "2025-11-07T00:00:00.00Z",
+                    "to": "2025-11-08T23:59:59.00Z",
                     "link": {
                         "url": "/ramadan",
                         "name": "✨ Ramadan 2025 calendar published!"
@@ -59,9 +60,10 @@
             ]
         },
         {
-            "name": "Aylesbury Masjid - test 5",
+            "name": "Aylesbury Masjid",
             "donationLink": "https://hibabox.com/ghausia-committee-aylesbury",
             "description": "Aylesbury Jamia Masjid Ghausia",
+            "address":"Churchill Ave, Aylesbury HP21 8LZ",
             "id": 3,
             "displayRamadanTimes": true,
             "ramadanStart": "2025-03-02T00:00:00.000Z",
@@ -108,6 +110,7 @@
         {
             "name": "Aylesbury Faizan-e-Siddeeq-e-Akbar",
             "description": "Aylesbury Faizan-e-Siddeeq-e-Akbar",
+            "address": "Chamberlain Rd, HP19 8DY",
             "id": 5,
             "displayRamadanTimes": false,
             "ramadanStart": "2023-03-23T00:00:00.000Z",
