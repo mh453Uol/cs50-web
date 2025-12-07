@@ -106,6 +106,7 @@ const Home = ({ tenant }: { tenant: Tenant; }) => {
   return (
     <div data-testid="Home">
       <h4 className="text-center m-2">{tenant?.description}</h4>
+      <div className="text-center mb-1 lead">{tenant?.address}</div>
 
       <Announcements
         tenant={tenant}
