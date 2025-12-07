@@ -33,6 +33,7 @@ if (process.env.NODE_ENV === 'production') {
 
       // Automatically apply the update
       if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        console.log('Calling - navigator.serviceWorker.controller.postMessage');
         navigator.serviceWorker.controller.postMessage({
           type: 'SKIP_WAITING'
         });
