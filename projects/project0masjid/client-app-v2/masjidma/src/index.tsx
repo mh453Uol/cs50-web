@@ -31,10 +31,10 @@ if (process.env.NODE_ENV === 'production') {
     onUpdate: (registration) => {
       console.log('🔄 New service worker available. Applying update automatically...');
 
-      // Automatically apply the update
-      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-        console.log('Calling - navigator.serviceWorker.controller.postMessage');
-        navigator.serviceWorker.controller.postMessage({
+      // Send SKIP_WAITING message to the waiting service worker
+      if (registration.waiting) {
+        console.log('Sending SKIP_WAITING message to waiting service worker');
+        registration.waiting.postMessage({
           type: 'SKIP_WAITING'
         });
 
@@ -44,6 +44,8 @@ if (process.env.NODE_ENV === 'production') {
           // Reload the page to use the new service worker
           window.location.reload();
         });
+      } else {
+        console.log('No waiting service worker found');
       }
     },
   });
