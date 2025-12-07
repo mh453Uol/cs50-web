@@ -190,8 +190,11 @@ self.addEventListener('activate', (event) => {
 // Message handling for cache management
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
-    console.log('Service worker: SKIP_WAITING received, calling self.skipWaiting()');
+    // Clear old caches before activating the new service worker
+    cleanupOldCaches().then(() => {
+      self.skipWaiting();
+      console.log('Service worker: SKIP_WAITING received, cleared old caches, calling self.skipWaiting()');
+    });
   }
 
   if (event.data && event.data.type === 'CACHE_INFO') {
