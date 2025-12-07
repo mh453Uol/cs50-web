@@ -5,10 +5,10 @@ import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute, setCatchHandler } from 'workbox-routing';
-import { 
-  CacheFirst, 
+import {
+  CacheFirst,
   NetworkFirst,
-  NetworkOnly 
+  NetworkOnly
 } from 'workbox-strategies';
 import { BackgroundSyncPlugin } from 'workbox-background-sync';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
@@ -171,10 +171,10 @@ registerRoute(
 // Cache Management and Cleanup
 async function cleanupOldCaches() {
   const cacheNames = await caches.keys();
-  const oldCaches = cacheNames.filter(name => 
+  const oldCaches = cacheNames.filter(name =>
     name.startsWith('masjid-app-') && !name.includes(CACHE_VERSION)
   );
-  
+
   return Promise.all(
     oldCaches.map(cacheName => caches.delete(cacheName))
   );
@@ -189,22 +189,21 @@ self.addEventListener('activate', (event) => {
 
 // Message handling for cache management
 self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'c') {
-    debugger;
+  if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
-    console.log('self.skipWaiting();');
+    console.log('Service worker: SKIP_WAITING received, calling self.skipWaiting()');
   }
-  
+
   if (event.data && event.data.type === 'CACHE_INFO') {
     event.ports[0].postMessage({
       version: CACHE_VERSION,
       caches: Object.values(CACHE_LIMITS)
     });
   }
-  
+
   if (event.data && event.data.type === 'CLEAR_CACHE') {
     event.waitUntil(
-      caches.keys().then(cacheNames => 
+      caches.keys().then(cacheNames =>
         Promise.all(cacheNames.map(name => caches.delete(name)))
       )
     );
@@ -226,8 +225,8 @@ self.addEventListener('fetch', (event: FetchEvent) => {
       fetch(event.request).catch(() => {
         // Log API cache miss for monitoring
         console.warn(`API cache miss: ${event.request.url}`);
-        return new Response(JSON.stringify({ 
-          error: 'Offline', 
+        return new Response(JSON.stringify({
+          error: 'Offline',
           cached: false,
         }), {
           status: 503,
@@ -236,4 +235,4 @@ self.addEventListener('fetch', (event: FetchEvent) => {
       })
     );
   }
-})
+});
