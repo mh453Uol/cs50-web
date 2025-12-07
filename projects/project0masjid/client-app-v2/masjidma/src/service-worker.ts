@@ -16,7 +16,7 @@ import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 declare const self: ServiceWorkerGlobalScope;
 
 // Version constants for cache busting
-const CACHE_VERSION = '1.4.0';
+const CACHE_VERSION = '1.5.0';
 const CACHE_NAME = `masjid-app-v${CACHE_VERSION}`;
 const STATIC_CACHE = `static-v${CACHE_VERSION}`;
 const API_CACHE = `api-v${CACHE_VERSION}`;
