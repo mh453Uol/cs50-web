@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import Navigation from './components/Navigation/Navigation';
-import ServiceWorkerUpdateToast from './components/ServiceWorkerUpdateToast/ServiceWorkerUpdateToast';
 
 import configuration from './config/config.prod-v2.json';
 import { Tenant } from './models/Tenant';
@@ -71,8 +70,6 @@ const App = () => {
       return getSelectedTenant();
     });
 
-    const [showUpdateToast, setShowUpdateToast] = useState(false);
-
     const tenants = configuration.tenants.map((tenant) => new MasjidTenant(tenant));
 
     const onTenantSelected = (tenantId: number) => {
@@ -80,36 +77,6 @@ const App = () => {
       const tenant = getSelectedTenant();
       setTenant(tenant);
    };
-
-   const handleServiceWorkerUpdate = () => {
-     // Send message to service worker to skip waiting
-     if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-       navigator.serviceWorker.controller.postMessage({
-         type: 'SKIP_WAITING'
-       });
-     }
-
-     // Listen for the new service worker to take control
-     navigator.serviceWorker.addEventListener('controllerchange', () => {
-       // Reload the page to use the new service worker
-       window.location.reload();
-     });
-
-     // Hide the toast
-     setShowUpdateToast(false);
-   };
-
-   const handleDismissUpdateToast = () => {
-     setShowUpdateToast(false);
-   };
-
-   // Function to show the update toast (will be called from index.tsx)
-   const showUpdateNotification = () => {
-     setShowUpdateToast(true);
-   };
-
-   // Expose the function globally so it can be called from index.tsx
-   (window as any).showUpdateNotification = showUpdateNotification;
 
     return (
       <div data-testid="App">
@@ -132,12 +99,6 @@ const App = () => {
           </main>
 
         </Navigation>
-
-        <ServiceWorkerUpdateToast
-          show={showUpdateToast}
-          onUpdate={handleServiceWorkerUpdate}
-          onDismiss={handleDismissUpdateToast}
-        />
       </div>
     );
 }

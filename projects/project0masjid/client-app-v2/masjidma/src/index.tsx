@@ -29,10 +29,20 @@ if (process.env.NODE_ENV === 'production') {
       console.log('✅ Service worker registered successfully');
     },
     onUpdate: (registration) => {
-      console.log('🔄 New service worker available. Ready to update.');
-      // Show the update notification to the user
-      if ((window as any).showUpdateNotification) {
-        (window as any).showUpdateNotification();
+      console.log('🔄 New service worker available. Applying update automatically...');
+
+      // Automatically apply the update
+      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({
+          type: 'SKIP_WAITING'
+        });
+
+        // Listen for the new service worker to take control
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          console.log('✅ Service worker updated successfully. Reloading page...');
+          // Reload the page to use the new service worker
+          window.location.reload();
+        });
       }
     },
   });
