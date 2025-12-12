@@ -3,7 +3,7 @@
     "tenants": [
         {
             "name": "Southcourt Masjid",
-            "description": "Aylesbury Islamic Cultural & Community Centre (Churchill Avenue)",
+            "description": "Southcourt Islamic Centre",
             "donationLink": "https://hibabox.com/toheed-ul-islam-association",
             "id": 4,
             "displayRamadanTimes": false,
@@ -46,13 +46,22 @@
                     "message": "🎉 Eid Mubarak عِيد مُبَارَك‎",
                     "from": "2024-06-16T11:00:00.00Z",
                     "to": "2024-06-16T23:00:00.00Z"
+                },
+                {
+                    "message": "Join our upcoming Winter 2025 conference, Friday 26th December at 6pm!",
+                    "from": "2025-12-12T11:00:00.00Z",
+                    "to": "2025-12-26T23:00:00.00Z",
+                     "link": {
+                        "url": "https://www.facebook.com/Southcourt.Islamic.Centre/posts/pfbid02fGPk9Qj4erGnAs3Bboh1B2qiXWCzGCkdjbyiqUm8XiHNHGEY9RdABwogRBXEzgMfl",
+                        "name": "Link"
+                    }
                 }
             ]
         },
         {
             "name": "Aylesbury Masjid",
             "donationLink": "https://hibabox.com/ghausia-committee-aylesbury",
-            "description": "Aylesbury Jamia Masjid Ghausia (Havelock Street, HP20 2NX)",
+            "description": "Aylesbury Jamia Masjid Ghausia",
             "id": 3,
             "displayRamadanTimes": false,
             "ramadanStart": "2025-03-02T00:00:00.000Z",
@@ -84,12 +93,21 @@
                         "url": "/ramadan",
                         "name": "✨ Ramadan 2025 calender published!"
                     }
+                },
+                {
+                    "message": "Join us for an inspiring evening Wednesday, 24th December at 7.30pm!",
+                    "from": "2025-12-12T11:00:00.00Z",
+                    "to": "2025-12-24T23:00:00.00Z",
+                     "link": {
+                        "url": "https://scontent-lhr8-2.xx.fbcdn.net/v/t39.30808-6/591483091_891053657005865_3299143582074482018_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_ohc=xc-DOk6BWLUQ7kNvwFgPYsm&_nc_oc=Adlote-2Nt7iYZ8KYjxEKeghUOR57W0lpU23-WJkdzVIEOkM8Q6ysfIWSHhIAFb2u6M&_nc_zt=23&_nc_ht=scontent-lhr8-2.xx&_nc_gid=JlLfiqoHt6gd4Wh_PdV65g&oh=00_AfkjK9vwrOyMdZUw43eBBV0KdQbs_c84N-g4QCznqZkAdQ&oe=694268EC",
+                        "name": "Link"
+                    }
                 }
             ]
         },
         {
             "name": "Aylesbury Faizan-e-Siddeeq-e-Akbar",
-            "description": "Aylesbury Faizan-e-Siddeeq-e-Akbar (Chamberlain Rd, HP19 8DY)",
+            "description": "Aylesbury Faizan-e-Siddeeq-e-Akbar",
             "id": 5,
             "displayRamadanTimes": false,
             "ramadanStart": "2023-03-23T00:00:00.000Z",
