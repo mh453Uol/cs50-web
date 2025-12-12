@@ -27,6 +27,7 @@ const CacheInfoComponent: React.FC = () => {
       cleanup();
       clearInterval(statsInterval);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadCacheInfo = async () => {
