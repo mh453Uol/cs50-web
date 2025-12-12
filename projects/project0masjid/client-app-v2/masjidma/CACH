@@ -90,7 +90,7 @@ const cleanup = cacheManager.onConnectionChange((isOnline) => {
 | Static JS/CSS | CacheFirst      | 30 days   | 50          | App shell, components  |
 | Fonts         | CacheFirst      | 30 days   | 20          | Typography consistency |
 | Images        | CacheFirst      | 7 days    | 100         | UI images, banners     |
-| Prayer API    | NetworkFirst    | 1 hour    | 100         | Daily prayer times     |
+| Prayer API    | NetworkFirst    | 1 day     | 100         | Daily prayer times     |
 | Stream API    | NetworkFirst    | 5 minutes | 20          | Live streaming status  |
 | Failed APIs   | Background Sync | 24 hours  | Queue       | Offline resilience     |
 
