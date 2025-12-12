@@ -16,7 +16,8 @@ import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 declare const self: ServiceWorkerGlobalScope;
 
 // Version constants for cache busting
-const CACHE_VERSION = '1.7.1';
+const CACHE_VERSION = '1.7.2';
+const CACHE_PREFIXES = ['masjid-app-v', 'static-v', 'api-v', 'images-v', 'fonts-v'];
 const CACHE_NAME = `masjid-app-v${CACHE_VERSION}`;
 const STATIC_CACHE = `static-v${CACHE_VERSION}`;
 const API_CACHE = `api-v${CACHE_VERSION}`;
@@ -153,9 +154,11 @@ const bgSyncPlugin = new BackgroundSyncPlugin('api-queue', {
   maxRetentionTime: 24 * 60 // 24 hours
 });
 
-// Register failed API calls for background sync
+// Register failed API calls for background sync (exclude cached endpoints)
 registerRoute(
-  ({ url }) => url.pathname.includes('/api/'),
+  ({ url }) => url.pathname.includes('/api/') &&
+              !url.pathname.includes('/prayers/') &&
+              !url.pathname.includes('/stream'),
   new NetworkOnly({
     plugins: [bgSyncPlugin]
   }),
@@ -163,7 +166,9 @@ registerRoute(
 );
 
 registerRoute(
-  ({ url }) => url.pathname.includes('/api/'),
+  ({ url }) => url.pathname.includes('/api/') &&
+              !url.pathname.includes('/prayers/') &&
+              !url.pathname.includes('/stream'),
   new NetworkOnly({
     plugins: [bgSyncPlugin]
   }),
@@ -174,7 +179,7 @@ registerRoute(
 async function cleanupOldCaches() {
   const cacheNames = await caches.keys();
   const oldCaches = cacheNames.filter(name =>
-    name.startsWith('masjid-app-') && !name.includes(CACHE_VERSION)
+    CACHE_PREFIXES.some(prefix => name.startsWith(prefix)) && !name.includes(CACHE_VERSION)
   );
 
   return Promise.all(
@@ -202,7 +207,10 @@ self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'CACHE_INFO') {
     event.ports[0].postMessage({
       version: CACHE_VERSION,
-      caches: Object.values(CACHE_LIMITS)
+      static: CACHE_LIMITS.static,
+      api: CACHE_LIMITS.api,
+      images: CACHE_LIMITS.images,
+      fonts: CACHE_LIMITS.fonts
     });
   }
 
@@ -221,23 +229,4 @@ setCatchHandler(async () => {
   const cache = await caches.open(CACHE_NAME);
   const cachedResponse = await cache.match('/index.html');
   return cachedResponse || new Response('Offline', { status: 503 });
-});
-
-// Cache performance monitoring
-self.addEventListener('fetch', (event: FetchEvent) => {
-  if (event.request.url.includes('/api/')) {
-    event.respondWith(
-      fetch(event.request).catch(() => {
-        // Log API cache miss for monitoring
-        console.warn(`API cache miss: ${event.request.url}`);
-        return new Response(JSON.stringify({
-          error: 'Offline',
-          cached: false,
-        }), {
-          status: 503,
-          headers: { 'Content-Type': 'application/json' }
-        });
-      })
-    );
-  }
 });
