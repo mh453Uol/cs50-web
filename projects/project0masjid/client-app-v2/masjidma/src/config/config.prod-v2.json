@@ -65,7 +65,7 @@
             "description": "Aylesbury Jamia Masjid Ghausia",
             "address":"Churchill Ave, Aylesbury HP21 8LZ",
             "id": 3,
-            "displayRamadanTimes": true,
+            "displayRamadanTimes": false,
             "ramadanStart": "2025-03-02T00:00:00.000Z",
             "ramadanEnd": "2025-03-31T23:00:00.000Z",
             "sehri": "5:13 am",
