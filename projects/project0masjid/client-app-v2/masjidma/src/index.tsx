@@ -11,7 +11,6 @@ import 'react-app-polyfill/stable';
 
 // Import and register the enhanced service worker
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import CacheInfoComponent from './components/CacheInfo/CacheInfo';
 
 let root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
@@ -19,7 +18,6 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <App />
-      <CacheInfoComponent />
     </BrowserRouter>
   </React.StrictMode>,
 );
