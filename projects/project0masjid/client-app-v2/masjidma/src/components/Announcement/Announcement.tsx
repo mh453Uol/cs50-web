@@ -21,7 +21,7 @@ const Announcements = (props: Props) => {
   }
 
   return (
-    <div data-testid="Announcement">
+    <div data-testid="Announcement" className="mb-2">
       { announcements.length > 0 &&
           <Alert key={1} variant="success" className="text-center">
             {announcements.map((announcement: Announcement) => 
