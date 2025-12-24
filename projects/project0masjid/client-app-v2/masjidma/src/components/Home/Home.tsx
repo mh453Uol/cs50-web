@@ -138,6 +138,15 @@ const Home = ({ tenant }: { tenant: Tenant; }) => {
         </div>}
 
       {!isPwaInstalled() && <BookmarkInstruction />}
+
+      <div className="card mt-1">
+        <div className="card-body d-flex align-items-center justify-content-center">
+          <img src="https://wedesignedit.co.uk/images/favicon/favicon-32x32.png" alt="wedesignedit logo" className="me-3" />
+          <div>
+            <p className="mb-0">developed by <a href="https://wedesignedit.co.uk/" target="_blank" rel="noopener noreferrer">wedesignedit</a></p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
