@@ -25,7 +25,8 @@ const onSetTenant = (e: any, tenantSelectedFn: (tenantId: number) => void) => {
 
 const Navigation = (props: Props) => {
   return (
-    <div data-testid="Navigation">      {/* Enable parent component to project content */}
+    <div data-testid="Navigation">      
+      {/* Enable parent component to project content */}
       <div className="app-container">
         {props.children}
       </div>
