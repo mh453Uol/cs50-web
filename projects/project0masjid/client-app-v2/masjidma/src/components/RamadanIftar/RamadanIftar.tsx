@@ -1,3 +1,4 @@
+import { Button } from 'react-bootstrap';
 import { Tenant } from '../../models/Tenant';
 
 import { dateDiffInDays, ordinalSuffixOf, formatAsHoursMinutes } from '../../util/util';
@@ -28,31 +29,29 @@ const RamadanIftar = ({ tenant, date, suhoor, iftar }: Props) => {
     <div data-testid="RamadanIftar">
       <div className="m-1">
         <div className="text-center mb-1 lead">{ramadanDateLabel}</div>
-        <div className="container-fluid">
-          <div className="row d-flex">
-            <div className="suhoor col pl-0">
-              <div className="card">
-                <div className="card-body p-1">
-                  <div className="text-center bold"><b>Sehri</b></div>
-                  <div className="text-center">
-                    <span className="js-suhoor-end">{date <= tenant.ramadanStart ? tenant?.sehri : formatAsHoursMinutes(suhoor)}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="iftar col pr-0">
-              <div className="card">
-                <div className="card-body p-1">
-                  <div className="text-center"><b>Iftar</b></div>
-                  <div className="text-center ">
-                    <span className="js-iftar-start">{date <= tenant.ramadanStart ? tenant?.iftar : formatAsHoursMinutes(iftar)}</span>
-                  </div>
-                </div>
+        <div className="container">
+          <div className='row'>
+          <div className="card col">
+            <div className="card-body p-1">
+              <div className="text-center"><b>Sehri</b></div>
+              <div className="text-center">
+                <span className="js-suhoor-end">{date <= tenant.ramadanStart ? tenant?.sehri : formatAsHoursMinutes(suhoor)}</span>
               </div>
             </div>
           </div>
+          <div className="card col">
+            <div className="card-body p-1">
+              <div className="text-center"><b>Iftar</b></div>
+              <div className="text-center ">
+                <span className="js-iftar-start">{date <= tenant.ramadanStart ? tenant?.iftar : formatAsHoursMinutes(iftar)}</span>
+              </div>
+            </div>
+          </div>
+          </div>
         </div>
-        <a href="/ramadan" className="btn btn-secondary btn-block mt-2" role="button">Ramadan Timetable <span className="urdu-text">رمضان ٹائم ٹیبل</span></a>
+        <div className='d-flex flex-column'>
+          <Button variant='secondary' className="mt-2" role="button">Ramadan Timetable <span className="urdu-text">رمضان ٹائم ٹیبل</span></Button>
+        </div>
       </div>
     </div>
   );
