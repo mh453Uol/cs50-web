@@ -11,9 +11,9 @@ import LiveBanner from '../LiveBanner/LiveBanner';
 import Announcements from '../Announcement/Announcement';
 import RamadanIftar from '../RamadanIftar/RamadanIftar';
 import Header from '../Header/Header';
-import BookmarkInstruction from '../BookmarkInstruction/BookmarkInstruction';
 import Table from '../Table/Table';
 import Donate from '../Donate/Donate';
+import BookmarkInstruction from '../BookmarkInstruction/BookmarkInstruction';
 
 export interface State {
   date: Date,
@@ -135,18 +135,14 @@ const Home = ({ tenant }: { tenant: Tenant; }) => {
       {isJummah(config) &&
         <div className="text-center">
           <img className="img-fluid" src="./jummah-checklist-4.png" loading="lazy" alt="jummah sunnah checklist"></img>
-        </div>}
+        </div>
+      }
 
       {!isPwaInstalled() && <BookmarkInstruction />}
 
-      <div className="card mt-1">
-        <div className="card-body d-flex align-items-center justify-content-center">
-          <img src="https://wedesignedit.co.uk/images/favicon/favicon-32x32.png" alt="wedesignedit logo" className="me-3" />
-          <div>
-            <p className="mb-0">developed by <a href="https://wedesignedit.co.uk/" target="_blank" rel="noopener noreferrer">wedesignedit</a></p>
-          </div>
-        </div>
-      </div>
+
+      {/* {!isPwaInstalled() && <CarouselComponent />} */}
+      
     </div>
   );
 };
