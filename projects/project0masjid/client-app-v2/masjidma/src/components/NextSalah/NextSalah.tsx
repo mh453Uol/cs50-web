@@ -30,7 +30,7 @@ const NextSalah = (props: Props) => {
   return (
     <div data-testid="NextSalah" className="next-salah-container" key={salah?.name}>
       <div id="js-next-prayer">Iqamah: {salah?.name} {formatAsHoursMinutes(salah?.time)}</div>
-      <Badge bg="warning">{label}</Badge>
+      <Badge pill bg="warning">{label}</Badge>
     </div>
   )
 }

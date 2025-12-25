@@ -140,7 +140,6 @@ const Home = ({ tenant }: { tenant: Tenant; }) => {
 
       {!isPwaInstalled() && <BookmarkInstruction />}
 
-
       {/* {!isPwaInstalled() && <CarouselComponent />} */}
       
     </div>
