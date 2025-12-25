@@ -13,7 +13,7 @@ import RamadanIftar from '../RamadanIftar/RamadanIftar';
 import Header from '../Header/Header';
 import Table from '../Table/Table';
 import Donate from '../Donate/Donate';
-import BookmarkInstruction from '../BookmarkInstruction/BookmarkInstruction';
+import CarouselComponent from '../Carousel/Carousel';
 
 export interface State {
   date: Date,
@@ -130,18 +130,7 @@ const Home = ({ tenant }: { tenant: Tenant; }) => {
 
       <LiveBanner tenant={tenant} />
 
-      {tenant.donationLink && <Donate tenant={tenant}></Donate>}
-
-      {isJummah(config) &&
-        <div className="text-center">
-          <img className="img-fluid" src="./jummah-checklist-4.png" loading="lazy" alt="jummah sunnah checklist"></img>
-        </div>
-      }
-
-      {!isPwaInstalled() && <BookmarkInstruction />}
-
-      {/* {!isPwaInstalled() && <CarouselComponent />} */}
-      
+      <CarouselComponent config={config} tenant={tenant} />  
     </div>
   );
 };
