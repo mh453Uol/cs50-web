@@ -1,7 +1,7 @@
 
 
 import { Tenant } from '../../models/Tenant';
-import { addDays, getBrowserVisibilityProp, isPwaInstalled } from '../../util/util';
+import { addDays, getBrowserVisibilityProp } from '../../util/util';
 
 import { JamaatTime } from '../../models/JamaatTime';
 import { PrayerTime } from '../../models/PrayerTime';
@@ -12,7 +12,6 @@ import Announcements from '../Announcement/Announcement';
 import RamadanIftar from '../RamadanIftar/RamadanIftar';
 import Header from '../Header/Header';
 import Table from '../Table/Table';
-import Donate from '../Donate/Donate';
 import CarouselComponent from '../Carousel/Carousel';
 
 export interface State {
