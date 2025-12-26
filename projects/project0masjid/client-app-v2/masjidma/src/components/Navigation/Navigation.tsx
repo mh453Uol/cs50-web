@@ -48,7 +48,7 @@ const Navigation = (props: Props) => {
             </Nav>
             <div className="card my-2 ml-3">
               <div className="card-body d-flex align-items-center justify-content-center">
-                <img src="https://wedesignedit.co.uk/images/favicon/favicon-32x32.png" alt="wedesignedit logo" className="me-3" />
+                <img src="./img/wedesignedit-favicon.png" alt="wedesignedit logo" className="me-3" />
                 <div>
                   <p className="mb-0">Developed By <a href="https://wedesignedit.co.uk/" target="_blank" rel="noopener noreferrer">WeDesignedIt</a></p>
                 </div>
