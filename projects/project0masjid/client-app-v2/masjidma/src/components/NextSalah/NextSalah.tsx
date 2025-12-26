@@ -5,6 +5,7 @@ import { timeAgo } from "../../util/util";
 import { formatAsHoursMinutes } from '../../util/util';
 
 import './NextSalah.css';
+import { Badge } from "react-bootstrap";
 
 interface Props {
   salah?: {
@@ -29,7 +30,7 @@ const NextSalah = (props: Props) => {
   return (
     <div data-testid="NextSalah" className="next-salah-container" key={salah?.name}>
       <div id="js-next-prayer">Iqamah: {salah?.name} {formatAsHoursMinutes(salah?.time)}</div>
-      <span className="badge badge-pill badge-warning" id="js-next-prayer-from-now">{label}</span>
+      <Badge pill bg="warning">{label}</Badge>
     </div>
   )
 }

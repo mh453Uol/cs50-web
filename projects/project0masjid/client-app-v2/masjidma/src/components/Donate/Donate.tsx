@@ -9,12 +9,13 @@ const Donate = ({ tenant }: { tenant: Tenant }) => {
     return (
         <Card className="text-center">
             <Card.Body>
-                {/* <Card.Title className="text-center">Support {tenant.name}</Card.Title> */}
-                {/* <Card.Text>
-                    As-salamu alaykum, beloved members of our mosque community! Today, we come together not only as individuals but as a unified force of faith and compassion. Our mosque serves as a sanctuary, a place where hearts find solace we rely on the generosity of our community members.
-                </Card.Text> */}
-                <Button variant="primary" onClick={() => onClickHandler(tenant?.donationLink || '')}>💷 Donate</Button>
-                <Button variant="secondary" className="ml-2" onClick={() => onClickHandler("https://forms.gle/EhfjeNxcEaLVFhwV9")}>🖐️ Volunteer</Button>
+                <Card.Text>
+                    <blockquote className="blockquote text-center">
+                        <p className="mb-0">Give charity without delay, for it stands in the way of calamity.</p>
+                        <footer className="blockquote-footer mt-1"><cite title="Source Title">Prophet Muhammad (ﷺ) Al-Tirmidhi 589</cite></footer>
+                    </blockquote>
+                </Card.Text>
+                <Button variant="secondary" onClick={() => onClickHandler(tenant?.donationLink || '')}>Donate</Button>
             </Card.Body>
         </Card>
     );

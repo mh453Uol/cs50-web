@@ -4,6 +4,7 @@ import { Tenant } from "../Tenant";
 export class FakeTenant implements Tenant {
     name: string;
     id: number;
+    address: string;
     displayRamadanTimes: boolean;
     ramadanStart: Date;
     ramadanEnd: Date;
@@ -13,6 +14,7 @@ export class FakeTenant implements Tenant {
     constructor() {
       this.name = '';
       this.id = 1;
+      this.address = '';
       this.displayRamadanTimes = false;
       this.ramadanStart = new Date();
       this.ramadanEnd = new Date();

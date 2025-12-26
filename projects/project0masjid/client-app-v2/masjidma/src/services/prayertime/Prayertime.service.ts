@@ -16,7 +16,8 @@ export const getApiUrl = () => {
 }
 
 export function getPrayerStartTimes(date: Date): Promise<PrayerTime> {
-    const url = `${getApiUrl()}/prayers/daily?date=${date.toISOString()}`;
+    const dateOnly = date.toISOString().split('T', 1)[0];
+    const url = `${getApiUrl()}/prayers/daily?date=${dateOnly}`;
 
     const headers = {
         'Content-Type': 'application/json'
