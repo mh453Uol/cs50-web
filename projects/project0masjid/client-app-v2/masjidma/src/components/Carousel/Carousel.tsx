@@ -26,11 +26,11 @@ const CarouselComponent = ({config, tenant}: { config: State, tenant: Tenant}) =
   const renderPWAInstructions = () => {
     if (browser === 'safari') {
       return (
-        <img src="./img/safari.png" loading="lazy" className="img-fluid mx-auto d-block" alt="how to install app on safari"></img>
+        <img src="./img/safari.webp" loading="lazy" className="img-fluid mx-auto d-block" alt="how to install app on safari"></img>
       );
     } else if (browser === 'chrome') {
       return (
-        <img src="./img/chrome.png" loading="lazy" className="img-fluid mx-auto d-block" alt="how to install app on chrome"></img>
+        <img src="./img/chrome.webp" loading="lazy" className="img-fluid mx-auto d-block" alt="how to install app on chrome"></img>
       );
     } else {
       return (
@@ -62,7 +62,7 @@ const CarouselComponent = ({config, tenant}: { config: State, tenant: Tenant}) =
         variant="dark"
       >
         <Carousel.Item>
-          <img className="img-fluid mx-auto d-block" src="./img/donation.png" loading="lazy" alt="donate to our mosque" 
+          <img className="img-fluid mx-auto d-block" src="./img/donation.webp" loading="lazy" alt="donate to our mosque" 
             onClick={() => onClickHandler(tenant?.donationLink ?? "")}>
           </img>
         </Carousel.Item>
@@ -75,13 +75,13 @@ const CarouselComponent = ({config, tenant}: { config: State, tenant: Tenant}) =
           <img className="img-fluid mx-auto d-block" src="./jummah-checklist-4.png" loading="lazy" alt="jummah sunnah checklist"></img>
         </Carousel.Item>
         }
-        <Carousel.Item>
+        {/* <Carousel.Item>
           <div className="text-center p-3">
             <h4>Upcoming Events</h4>
             <p>Join us for Friday Prayers, Islamic classes, and community events at our mosque!</p>
             <p>Stay connected and never miss an important event.</p>
           </div>
-        </Carousel.Item>
+        </Carousel.Item> */}
       </Carousel>
     </div>
   );
