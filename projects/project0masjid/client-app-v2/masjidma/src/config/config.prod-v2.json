@@ -1,5 +1,5 @@
 {
-    "baseUrl": "https://masjidma-api.vercel.app",
+    "baseUrl": "https://api.southcourtmosque.live",
     "tenants": [
         {
             "name": "Southcourt Masjid",
