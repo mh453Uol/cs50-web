@@ -1,4 +1,4 @@
-import configuration from '../../config/config.prod.json';
+import configuration from '../../config/config.prod-v2.json';
 import { Stream } from '../../models/Stream';
 
 export const getApiUrl = () => {
