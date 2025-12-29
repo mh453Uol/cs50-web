@@ -118,14 +118,14 @@ const Home = ({ tenant }: { tenant: Tenant; }) => {
           suhoor={config.salah?.start?.fajr}
           iftar={config.salah?.start?.maghrib} />}
 
-      <Table salah={config.salah} />
-
       <Header
         date={config.date}
         isLoading={config.isLoading}
         salah={config.salah}
         onYesterdayClick={() => onYesterdayClick(config.date, setConfig)}
         onTomorrowClick={() => onTomorrowClick(config.date, setConfig)} />
+        
+      <Table salah={config.salah} />
 
       <LiveBanner tenant={tenant} />
 
