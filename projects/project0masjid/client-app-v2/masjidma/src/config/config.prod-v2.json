@@ -4,7 +4,7 @@
         {
             "name": "Southcourt Masjid",
             "description": "Southcourt Islamic Centre",
-            "address": "Churchill Avenue, Aylesbury HP21 8LZ",
+            "address": "Churchill Avenue, HP21 8LZ",
             "donationLink": "https://hibabox.com/toheed-ul-islam-association",
             "id": 4,
             "displayRamadanTimes": false,
@@ -63,7 +63,7 @@
             "name": "Aylesbury Masjid",
             "donationLink": "https://hibabox.com/ghausia-committee-aylesbury",
             "description": "Aylesbury Jamia Masjid Ghausia",
-            "address":"Havelock Street, Aylesbury HP20 2NX",
+            "address":"Havelock Street, HP20 2NX",
             "id": 3,
             "displayRamadanTimes": false,
             "ramadanStart": "2025-03-02T00:00:00.000Z",
