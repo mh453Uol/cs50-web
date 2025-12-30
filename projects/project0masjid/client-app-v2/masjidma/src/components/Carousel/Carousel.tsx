@@ -4,7 +4,7 @@ import { isPwaInstalled } from '../../util/util';
 import { isJummah, State } from '../Home/Home';
 import { Tenant } from '../../models/Tenant';
 
-const CarouselComponent = ({config, tenant}: { config: State, tenant: Tenant}) => {
+const CarouselComponent = ({ config, tenant }: { config: State, tenant: Tenant }) => {
   const [browser, setBrowser] = useState('');
 
   useEffect(() => {
@@ -18,70 +18,48 @@ const CarouselComponent = ({config, tenant}: { config: State, tenant: Tenant}) =
     }
   }, []);
 
-    const onClickHandler = (url: string) => {
-        window.location.href = url
-    }
-
+  const onClickHandler = (url: string) => {
+    window.location.href = url
+  }
 
   const renderPWAInstructions = () => {
     if (browser === 'safari') {
       return (
-        <img src="./img/safari.webp" loading="lazy" className="img-fluid mx-auto d-block" alt="how to install app on safari"></img>
-      );
-    } else if (browser === 'chrome') {
-      return (
-        <img src="./img/chrome.webp" loading="lazy" className="img-fluid mx-auto d-block" alt="how to install app on chrome"></img>
-      );
-    } else {
-      return (
-        <>
-          <h5>How to Install PWA</h5>
-          <p>For Safari:</p>
-          <ol>
-            <li>Tap the Share icon</li>
-            <li>Tap "Add to Home Screen"</li>
-            <li>Enter a name for the bookmark</li>
-          </ol>
-          <p>For Chrome:</p>
-          <ol>
-            <li>Tap the menu button (three dots ⋮ in the top right)</li>
-            <li>Tap "Install app"</li>
-          </ol>
-        </>
+        <img src="./img/safari.webp" loading="lazy" className="img-fluid mx-auto d-block" alt="how to install app on safari" />
       );
     }
+
+    return (
+      <img src="./img/chrome.webp" loading="lazy" className="img-fluid mx-auto d-block" alt="how to install app on chrome" />
+    );
   };
+
+  const carouselItems = [
+    isJummah(config) ? {
+      content: () => <img className="img-fluid mx-auto d-block" src="./jummah-checklist-4.png" loading="lazy" alt="jummah sunnah checklist" />,
+      key: '1',
+    }: undefined,
+    { 
+      content: () => <img className="img-fluid mx-auto d-block" src="./img/donation.webp" loading="lazy" alt="donate to our mosque" onClick={() => onClickHandler(tenant?.donationLink ?? "")} />,
+      key: '2', 
+    },
+    !isPwaInstalled() ? { key: '3', content: () => renderPWAInstructions() } : undefined
+  ].filter((item) => item)
 
   return (
     <div data-testid="Carousel">
       <Carousel
         interval={null}
-        controls={true}
+        controls={carouselItems.length > 1}
         indicators={false}
         touch={true}
         variant="dark"
       >
-        <Carousel.Item>
-          <img className="img-fluid mx-auto d-block" src="./img/donation.webp" loading="lazy" alt="donate to our mosque" 
-            onClick={() => onClickHandler(tenant?.donationLink ?? "")}>
-          </img>
-        </Carousel.Item>
-        {!isPwaInstalled() &&
-          <Carousel.Item>
-            {renderPWAInstructions()}
+        {carouselItems.map((config) => 
+          <Carousel.Item key={config?.key}>
+            {config && config.content()}
           </Carousel.Item>
-        }
-        {isJummah(config) && <Carousel.Item>
-          <img className="img-fluid mx-auto d-block" src="./jummah-checklist-4.png" loading="lazy" alt="jummah sunnah checklist"></img>
-        </Carousel.Item>
-        }
-        {/* <Carousel.Item>
-          <div className="text-center p-3">
-            <h4>Upcoming Events</h4>
-            <p>Join us for Friday Prayers, Islamic classes, and community events at our mosque!</p>
-            <p>Stay connected and never miss an important event.</p>
-          </div>
-        </Carousel.Item> */}
+        )}
       </Carousel>
     </div>
   );

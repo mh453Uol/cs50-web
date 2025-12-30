@@ -97,7 +97,6 @@ const App = () => {
               <Route path="*" render={() => <Home tenant={tenant}></Home>} exact></Route>
             </Switch>
           </main>
-
         </Navigation>
       </div>
     );
