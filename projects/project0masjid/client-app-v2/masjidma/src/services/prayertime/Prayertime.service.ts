@@ -34,6 +34,16 @@ export function getPrayerStartTimes(date: Date): Promise<PrayerTime> {
                 fromTextualTimeToDate(data.maghrib),
                 fromTextualTimeToDate(data.isha)
             )
+        }).catch(() => {
+            return new PrayerTime(
+                fromTextualTimeToDate('06:29'),
+                fromTextualTimeToDate('08:11'),
+                fromTextualTimeToDate('11:11'),
+                fromTextualTimeToDate('12:11'),
+                fromTextualTimeToDate('14:15'),
+                fromTextualTimeToDate('16:04'),
+                fromTextualTimeToDate('17:38')
+            )
         })
 }
 
@@ -55,6 +65,17 @@ export function getJamaatTimes(date: Date): Promise<JamaatTime> {
                 fromTextualTimeToDate(data.jummah1),
                 fromTextualTimeToDate(data.jummah2)
             );
+        })
+        .catch(() => {
+            return new JamaatTime(
+                fromTextualTimeToDate('07:00'),
+                fromTextualTimeToDate('13:00'),
+                fromTextualTimeToDate('14:30'),
+                fromTextualTimeToDate('16:04'),
+                fromTextualTimeToDate('18:30'),
+                fromTextualTimeToDate('12:30'),
+                fromTextualTimeToDate('13:30')
+            )
         })
 
 }
