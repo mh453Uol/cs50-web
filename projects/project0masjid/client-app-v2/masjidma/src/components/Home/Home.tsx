@@ -1,7 +1,7 @@
 
 
 import { Tenant } from '../../models/Tenant';
-import { addDays, getBrowserVisibilityProp, isPwaInstalled } from '../../util/util';
+import { addDays, getBrowserVisibilityProp } from '../../util/util';
 
 import { JamaatTime } from '../../models/JamaatTime';
 import { PrayerTime } from '../../models/PrayerTime';
@@ -11,9 +11,8 @@ import LiveBanner from '../LiveBanner/LiveBanner';
 import Announcements from '../Announcement/Announcement';
 import RamadanIftar from '../RamadanIftar/RamadanIftar';
 import Header from '../Header/Header';
-import BookmarkInstruction from '../BookmarkInstruction/BookmarkInstruction';
 import Table from '../Table/Table';
-import Donate from '../Donate/Donate';
+import CarouselComponent from '../Carousel/Carousel';
 
 export interface State {
   date: Date,
@@ -106,6 +105,7 @@ const Home = ({ tenant }: { tenant: Tenant; }) => {
   return (
     <div data-testid="Home">
       <h4 className="text-center m-2">{tenant?.description}</h4>
+      <div className="text-center mb-1 lead">{tenant?.address}</div>
 
       <Announcements
         tenant={tenant}
@@ -118,25 +118,18 @@ const Home = ({ tenant }: { tenant: Tenant; }) => {
           suhoor={config.salah?.start?.fajr}
           iftar={config.salah?.start?.maghrib} />}
 
-      <Table salah={config.salah} />
-
       <Header
         date={config.date}
         isLoading={config.isLoading}
         salah={config.salah}
         onYesterdayClick={() => onYesterdayClick(config.date, setConfig)}
         onTomorrowClick={() => onTomorrowClick(config.date, setConfig)} />
+        
+      <Table salah={config.salah} />
 
       <LiveBanner tenant={tenant} />
 
-      {tenant.donationLink && <Donate tenant={tenant}></Donate>}
-
-      {isJummah(config) &&
-        <div className="text-center">
-          <img className="img-fluid" src="./jummah-checklist-4.png" loading="lazy" alt="jummah sunnah checklist"></img>
-        </div>}
-
-      {!isPwaInstalled() && <BookmarkInstruction />}
+      <CarouselComponent config={config} tenant={tenant} />  
     </div>
   );
 };
