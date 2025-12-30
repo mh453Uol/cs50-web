@@ -108,7 +108,6 @@ const AudioStream = (props: Props) => {
           <audio preload="auto" ref={audio}></audio>
 
           {/* Render play button */}
-
           {
             !playing && <div className=" d-flex justify-content-center">
               <div className={styles['button-container']} onClick={onPlay}>
@@ -118,11 +117,9 @@ const AudioStream = (props: Props) => {
           }
 
           {
-            playing && <div className=" d-flex justify-content-center">
+            playing && <div className="d-flex justify-content-center">
               {!stream.isLive &&
-                <div className="spinner-border mt-2" role="status">
-                  <span className="sr-only">Loading...</span>
-                </div >
+                <div className="spinner-border mt-2" role="status"></div >
               }
               {
                 stream.isLive &&
@@ -135,10 +132,10 @@ const AudioStream = (props: Props) => {
 
           <div className="text-center">
             <div className="mt-3">
-              <button type="button" className="btn btn-sm btn-info" onClick={share}>
+              <button type="button" className="btn btn-secondary btn-sm" onClick={share}>
                 Share
               </button>
-              <button type="button" className="btn btn-sm btn-info ml-2" onClick={navigateToHome}>
+              <button type="button" className="btn btn-secondary btn-sm mx-2" onClick={navigateToHome}>
                 See Salah Times
               </button>
             </div >
