@@ -4,7 +4,7 @@ import { Tenant } from '../../models/Tenant';
 import './Navigation.css';
 
 import { Container, Dropdown, DropdownButton, Nav, Navbar } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import classNames from 'classnames';
 
 interface Props {

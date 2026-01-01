@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Stream } from '../../models/Stream';
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Tenant } from '../../models/Tenant';
 import { isStreaming } from '../../services/prayertime/AudioStream.service';
 

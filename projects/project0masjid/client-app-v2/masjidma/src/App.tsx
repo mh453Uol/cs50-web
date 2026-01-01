@@ -8,13 +8,13 @@ import { getQueryString } from './util/util';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Route, Switch } from 'react-router-dom';
 import Home from './components/Home/Home';
 import Ramadan from './components/Ramadan/Ramadan';
 import About from './components/About/About';
 import ContactUs from './components/ContactUs/ContactUs';
 import AudioStream from './components/AudioStream/AudioStream';
 import { MasjidTenant } from './models/MasjidTenant';
+import { Route, Routes } from 'react-router';
 
 const getSelectedTenant = (): Tenant => {
   const tenantId = window.localStorage.getItem("tenant");
@@ -85,17 +85,17 @@ const App = () => {
           tenant={tenant}
           onTenantSelected={onTenantSelected}>
           <main>
-            <Switch>
-              <Route path="/ramadan" render={() => <Ramadan tenant={tenant}></Ramadan>}></Route>
+            <Routes>
+              <Route path="/ramadan" element={<Ramadan tenant={tenant} />}></Route>
 
-              <Route path="/about" render={() => <About></About>}></Route>
+              <Route path="/about" element={<About />}></Route>
 
-              <Route path="/contact-us" render={() => <ContactUs></ContactUs>}></Route>
+              <Route path="/contact-us" element={<ContactUs />}></Route>
 
-              <Route path="/radio" render={() =><AudioStream tenant={tenant}></AudioStream>}></Route>
+              <Route path="/radio/:tenantId" element={<AudioStream tenant={tenant} />}></Route>
 
-              <Route path="*" render={() => <Home tenant={tenant}></Home>} exact></Route>
-            </Switch>
+              <Route path="*" element={<Home tenant={tenant} />}></Route>
+            </Routes>
           </main>
         </Navigation>
       </div>
