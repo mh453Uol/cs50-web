@@ -24,12 +24,10 @@ const RamadanIftar = ({ tenant, date, suhoor, iftar }: Props) => {
   }
 
   const dateLabel = date.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
-  const ramadanDateLabel = `${ordinal} Ramadan (${dateLabel})`
-
-  const history = useHistory();
+  const ramadanDateLabel = `${ordinal} Ramadan (${dateLabel})`;
 
   function handleClick() {
-    history.push("/ramadan");
+    window.open(tenant.ramadanTimetable);
   }
 
 
@@ -58,7 +56,7 @@ const RamadanIftar = ({ tenant, date, suhoor, iftar }: Props) => {
           </div>
         </div>
         <div className='d-flex flex-column'>
-          <Button variant='secondary' className="mt-2" role="button" onClick={handleClick}>Ramadan Timetable <span className="urdu-text">رمضان ٹائم ٹیبل</span></Button>
+          <a href={tenant.ramadanTimetable} className="mt-2 btn btn-secondary btn-block" role="button" onClick={handleClick}>Ramadan Timetable <span className="urdu-text">رمضان ٹائم ٹیبل</span></a>
         </div>
       </div>
     </div>
