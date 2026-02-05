@@ -35,6 +35,10 @@ const CarouselComponent = ({ config, tenant }: { config: State, tenant: Tenant }
   };
 
   const carouselItems = [
+    { 
+      content: () => <img className="img-fluid mx-auto d-block" src="./img/quran-challenge.png" loading="lazy" alt="finish quran in ramadan" onClick={() => onClickHandler(tenant?.donationLink ?? "")} />,
+      key: '0', 
+    },
     isJummah(config) ? {
       content: () => <img className="img-fluid mx-auto d-block" src="./jummah-checklist-4.png" loading="lazy" alt="jummah sunnah checklist" />,
       key: '1',
