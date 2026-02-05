@@ -7,12 +7,12 @@
             "address": "Churchill Avenue, HP21 8LZ",
             "donationLink": "https://hibabox.com/toheed-ul-islam-association",
             "id": 4,
-            "displayRamadanTimes": false,
-            "ramadanStart": "2025-03-01T00:00:00.000Z",
-            "ramadanEnd": "2025-03-31T23:00:00.000Z",
-            "sehri": "5:14 am",
-            "iftar": "5:46 pm",
-            "ramadanTimetable":"https://drive.google.com/thumbnail?id=1SW1ShXTX0lTs-Dr0GzNa9FcZX-VcHml2&sz=w1000",
+            "displayRamadanTimes": true,
+            "ramadanStart": "2026-02-18T00:00:00.000Z",
+            "ramadanEnd": "2026-03-19T23:00:00.000Z",
+            "sehri": "5:36 am",
+            "iftar": "5:26 pm",
+            "ramadanTimetable":"./img/southcourt-ramadan-26.PNG",
             "announcements" : [
                 {
                     "message": "🎉 Eid al-Fitr will be on Sun, 30 Mar. \n Eid Salah - 7:00AM, 8:00AM and 9:30AM. \n Eid will also be prayed in Berryfields at Roman Park Hall at 9:45AM",
@@ -30,15 +30,6 @@
                     "to": "2021-07-20T23:59:59.00Z"
                 },
                 {
-                    "message": "",
-                    "from": "2025-11-07T00:00:00.00Z",
-                    "to": "2025-11-08T23:59:59.00Z",
-                    "link": {
-                        "url": "/ramadan",
-                        "name": "✨ Ramadan 2025 calendar published!"
-                    }
-                },
-                {
                     "message": "🎉 Eid ul-Adha will be on Friday 6th June 2025. \n Eid Salah - 6:30AM (Facilities for sisters), 8:00AM (Facilities for sisters) and 9:30AM",
                     "from": "2025-05-28T00:00:00.00Z",
                     "to": "2025-06-06T23:59:59.00Z"
@@ -49,7 +40,7 @@
                     "to": "2024-06-16T23:00:00.00Z"
                 },
                 {
-                    "message": "Join our upcoming Winter 2025 conference, Friday 26th December at 6pm!",
+                    "message": "",
                     "from": "2025-12-12T11:00:00.00Z",
                     "to": "2025-12-26T23:00:00.00Z",
                      "link": {
@@ -65,12 +56,12 @@
             "description": "Aylesbury Jamia Masjid Ghausia",
             "address":"Havelock Street, HP20 2NX",
             "id": 3,
-            "displayRamadanTimes": false,
-            "ramadanStart": "2025-03-02T00:00:00.000Z",
-            "ramadanEnd": "2025-03-31T23:00:00.000Z",
-            "sehri": "5:13 am",
-            "iftar": "5:46 pm",
-            "ramadanTimetable":"https://drive.google.com/thumbnail?id=1qw28FSKAeaOTXq2RPdDuX6xETKLUnqAa&sz=w1000",
+            "displayRamadanTimes": true,
+            "ramadanStart": "2026-02-18T00:00:00.000Z",
+            "ramadanEnd": "2026-03-20T23:00:00.000Z",
+            "sehri": "5:35 am",
+            "iftar": "5:26 pm",
+            "ramadanTimetable":"./img/aylesbury-mosque-calendar-26.jpeg",
             "announcements" : [
                 {
                     "message": "🎉 Eid al-Fitr will be on Monday, 31 March. \n Eid Salah - 8:00AM, 9:00AM and 10:30AM",
@@ -86,15 +77,6 @@
                     "message": "🎉 Eid ul-Adha will be on Friday 6th June 2025 \n Eid Salah - 7:00AM (Urdu - Hafiz Jamil), 8:00AM (English - Mawlana Umar) and 10:00AM (English - Mawlana Zubayr)",
                     "from": "2025-05-28T00:00:00.00Z",
                     "to": "2025-06-06T23:59:59.00Z"
-                },
-                {
-                    "message": "",
-                    "from": "2025-02-18T00:00:00.00Z",
-                    "to": "2025-03-21T23:59:59.00Z",
-                    "link": {
-                        "url": "/ramadan",
-                        "name": "✨ Ramadan 2025 calender published!"
-                    }
                 },
                 {
                     "message": "Join us for an inspiring evening Wednesday, 24th December at 7.30pm!",
