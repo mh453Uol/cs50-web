@@ -1,8 +1,6 @@
-import { Button } from 'react-bootstrap';
 import { Tenant } from '../../models/Tenant';
 
 import { dateDiffInDays, ordinalSuffixOf, formatAsHoursMinutes } from '../../util/util';
-import { useHistory } from 'react-router-dom';
 
 interface Props {
   tenant: Tenant,
