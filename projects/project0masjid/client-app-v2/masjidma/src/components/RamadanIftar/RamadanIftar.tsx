@@ -2,6 +2,7 @@ import { Button } from 'react-bootstrap';
 import { Tenant } from '../../models/Tenant';
 
 import { dateDiffInDays, ordinalSuffixOf, formatAsHoursMinutes } from '../../util/util';
+import { useHistory } from 'react-router-dom';
 
 interface Props {
   tenant: Tenant,
@@ -25,13 +26,20 @@ const RamadanIftar = ({ tenant, date, suhoor, iftar }: Props) => {
   const dateLabel = date.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
   const ramadanDateLabel = `${ordinal} Ramadan (${dateLabel})`
 
+  const history = useHistory();
+
+  function handleClick() {
+    history.push("/ramadan");
+  }
+
+
   return (
     <div data-testid="RamadanIftar">
-      <div className="m-1">
-        <div className="text-center mb-1 lead">{ramadanDateLabel}</div>
+      <div className="m-3">
+        <h5 className="text-center mb-1">{ramadanDateLabel}</h5>
         <div className="container">
           <div className='row'>
-          <div className="card col">
+          <div className="card col" style={{marginRight: '5px'}}>
             <div className="card-body p-1">
               <div className="text-center"><b>Sehri</b></div>
               <div className="text-center">
@@ -50,7 +58,7 @@ const RamadanIftar = ({ tenant, date, suhoor, iftar }: Props) => {
           </div>
         </div>
         <div className='d-flex flex-column'>
-          <Button variant='secondary' className="mt-2" role="button">Ramadan Timetable <span className="urdu-text">رمضان ٹائم ٹیبل</span></Button>
+          <Button variant='secondary' className="mt-2" role="button" onClick={handleClick}>Ramadan Timetable <span className="urdu-text">رمضان ٹائم ٹیبل</span></Button>
         </div>
       </div>
     </div>
