@@ -35,21 +35,21 @@ const CarouselComponent = ({ config, tenant }: { config: State, tenant: Tenant }
   };
 
   const carouselItems = [
-    { 
-      content: () => <img className="img-fluid mx-auto d-block" src="./img/taraweeh-banner-ay-26.png" loading="lazy" alt="taraweeh prayer invitation" onClick={() => onClickHandler('ramadan')} />,
-      key: '-1', 
+    {
+      content: () => <img className="img-fluid mx-auto d-block" src="./img/taraweeh-banner-ay-26.webp" loading="lazy" alt="taraweeh prayer invitation" onClick={() => onClickHandler('ramadan')} />,
+      key: '-1',
     },
     isJummah(config) ? {
       content: () => <img className="img-fluid mx-auto d-block" src="./jummah-checklist-4.png" loading="lazy" alt="jummah sunnah checklist" />,
       key: '1',
-    }: undefined,
-    { 
+    } : undefined,
+    {
       content: () => <img className="img-fluid mx-auto d-block" src="./img/quran-challenge.png" loading="lazy" alt="finish quran in ramadan" onClick={() => onClickHandler(tenant?.donationLink ?? "")} />,
-      key: '0', 
+      key: '0',
     },
-    { 
+    {
       content: () => <img className="img-fluid mx-auto d-block" src="./img/donation.webp" loading="lazy" alt="donate to our mosque" onClick={() => onClickHandler(tenant?.donationLink ?? "")} />,
-      key: '2', 
+      key: '2',
     },
     !isPwaInstalled() ? { key: '3', content: () => renderPWAInstructions() } : undefined
   ].filter((item) => item)
@@ -63,7 +63,7 @@ const CarouselComponent = ({ config, tenant }: { config: State, tenant: Tenant }
         touch={true}
         variant="dark"
       >
-        {carouselItems.map((config) => 
+        {carouselItems.map((config) =>
           <Carousel.Item key={config?.key}>
             {config && config.content()}
           </Carousel.Item>

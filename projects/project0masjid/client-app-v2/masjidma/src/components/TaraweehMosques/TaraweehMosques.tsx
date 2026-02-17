@@ -66,26 +66,6 @@ const TaraweehMosques = ({ mosques }: Props) => {
           </div>
         </div>
       </div>
-      
-      <div className="row g-4">
-        <div className="col-md-12">
-          <div className="card border-0 shadow-sm">
-            <div className="card-header bg-info text-white">
-              <h4 className="mb-0">
-                <i className="bi bi-info-circle me-2"></i> About Taraweeh
-              </h4>
-            </div>
-            <div className="card-body">
-              <p className="card-text">
-                Taraweeh prayers are special night prayers performed during Ramadan. 
-                They are Sunnah prayers that are highly recommended during this blessed month.
-                The Prophet Muhammad (peace be upon him) said: "Whoever stands (in prayer) with the imam until he finishes, 
-                it will be recorded for him that he spent the whole night in prayer." (Bukhari and Muslim)
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

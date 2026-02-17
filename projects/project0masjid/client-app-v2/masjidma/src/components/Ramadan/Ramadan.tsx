@@ -1,36 +1,72 @@
 import { Tenant } from '../../models/Tenant';
 import TaraweehMosques from '../TaraweehMosques/TaraweehMosques';
 import { TaraweehMosque } from '../../models/TaraweehMosque';
+import Events from '../Events/Events';
+import { Event } from '../../models/Event';
 
 // Sample data for Taraweeh mosques - in a real application, this would come from an API
 const taraweehMosques: TaraweehMosque[] = [
   {
-    id: 1,
-    name: "Aylesbury Mosque",
-    time: "Start: Pending",
-    familyFriendly: "Side room located at the right side of the masjid reserved for Sisters.",
-    description: "Alfred Rose Community Centre Car Park and Crown Leys. Imams: Hafiz Jamil",
-  },
-  {
     id: 2,
     name: "Southcourt Mosque",
-    time: "Start: Pending",
+    time: "7:30 - 9:45pm",
     familyFriendly: "The upstairs of the masjid is wholly reserved for women this year for Taraweeh. Please make wudu at home.",
     description: "Pebble brook school and Southcourt community centre.",
   },
   {
     id: 3,
-    name: "The Aylesbury Vale Academy - Berryfield",
-    time: "Start: 7:45, Monday to Saturday venue is AVA Primary and Sunday AVA Main Hall",
+    name: "Berryfields Muslim Community",
+    time: "7:45 - 9:45pm, Monday to Saturday venue is Aylesbury Vale Academy Primary and Sunday Aylesbury Vale Academy Main Hall. Postcode: HP18 0WS",
     description: "Hall booked from Tuesday 17th Feb, Imams - Maulana Haroon, Maulana Uzair, Luqman, Dayaan and Shoaib (Students)",
     familyFriendly: "Sisters and children are welcomed to join us, please make wudu at home",
   },
-    {
+  {
+    id: 1,
+    name: "Aylesbury Mosque",
+    time: "Pending",
+    familyFriendly: "Side room located at the right side of the masjid reserved for Sisters.",
+    description: "Alfred Rose Community Centre Car Park and Crown Leys. Imams: Hafiz Jamil",
+  },
+  {
     id: 4,
     name: "Faizan-e-Siddeeq-e-Akbar",
-    time: "Start: Pending",
+    time: "Pending",
     familyFriendly: "Sisters welcome, dedicated spaces for ladies",
     description: "Please walk if you are local or car share"
+  }
+];
+
+// Sample data for Ramadan events - in a real application, this would come from an API
+const ramadanEvents: Event[] = [
+  {
+    id: 1,
+    title: "Ramadan Special",
+    date: "Ramadan",
+    time: "After Asr",
+    location: "Southcourt Mosque",
+    description: "Join us for a class.",
+    posterImage: "/img/southcourt-ramadan-event-asr.webp",
+    altText: "Quran Study Circle Event Poster"
+  },
+  {
+    id: 2,
+    title: "Surah Al Hujurat",
+    date: "Ramadan",
+    time: "After Taraweeh",
+    location: "Southcourt Mosque",
+    description: "Join us for a class.",
+    posterImage: "/img/southcourt-ramadan-event-after-taraweeh.webp",
+    altText: "Community Iftar Event Poster"
+  },
+  {
+    id: 3,
+    title: "Dars Schedule",
+    date: "Ramadan",
+    time: "Whole Day",
+    location: "Aylesbury Mosque",
+    description: "See our Ramadan 2026 Dars Schedule.",
+    posterImage: "/img/aylesbury-mosque-dars.webp",
+    altText: "See our Ramadan 2026 Dars Schedule"
   }
 ];
 
@@ -58,38 +94,9 @@ const Ramadan = ({ tenant }: { tenant: Tenant }) => {
             <TaraweehMosques mosques={taraweehMosques} />
           </div>
 
-          {/* Ramadan Timetable Section */}
-          <div className="col-12" id="ramadan-timetable">
-            <div className="card border-0 shadow-sm">
-              <div className="card-header bg-dark text-white" id="ramadan-timetable-header">
-                <h2 className="mb-0">
-                  <i className="bi bi-calendar me-2"></i> Ramadan Timetable
-                  <small className="d-block text-light opacity-75" style={{ fontFamily: "'Amiri', 'Times New Roman', serif" }}>جدول رمضان</small>
-                </h2>
-              </div>
-              <div className="card-body">
-                {tenant?.ramadanTimetable ? (
-                  <div className="text-center">
-                    <a href={tenant.ramadanTimetable} target="_blank" rel="noreferrer" className="text-decoration-none">
-                      <img 
-                        src={tenant.ramadanTimetable} 
-                        className="img-fluid rounded shadow" 
-                        alt={`${tenant.name} Ramadan Timetable`}
-                        style={{ maxWidth: '100%', height: 'auto' }}
-                      />
-                    </a>
-                  </div>
-                ) : (
-                  <div className="alert alert-info d-flex align-items-center">
-                    <i className="bi bi-info-circle fs-4 me-3"></i>
-                    <div>
-                      <h5 className="mb-1">Ramadan timetable will be available soon</h5>
-                      <p className="mb-0">Please check back later for the updated timetable.</p>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
+          {/* Ramadan Events Section */}
+          <div className="col-12" id="ramadan-events">
+            <Events events={ramadanEvents} />
           </div>
 
           {/* Additional Ramadan Information */}
@@ -119,7 +126,7 @@ const Ramadan = ({ tenant }: { tenant: Tenant }) => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="col-md-6 col-lg-3">
                     <div className="card h-100 border-0 bg-light">
                       <div className="card-body text-center">
@@ -129,7 +136,7 @@ const Ramadan = ({ tenant }: { tenant: Tenant }) => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="col-md-6 col-lg-3">
                     <div className="card h-100 border-0 bg-light">
                       <div className="card-body text-center">
@@ -139,7 +146,7 @@ const Ramadan = ({ tenant }: { tenant: Tenant }) => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="col-md-6 col-lg-3">
                     <div className="card h-100 border-0 bg-light">
                       <div className="card-body text-center">
