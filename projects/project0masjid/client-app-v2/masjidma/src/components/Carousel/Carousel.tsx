@@ -36,13 +36,17 @@ const CarouselComponent = ({ config, tenant }: { config: State, tenant: Tenant }
 
   const carouselItems = [
     { 
-      content: () => <img className="img-fluid mx-auto d-block" src="./img/quran-challenge.png" loading="lazy" alt="finish quran in ramadan" onClick={() => onClickHandler(tenant?.donationLink ?? "")} />,
-      key: '0', 
+      content: () => <img className="img-fluid mx-auto d-block" src="./img/taraweeh-banner-ay-26.png" loading="lazy" alt="taraweeh prayer invitation" onClick={() => onClickHandler('ramadan')} />,
+      key: '-1', 
     },
     isJummah(config) ? {
       content: () => <img className="img-fluid mx-auto d-block" src="./jummah-checklist-4.png" loading="lazy" alt="jummah sunnah checklist" />,
       key: '1',
     }: undefined,
+    { 
+      content: () => <img className="img-fluid mx-auto d-block" src="./img/quran-challenge.png" loading="lazy" alt="finish quran in ramadan" onClick={() => onClickHandler(tenant?.donationLink ?? "")} />,
+      key: '0', 
+    },
     { 
       content: () => <img className="img-fluid mx-auto d-block" src="./img/donation.webp" loading="lazy" alt="donate to our mosque" onClick={() => onClickHandler(tenant?.donationLink ?? "")} />,
       key: '2', 
@@ -53,7 +57,7 @@ const CarouselComponent = ({ config, tenant }: { config: State, tenant: Tenant }
   return (
     <div data-testid="Carousel">
       <Carousel
-        interval={null}
+        interval={2000}
         controls={carouselItems.length > 1}
         indicators={false}
         touch={true}

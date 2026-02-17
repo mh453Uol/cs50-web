@@ -1,0 +1,53 @@
+/* Islamic-themed styling for Taraweeh Mosques component */
+.arabic-title {
+  font-family: 'Amiri', 'Times New Roman', serif;
+  color: #7f8c8d;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+/* Islamic geometric pattern background effect */
+[data-testid="TaraweehMosques"] {
+  position: relative;
+}
+
+[data-testid="TaraweehMosques"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, rgba(212, 175, 55, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Enhanced card styling for mosque cards */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Gold accent colors for Islamic theme */
+.text-warning {
+  color: #d4af37 !important;
+}
+
+.bg-warning {
+  background-color: #d4af37 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .arabic-title {
+    font-size: 0.7rem;
+  }
+}
