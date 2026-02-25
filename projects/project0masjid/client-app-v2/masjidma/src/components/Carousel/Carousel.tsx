@@ -44,10 +44,6 @@ const CarouselComponent = ({ config, tenant }: { config: State, tenant: Tenant }
       key: '1',
     } : undefined,
     {
-      content: () => <img className="img-fluid mx-auto d-block" src="./img/quran-challenge.png" loading="lazy" alt="finish quran in ramadan" onClick={() => onClickHandler(tenant?.donationLink ?? "")} />,
-      key: '0',
-    },
-    {
       content: () => <img className="img-fluid mx-auto d-block" src="./img/donation.webp" loading="lazy" alt="donate to our mosque" onClick={() => onClickHandler(tenant?.donationLink ?? "")} />,
       key: '2',
     },
@@ -57,7 +53,7 @@ const CarouselComponent = ({ config, tenant }: { config: State, tenant: Tenant }
   return (
     <div data-testid="Carousel">
       <Carousel
-        interval={2000}
+        interval={null}
         controls={carouselItems.length > 1}
         indicators={false}
         touch={true}
