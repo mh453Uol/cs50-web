@@ -34,10 +34,20 @@ const CarouselComponent = ({ config, tenant }: { config: State, tenant: Tenant }
     );
   };
 
+  const eidTiming = (tenant: Tenant) => {
+    if (tenant.id === 3) {
+      const content = () => <img className="img-fluid mx-auto d-block" src="./img/eid-prayer-aylesbury-mosque-26.webp" loading="lazy" alt="aylesbury mosque eid timing" />
+      return content;
+    }
+
+    const content = () => <img className="img-fluid mx-auto d-block" src="./img/eid-prayer-southcourt-26.webp" loading="lazy" alt="southcourt mosque eid timing" />
+    return content;
+  }
+
   const carouselItems = [
     {
-      content: () => <img className="img-fluid mx-auto d-block" src="./img/taraweeh-banner-ay-26.webp" loading="lazy" alt="taraweeh prayer invitation" onClick={() => onClickHandler('ramadan')} />,
-      key: '-1',
+      content: eidTiming(tenant),
+      key: '2',
     },
     isJummah(config) ? {
       content: () => <img className="img-fluid mx-auto d-block" src="./jummah-checklist-4.png" loading="lazy" alt="jummah sunnah checklist" />,
