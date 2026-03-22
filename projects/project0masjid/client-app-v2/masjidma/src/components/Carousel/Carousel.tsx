@@ -34,6 +34,7 @@ const CarouselComponent = ({ config, tenant }: { config: State, tenant: Tenant }
     );
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const eidTiming = (tenant: Tenant) => {
     if (tenant.id === 3) {
       const content = () => <img className="img-fluid mx-auto d-block" src="./img/eid-prayer-aylesbury-mosque-26.webp" loading="lazy" alt="aylesbury mosque eid timing" />
@@ -45,10 +46,6 @@ const CarouselComponent = ({ config, tenant }: { config: State, tenant: Tenant }
   }
 
   const carouselItems = [
-    {
-      content: eidTiming(tenant),
-      key: '2',
-    },
     isJummah(config) ? {
       content: () => <img className="img-fluid mx-auto d-block" src="./jummah-checklist-4.png" loading="lazy" alt="jummah sunnah checklist" />,
       key: '1',
