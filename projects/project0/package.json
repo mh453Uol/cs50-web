@@ -4,7 +4,7 @@
   "description": "Web Programming with Python and JavaScript",
   "main": "index.js",
   "dependencies": {
-    "node-sass": "^4.13.1"
+    "node-sass": "^9.0.0"
   },
   "devDependencies": {},
   "scripts": {
