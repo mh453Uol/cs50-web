@@ -12,12 +12,12 @@
             "ramadanEnd": "2026-03-19T23:00:00.000Z",
             "sehri": "5:36 am",
             "iftar": "5:26 pm",
-            "ramadanTimetable":"./img/southcourt-ramadan-26.PNG",
-            "announcements" : [
+            "ramadanTimetable": "./img/southcourt-ramadan-26.PNG",
+            "announcements": [
                 {
                     "message": "🎉 Eid al-Fitr will be on Sun, 30 Mar. \n Eid Salah - 7:00AM, 8:00AM and 9:30AM. \n Eid will also be prayed in Berryfields at Roman Park Hall at 9:45AM",
                     "from": "2025-03-29T21:00:00.00Z",
-                    "to": "2025-03-30T12:00:00.00Z" 
+                    "to": "2025-03-30T12:00:00.00Z"
                 },
                 {
                     "message": "🎉 Eid Mubarak! Wish you all a very happy and peaceful Eid",
@@ -43,7 +43,7 @@
                     "message": "",
                     "from": "2025-12-12T11:00:00.00Z",
                     "to": "2025-12-26T23:00:00.00Z",
-                     "link": {
+                    "link": {
                         "url": "https://www.facebook.com/Southcourt.Islamic.Centre/posts/pfbid02fGPk9Qj4erGnAs3Bboh1B2qiXWCzGCkdjbyiqUm8XiHNHGEY9RdABwogRBXEzgMfl",
                         "name": "Link"
                     }
@@ -54,19 +54,19 @@
             "name": "Aylesbury Masjid",
             "donationLink": "https://hibabox.com/ghausia-committee-aylesbury",
             "description": "Aylesbury Jamia Masjid Ghausia",
-            "address":"Havelock Street, HP20 2NX",
+            "address": "Havelock Street, HP20 2NX",
             "id": 3,
             "displayRamadanTimes": false,
             "ramadanStart": "2026-02-19T00:00:00.000Z",
             "ramadanEnd": "2026-03-21T23:00:00.000Z",
             "sehri": "5:34 am",
             "iftar": "5:28 pm",
-            "ramadanTimetable":"./img/aylesbury-mosque-calendar-26.jpeg",
-            "announcements" : [
+            "ramadanTimetable": "./img/aylesbury-mosque-calendar-26.jpeg",
+            "announcements": [
                 {
                     "message": "🎉 Eid al-Fitr will be on Monday, 31 March. \n Eid Salah - 8:00AM, 9:00AM and 10:30AM",
                     "from": "2025-03-30T21:00:00.00Z",
-                    "to": "2025-03-31T12:00:00.00Z" 
+                    "to": "2025-03-31T12:00:00.00Z"
                 },
                 {
                     "message": "🎉 Eid Mubarak! Wish you all a very happy and peaceful Eid.",
@@ -82,7 +82,7 @@
                     "message": "Join us for an inspiring evening Wednesday, 24th December at 7.30pm!",
                     "from": "2025-12-12T11:00:00.00Z",
                     "to": "2025-12-24T23:00:00.00Z",
-                     "link": {
+                    "link": {
                         "url": "https://scontent-lhr8-2.xx.fbcdn.net/v/t39.30808-6/591483091_891053657005865_3299143582074482018_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_ohc=xc-DOk6BWLUQ7kNvwFgPYsm&_nc_oc=Adlote-2Nt7iYZ8KYjxEKeghUOR57W0lpU23-WJkdzVIEOkM8Q6ysfIWSHhIAFb2u6M&_nc_zt=23&_nc_ht=scontent-lhr8-2.xx&_nc_gid=JlLfiqoHt6gd4Wh_PdV65g&oh=00_AfkjK9vwrOyMdZUw43eBBV0KdQbs_c84N-g4QCznqZkAdQ&oe=694268EC",
                         "name": "Link"
                     }
@@ -99,8 +99,34 @@
             "ramadanEnd": "2026-03-21T23:00:00.000Z",
             "sehri": "5:15 am",
             "iftar": "5:27 pm",
-            "ramadanTimetable":"./img/fsa-ramadan-2026.webp",
-            "announcements" : []
+            "ramadanTimetable": "./img/fsa-ramadan-2026.webp",
+            "announcements": []
+        },
+        {
+            "name": "Tring Road Masjid",
+            "description": "Aylesbury Tring Road Masjid",
+            "address": "33 Tring Rd, Aylesbury HP20 1LD",
+            "id": 1020,
+            "displayRamadanTimes": false,
+            "ramadanStart": "2026-02-19T00:00:00.000Z",
+            "ramadanEnd": "2026-03-21T23:00:00.000Z",
+            "sehri": "5:15 am",
+            "iftar": "5:27 pm",
+            "ramadanTimetable": "./img/fsa-ramadan-2026.webp",
+            "announcements": []
+        },
+        {
+            "name": "Aylesbury Vale Islamic Centre",
+            "description": "Aylesbury Vale Islamic Centre",
+            "address": "Chamberlain Rd, HP19 8DY",
+            "id": 1019,
+            "displayRamadanTimes": false,
+            "ramadanStart": "2026-02-19T00:00:00.000Z",
+            "ramadanEnd": "2026-03-21T23:00:00.000Z",
+            "sehri": "5:15 am",
+            "iftar": "5:27 pm",
+            "ramadanTimetable": "./img/fsa-ramadan-2026.webp",
+            "announcements": []
         }
     ]
 }
